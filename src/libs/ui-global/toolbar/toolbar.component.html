@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>eBooks</span>
+    <span class="example-spacer"></span>
+    <span class="sign_In_Span"
+          (click)="openAuthPage('/sign-in')"
+          *ngIf="!isLogin">Sign In</span>
+    <mat-icon class="person_icon"
+              *ngIf="loggedIn">person</mat-icon>
+    <span class="signUp_Span"
+          (click)="logout()"
+          *ngIf="isLogin">Logout</span>
+  </mat-toolbar-row>
+</mat-toolbar>

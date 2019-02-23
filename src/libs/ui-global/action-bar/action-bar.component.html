@@ -1,0 +1,16 @@
+<div class="actionbar">
+  <input matInput placeholder="Search . . ." autocomplete="off">
+  <div class="actionbar_Actions">
+    <mat-slide-toggle color="primary"
+                      (change)="change_View($event)">
+      List view
+    </mat-slide-toggle>
+    <button mat-icon-button color="primary">
+      <mat-icon
+        class="md"
+        matBadge="{{itemsInTheCart}}"
+        matBadgeColor="warn"
+        matBadgeOverlap="false">shopping_cart</mat-icon>
+    </button>
+  </div>
+</div>
