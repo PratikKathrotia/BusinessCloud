@@ -21,7 +21,7 @@
     "paths": {
       "@angular-cm/ui-common": ["src/libs/ui-common/index"],
       "@angular-cm/ui-global": ["src/libs/ui-global/index"],
-      "@angular-cm/ui-material-design": ["src/libs/ui-material-design/index"],
+      "@angular-cm/ui-material": ["src/libs/ui-material/index"],
       "@angular-cm/ui-content": ["src/libs/ui-content/index"],
       "@angular-cm/sys-utils": ["src/libs/sys-utils/index"]
     }
