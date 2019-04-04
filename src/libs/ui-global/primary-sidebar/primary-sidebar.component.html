@@ -1,0 +1,10 @@
+<div class="sidebar">
+  <div class="sidebar_Item"
+       *ngFor="let item of items, let i = index"
+       [ngClass]="{'selected': isSelected(item)}"
+       [matTooltip]="item.tooltip"
+       matTooltipPosition="after"
+       (click)="handleSidebarItemClick(item)">
+    <mat-icon color="primary">{{item.icon}}</mat-icon>
+  </div>
+</div>

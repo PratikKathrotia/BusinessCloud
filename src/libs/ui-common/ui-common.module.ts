@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GeneralFiltersComponent } from './general-filters/general-filters.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [GeneralFiltersComponent],
   imports: [
     CommonModule
   ]
