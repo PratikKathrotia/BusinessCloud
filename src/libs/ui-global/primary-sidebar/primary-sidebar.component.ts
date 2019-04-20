@@ -11,7 +11,7 @@ import {
 })
 export class PrimarySidebarComponent implements OnInit {
   items: SidebarItem[];
-  selectedItem: SidebarItem;
+  isSidebarExpanded: boolean;
 
   constructor(
     private utilService: UtilityService
@@ -47,14 +47,21 @@ export class PrimarySidebarComponent implements OnInit {
         isActive: false
       }
     ];
+    this.isSidebarExpanded = false;
   }
 
   isSelected(item: SidebarItem) {
-    return false;
+    return item.isActive;
   }
 
   handleSidebarItemClick(item: SidebarItem) {
-    this.selectedItem = this.utilService.copy(item);
+    this.items.forEach(sidebarItem => {
+      sidebarItem.isActive = item.domElId === sidebarItem.domElId;
+    });
+  }
+
+  handleSidebarExpand() {
+    this.isSidebarExpanded = !this.isSidebarExpanded;
   }
 
 

@@ -2,22 +2,45 @@
   width: 45px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 
-  .sidebar_Item {
-    margin: 10px 7px 0 7px;
-    border-radius: 5px;
+  &.expanded {
+    width: 200px;
+  }
 
-    &:hover {
-      background: lightgrey;
-      cursor: pointer;
+  .sidebarItems_Container {
+    .sidebar_Item {
+      height: 32px;
+      display: flex;
+      margin: 10px 7px 0 7px;
+      border-radius: 5px;
+  
+      &:hover {
+        background: lightgrey;
+        cursor: pointer;
+      }
+  
+      &.selected {
+        background: lightgrey;
+      }
+
+      .item_Label {
+        margin: 7px 0 0 10px
+      }
+  
+      mat-icon {
+        margin: 5px 0 0 4px; 
+      }
     }
+  }
 
-    &.selected {
-      background: lightgrey;
-    }
+  &_Footer {
+    margin-bottom: 15px;
+    cursor: pointer;
 
     mat-icon {
-      margin: 3px 0 0 4px; 
+      margin: 0 0 0 12px; 
     }
   }
 }

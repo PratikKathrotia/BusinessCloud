@@ -1,10 +1,24 @@
-<div class="sidebar">
-  <div class="sidebar_Item"
-       *ngFor="let item of items, let i = index"
-       [ngClass]="{'selected': isSelected(item)}"
-       [matTooltip]="item.tooltip"
-       matTooltipPosition="after"
-       (click)="handleSidebarItemClick(item)">
-    <mat-icon color="primary">{{item.icon}}</mat-icon>
+<div class="sidebar"
+     [ngClass]="{'expanded': isSidebarExpanded}">
+  <div class="sidebarItems_Container">
+    <div class="sidebar_Item"
+        *ngFor="let item of items, let i = index"
+        [ngClass]="{'selected': isSelected(item)}"
+        [matTooltip]="!isSidebarExpanded ? item.tooltip : ''"
+        matTooltipPosition="after"
+        (click)="handleSidebarItemClick(item)">
+      <mat-icon color="primary">{{ item.icon }}</mat-icon>
+      <span *ngIf="isSidebarExpanded"
+            class="item_Label">
+        {{ item?.label }}
+      </span>
+    </div>
+  </div>
+  <div class="sidebar_Footer"
+       (click)="handleSidebarExpand()">
+    <mat-icon color="primary"
+              *ngIf="!isSidebarExpanded">arrow_forward_ios</mat-icon>
+    <mat-icon color="primary"
+              *ngIf="isSidebarExpanded">arrow_back_ios</mat-icon>
   </div>
 </div>
