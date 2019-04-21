@@ -27,6 +27,9 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
  */
 import { UiGlobalModule } from '@angular-cm/ui-global';
 import { UiMaterialModule } from '@angular-cm/ui-material';
+import {
+  Sidebar
+} from '@angular-cm/sys-utils';
 
 /**
  * components imports and others
@@ -44,7 +47,9 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({
+      sidebar: Sidebar
+    }),
     EffectsModule.forRoot([]),
     ReactiveFormsModule,
     FormlyModule.forRoot(),
