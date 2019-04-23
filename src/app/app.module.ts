@@ -15,6 +15,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+// reducers and effects
+import {
+  Sidebar,
+  // SidebarEffects
+} from '@angular-cm/sys-utils';
+
+import { SidebarEffects } from '../libs/sys-utils/ngrx/sidebar/sidebar.effects';
+
 /**
  * forms and formly modules
  */
@@ -27,9 +35,6 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
  */
 import { UiGlobalModule } from '@angular-cm/ui-global';
 import { UiMaterialModule } from '@angular-cm/ui-material';
-import {
-  Sidebar
-} from '@angular-cm/sys-utils';
 
 /**
  * components imports and others
@@ -50,7 +55,9 @@ import { environment } from 'src/environments/environment';
     StoreModule.forRoot({
       sidebar: Sidebar
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([
+      SidebarEffects
+    ]),
     ReactiveFormsModule,
     FormlyModule.forRoot(),
     FormlyMaterialModule,
