@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { switchMap } from 'rxjs/operators';
-import { select } from '@ngrx/store';
 import { of } from 'rxjs';
 
 import { SidebarActionTypes, SidebarItemsLoadSuccess } from './sidebar.actions';
-import { sidebarSelectors } from './sidebar.selectors';
 
 @Injectable()
 export class SidebarEffects {
@@ -46,11 +44,7 @@ export class SidebarEffects {
   @Effect()
   loadSidebarItems$ = this.actions$.pipe(
     ofType(SidebarActionTypes.SIDEBAR_ITEMS_LOAD),
-    select(sidebarSelectors.selectSidebarItems),
-    switchMap((sidebarItems) => {
-      if (sidebarItems && sidebarItems.length > 0) {
-        return of(new SidebarItemsLoadSuccess(sidebarItems));
-      }
+    switchMap(() => {
       return of(new SidebarItemsLoadSuccess(this.items));
     })
   );

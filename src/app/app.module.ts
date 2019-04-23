@@ -18,10 +18,8 @@ import { EffectsModule } from '@ngrx/effects';
 // reducers and effects
 import {
   Sidebar,
-  // SidebarEffects
+  SidebarEffects
 } from '@angular-cm/sys-utils';
-
-import { SidebarEffects } from '../libs/sys-utils/ngrx/sidebar/sidebar.effects';
 
 /**
  * forms and formly modules
