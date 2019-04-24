@@ -16,7 +16,7 @@ export class UtilityService {
   }
 
   generateDatabaseId() {
-    const length = 20;
+    const length = 24;
     const chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     let result = '';
     for (let i = length; i > 0; --i) {

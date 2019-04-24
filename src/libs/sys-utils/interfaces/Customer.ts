@@ -6,14 +6,13 @@ export interface Customer {
   id: string;
   balance: number;
   gender: string;
+  dateOfBirth: string;
   picture: string;
-  eyeColor: string;
   name: CustomerName;
   company: string;
   email: string;
   phone: string;
   address: CustomerAddress;
-  about: string;
   created: string;
   longitude: string;
   latitude: string;
