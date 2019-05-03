@@ -16,7 +16,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-// reducers and effects
+/**
+ * Reducers and Effects
+ */
 import {
   Sidebar,
   SidebarEffects

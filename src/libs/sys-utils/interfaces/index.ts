@@ -5,5 +5,8 @@ export * from './CustomerAddress';
 export * from './CustomerName';
 export * from './CustomerOrder';
 export * from './CustomersState';
+export * from './PageHeaderAction';
+export * from './PageHeaderConfig';
+export * from './PageHeaderState';
 export * from './SidebarItem';
 export * from './SidebarState';
