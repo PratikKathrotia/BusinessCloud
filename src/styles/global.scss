@@ -1,0 +1,22 @@
+@import './colors.scss';
+@import './variables.scss';
+
+.mat-button,
+.mat-flat-button,
+.mat-stroked-button,
+.mat-raised-button,
+.mat-icon-button {
+  font-weight: 500;
+  border-radius: 50 * $px;
+  line-height: 30 * $px;
+  white-space: nowrap;
+}
+
+mat-icon.sm {
+  font-size: 20 * $px;
+  margin-top: 3 * $px;
+}
+
+mat-icon.md {
+  font-size: 30 * $px;
+}

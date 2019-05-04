@@ -21,7 +21,8 @@ import { EffectsModule } from '@ngrx/effects';
  */
 import {
   Sidebar,
-  SidebarEffects
+  SidebarEffects,
+  PageHeader
 } from '@angular-cm/sys-utils';
 
 /**
@@ -35,6 +36,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
  * library modules (src/libs/**)
  */
 import { UiGlobalModule } from '@angular-cm/ui-global';
+import { UiContentModule } from '@angular-cm/ui-content';
 import { UiMaterialModule } from '@angular-cm/ui-material';
 
 /**
@@ -55,7 +57,8 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     StoreModule.forRoot({
-      sidebar: Sidebar
+      sidebar: Sidebar,
+      pageHeader: PageHeader
     }),
     EffectsModule.forRoot([
       SidebarEffects
@@ -64,6 +67,7 @@ import { environment } from 'src/environments/environment';
     FormlyModule.forRoot(),
     FormlyMaterialModule,
     UiGlobalModule,
+    UiContentModule,
     UiMaterialModule
   ],
   providers: [],

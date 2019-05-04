@@ -1,0 +1,23 @@
+@import 'src/styles/colors.scss';
+@import 'src/styles/variables.scss';
+@import 'src/styles/global.scss';
+
+.pageHeader__Container {
+  display: flex;
+  height: 56 * $px;
+  padding: 0 20 * $px;
+
+  .pageHeader__Title {
+    flex: 1;
+  }
+
+  .pageHeader__Actions {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    .mat-flat-button {
+      margin: 0 0 0 10 * $px;
+    }
+  }
+}

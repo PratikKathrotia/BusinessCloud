@@ -7,5 +7,10 @@ export const pageHeaderSelectors = {
   selectHeaderConfig: createSelector(
     pageHeaderState,
     (configState: PageHeaderState) => configState.config
+  ),
+
+  selectHeaderActionIndex: createSelector(
+    pageHeaderState,
+    (callbackState: PageHeaderState) => callbackState.actionIndex
   )
 };

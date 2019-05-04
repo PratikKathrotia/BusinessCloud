@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { GlobalLayoutComponent } from '@angular-cm/ui-global';
+import { CustomerListComponent } from '@angular-cm/ui-content';
 
 const routes: Routes = [
   {
@@ -11,7 +12,18 @@ const routes: Routes = [
   },
   {
     path: 'global',
-    component: GlobalLayoutComponent
+    component: GlobalLayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/customers',
+        pathMatch: 'full'
+      },
+      {
+        path: 'customers',
+        component: CustomerListComponent
+      }
+    ]
   }
 ];
 

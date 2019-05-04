@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'global-layout',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GlobalLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    const currentUrl = this.router.routerState.snapshot.url;
+    if (currentUrl !== '/global') {
+      this.router.navigate([this.router.routerState.snapshot.url]);
+    } else {
+      this.router.navigate(['/global/customers']);
+    }
   }
 
 }

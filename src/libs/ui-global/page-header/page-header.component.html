@@ -1,3 +1,14 @@
-<p>
-  page-header works!
-</p>
+<div class="pageHeader__Container" *ngIf="config">
+  <div class="pageHeader__Title">
+    <h3>{{ config?.title }}</h3>
+  </div>
+  <div class="pageHeader__Actions">
+    <div *ngFor="let action of config?.actions, let i=index">
+      <button mat-flat-button
+              [color]="action?.buttonType"
+              (click)="handleActionClick(i)">
+        {{ action?.label }}
+      </button>
+    </div>
+  </div>
+</div>
