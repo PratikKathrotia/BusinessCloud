@@ -24,6 +24,11 @@ const routes: Routes = [
         component: CustomerListComponent
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: '/global/customers',
+    pathMatch: 'full'
   }
 ];
 
