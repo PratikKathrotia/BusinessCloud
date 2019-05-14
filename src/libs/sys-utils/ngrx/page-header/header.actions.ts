@@ -13,7 +13,7 @@ export class HeaderConfigInit implements Action {
 
 export class HeaderActionClicked implements Action {
   readonly type = PageHeaderActionTypes.HEADER_ACTION_CLICKED;
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export type PageHeaderActions = HeaderConfigInit | HeaderActionClicked;

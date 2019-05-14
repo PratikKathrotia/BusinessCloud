@@ -33,7 +33,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   }
 
   handleActionClick(index: number) {
-    this.store$.dispatch(new HeaderActionClicked(index));
+    this.store$.dispatch(new HeaderActionClicked(this.headerConfig.actions[index]['id']));
   }
 
   listen() {

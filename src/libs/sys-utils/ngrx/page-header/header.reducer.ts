@@ -9,7 +9,7 @@ import { PageHeaderState } from '../../interfaces';
 const initialState: PageHeaderState = {
   isFetching: true,
   config: null,
-  actionIndex: null
+  actionId: null
 };
 
 export function PageHeader(
@@ -28,7 +28,7 @@ export function PageHeader(
       return {
         ...state,
         isFetching: false,
-        actionIndex: (action as HeaderActionClicked).payload
+        actionId: (action as HeaderActionClicked).payload
       };
 
     default:

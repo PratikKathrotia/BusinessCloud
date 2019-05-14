@@ -20,3 +20,8 @@ mat-icon.sm {
 mat-icon.md {
   font-size: 30 * $px;
 }
+
+.cdk-overlay-pane-custom {
+  max-width: 90vh;
+  margin: auto;
+}

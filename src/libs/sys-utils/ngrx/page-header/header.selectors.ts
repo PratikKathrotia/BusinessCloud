@@ -11,6 +11,6 @@ export const pageHeaderSelectors = {
 
   selectHeaderActionIndex: createSelector(
     pageHeaderState,
-    (callbackState: PageHeaderState) => callbackState.actionIndex
+    (callbackState: PageHeaderState) => callbackState.actionId
   )
 };
