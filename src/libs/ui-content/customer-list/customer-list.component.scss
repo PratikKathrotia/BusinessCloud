@@ -7,3 +7,18 @@ table.mat-table {
   background: transparent;
 }
 
+.actions__Container {
+  position: relative;
+}
+
+.mat-column-balance {
+  width: 320 * $px;
+}
+
+.table__Actions {
+  position: absolute;
+  z-index: 100;
+  top: -8px;
+  left: 120px;
+}
+

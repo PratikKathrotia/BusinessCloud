@@ -1,6 +1,10 @@
 @import './colors.scss';
 @import './variables.scss';
 
+
+/**
+* Global Button Styles
+*/
 .mat-button,
 .mat-flat-button,
 .mat-stroked-button,
@@ -12,6 +16,10 @@
   white-space: nowrap;
 }
 
+/**
+* Global Icon Styles
+*/
+
 mat-icon.sm {
   font-size: 20 * $px;
   margin-top: 3 * $px;
@@ -21,7 +29,14 @@ mat-icon.md {
   font-size: 30 * $px;
 }
 
-.cdk-overlay-pane-custom {
-  max-width: 90vh;
-  margin: auto;
+/**
+* Global Table Styles
+*/
+
+td.mat-cell {
+  border-bottom-color: rgba(180,180, 180, 0.18);
+}
+
+.mat-cell {
+  font-size: 12px;
 }

@@ -28,6 +28,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   dataSource: Customer[];
   columns: string[] = ['name', 'company', 'status', 'created', 'balance'];
   handleAddCustomerClick: Function;
+  selectedRowId;
 
   constructor(
     private store$: Store<any>,
@@ -56,6 +57,18 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subject.next();
     this.subject.complete();
+  }
+
+  isActionsVisible(customer: Customer) {
+    return customer.id === this.selectedRowId;
+  }
+
+  handleRowMouseenter(row: Customer) {
+    this.selectedRowId = row.id;
+  }
+
+  handleRowMouseleave() {
+    this.selectedRowId = null;
   }
 
   _handleAddCustomerClick() {
