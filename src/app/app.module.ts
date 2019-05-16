@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
  */
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 /**
  * NgRx modules
@@ -20,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
  * Reducers and Effects
  */
 import {
+  Auth,
   Sidebar,
   SidebarEffects,
   PageHeader
@@ -56,7 +58,9 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     StoreModule.forRoot({
+      auth: Auth,
       sidebar: Sidebar,
       pageHeader: PageHeader
     }),
