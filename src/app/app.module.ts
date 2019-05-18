@@ -22,9 +22,10 @@ import { EffectsModule } from '@ngrx/effects';
  */
 import {
   Auth,
+  PageHeader,
   Sidebar,
   SidebarEffects,
-  PageHeader
+  Utils
 } from '@angular-cm/sys-utils';
 
 /**
@@ -37,6 +38,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 /**
  * library modules (src/libs/**)
  */
+import { UiAuthModule } from '@angular-cm/ui-auth';
 import { UiGlobalModule } from '@angular-cm/ui-global';
 import { UiContentModule } from '@angular-cm/ui-content';
 import { UiMaterialModule } from '@angular-cm/ui-material';
@@ -62,7 +64,8 @@ import { environment } from 'src/environments/environment';
     StoreModule.forRoot({
       auth: Auth,
       sidebar: Sidebar,
-      pageHeader: PageHeader
+      pageHeader: PageHeader,
+      utils: Utils
     }),
     EffectsModule.forRoot([
       SidebarEffects
@@ -70,6 +73,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     FormlyModule.forRoot(),
     FormlyMaterialModule,
+    UiAuthModule,
     UiGlobalModule,
     UiContentModule,
     UiMaterialModule

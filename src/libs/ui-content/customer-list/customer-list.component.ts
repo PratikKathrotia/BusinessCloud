@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import {
   HeaderConfigInit,
@@ -33,7 +34,8 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   constructor(
     private store$: Store<any>,
     private dialog: MatDialog,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -61,6 +63,19 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   isActionsVisible(customer: Customer) {
     return customer.id === this.selectedRowId;
+  }
+
+  handleEditCustomer(id: string): void {
+    this.dialog.open(CustomerEditDialogComponent, {
+      ...FullScreenDialogConfig,
+      data: {
+        customerId: id
+      }
+    });
+  }
+
+  handleCustomerDetail(id: string): void {
+    this.router.navigate(['global/customer-details', id]);
   }
 
   handleRowMouseenter(row: Customer) {

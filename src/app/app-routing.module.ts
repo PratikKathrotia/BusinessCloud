@@ -2,7 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { GlobalLayoutComponent } from '@angular-cm/ui-global';
-import { CustomerListComponent } from '@angular-cm/ui-content';
+import {
+  CustomerListComponent,
+  CustomerDetailsComponent
+} from '@angular-cm/ui-content';
+import {
+  AuthComponent,
+  SignInComponent,
+  SignUpComponent
+} from '@angular-cm/ui-auth';
 
 const routes: Routes = [
   {
@@ -22,6 +30,29 @@ const routes: Routes = [
       {
         path: 'customers',
         component: CustomerListComponent
+      },
+      {
+        path: 'customer-details/:id',
+        component: CustomerDetailsComponent
+      }
+    ]
+  },
+  {
+    path: 'auth',
+    component: AuthComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+      },
+      {
+        path: 'login',
+        component: SignInComponent
+      },
+      {
+        path: 'sign-up',
+        component: SignUpComponent
       }
     ]
   },

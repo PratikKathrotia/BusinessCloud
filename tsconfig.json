@@ -19,6 +19,7 @@
       "dom"
     ],
     "paths": {
+      "@angular-cm/ui-auth": ["src/libs/ui-auth/index"],
       "@angular-cm/ui-common": ["src/libs/ui-common/index"],
       "@angular-cm/ui-global": ["src/libs/ui-global/index"],
       "@angular-cm/ui-material": ["src/libs/ui-material/index"],

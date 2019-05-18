@@ -16,7 +16,7 @@ export class AuthService {
     );
   }
 
-  loginCurrentUser(email: string, password: string): Promise<any> {
+  loginExistingUser(email: string, password: string): Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(
       email, password
     );

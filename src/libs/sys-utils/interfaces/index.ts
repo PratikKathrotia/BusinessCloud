@@ -11,3 +11,4 @@ export * from './PageHeaderConfig';
 export * from './PageHeaderState';
 export * from './SidebarItem';
 export * from './SidebarState';
+export * from './UtilsState';

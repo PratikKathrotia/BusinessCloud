@@ -19,6 +19,11 @@ import { PageHeaderComponent } from './page-header/page-header.component';
     CommonModule,
     RouterModule,
     UiMaterialModule
+  ],
+  exports: [
+    ToolbarComponent,
+    PrimarySidebarComponent,
+    PageHeaderComponent
   ]
 })
 export class UiGlobalModule { }
