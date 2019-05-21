@@ -1,3 +1,24 @@
-<p>
-  sign-up works!
-</p>
+<div class="signUp__Container">
+  <div class="signUp__Content">
+    <div class="stepper__Form">
+      <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+        <mat-tab-group>
+          <mat-tab *ngFor="let tab of tabs;let index = index;"
+            [label]="tab.label"
+            [disabled]="index !== 0 && !signUpForm.at(index - 1)?.valid">
+            <formly-form
+              [form]="signUpForm.at(index)"
+              [model]="signUpModel"
+              [fields]="tab.fields">
+            </formly-form>
+          </mat-tab>
+          <mat-tab label="Submit" [disabled]="signUpForm.invalid">
+            <div>
+              <button mat-raised-button color="primary" type="submit">Submit</button>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </form>
+    </div>
+  </div>
+</div>

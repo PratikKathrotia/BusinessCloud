@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { FormlyModule } from '@ngx-formly/core';
 
 import { UiMaterialModule } from '@angular-cm/ui-material';
 import { UiGlobalModule } from '@angular-cm/ui-global';
@@ -15,7 +18,9 @@ import { AuthComponent } from './auth/auth.component';
     CommonModule,
     RouterModule,
     UiMaterialModule,
-    UiGlobalModule
+    UiGlobalModule,
+    ReactiveFormsModule,
+    FormlyModule
   ]
 })
 export class UiAuthModule { }
