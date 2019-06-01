@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 
 import { UiMaterialModule } from '@angular-cm/ui-material';
 import { UiGlobalModule } from '@angular-cm/ui-global';
@@ -20,7 +21,8 @@ import { AuthComponent } from './auth/auth.component';
     UiMaterialModule,
     UiGlobalModule,
     ReactiveFormsModule,
-    FormlyModule
+    FormlyModule,
+    FormlyMatDatepickerModule
   ]
 })
 export class UiAuthModule { }

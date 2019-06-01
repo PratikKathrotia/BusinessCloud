@@ -1,24 +1,36 @@
 <div class="signUp__Container">
   <div class="signUp__Content">
     <div class="stepper__Form">
-      <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+      <div class="signUp__Header">
+        <h2 class="signUp__Heading">Sign Up</h2>
+        <h4 class="signUp__SubHeading">for your free 30-day trial!</h4>
+      </div>
+      <mat-divider></mat-divider>
+      <form [formGroup]="signUpForm" (ngSubmit)="handleFormSubmit()">
         <mat-tab-group>
           <mat-tab *ngFor="let tab of tabs;let index = index;"
-            [label]="tab.label"
-            [disabled]="index !== 0 && !signUpForm.at(index - 1)?.valid">
+                   [label]="tab.label"
+                   [disabled]="isTabDisabled(index)">
             <formly-form
               [form]="signUpForm.at(index)"
               [model]="signUpModel"
               [fields]="tab.fields">
             </formly-form>
+            <div *ngIf="tab.label === 'Payment'">
+              You will be charged after your free trial ends in 30 days. <br>
+              You can unsubscribe anytime before your free trial ends.
+            </div>
           </mat-tab>
-          <mat-tab label="Submit" [disabled]="signUpForm.invalid">
+          <mat-tab label="Submit" [disabled]="isSubmitDisabled">
             <div>
-              <button mat-raised-button color="primary" type="submit">Submit</button>
+              <button mat-raised-button
+                      color="primary" type="submit">Submit</button>
             </div>
           </mat-tab>
         </mat-tab-group>
       </form>
     </div>
+    <div class="signUp__Divider"></div>
+    <div class="signUp__Illustration"></div>
   </div>
 </div>

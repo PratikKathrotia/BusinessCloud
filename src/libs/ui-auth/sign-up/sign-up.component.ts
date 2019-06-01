@@ -23,7 +23,15 @@ export class SignUpComponent implements OnInit {
     this.signUpForm = new FormArray(SignUpForm.tabs.map(() => new FormGroup({})));
   }
 
-  submit() {
+  get isSubmitDisabled(): boolean {
+    return this.signUpForm && this.signUpForm.invalid;
+  }
+
+  isTabDisabled(index: number): boolean {
+    return index !== 0 && !this.signUpForm.at(index - 1).valid;
+  }
+
+  handleFormSubmit() {
     console.log(this.signUpModel);
   }
 

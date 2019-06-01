@@ -2,28 +2,60 @@
 @import 'src/styles/variables.scss';
 
 .signUp__Container {
-  height: 100%;
-  width: 100%;
+  box-sizing: border-box;
 }
 
 .signUp__Content {
-  height: 70%;
-  width: 1000px;
-  margin: 20px auto;
-  padding: 10px;
-  border-top: 1px solid $primary;
-  border-left: 1px solid $primary;
-  border-right: 2px solid $primary;
-  border-bottom: 2px solid $primary;
-  border-radius: 4px;
+  padding: 20 * $px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
 
-  ::ng-deep {
-    .mat-tab-labels {
-      justify-content: space-evenly;
+  .stepper__Form {
+    background: white;
+    width: 50%;
+    height: 80vh;
+    padding: 20 * $px;
+    border-top: 0.4 * $px solid $primary;
+    border-left: 0.4 * $px solid $primary;
+    border-right: 2 * $px solid $primary;
+    border-bottom: 2 * $px solid $primary;
+    border-radius: 4 * $px;
+
+    .signUp__Header {
+      display: flex;
+      align-items: baseline;
+
+      .signUp__Heading {
+        margin: 10 * $px 0;
+      }
+  
+      .signUp__SubHeading {
+        margin: 10 * $px 30 * $px;
+      }
     }
 
-    .mat-tab-body-wrapper {
-      padding: 10px;
-    }
-  } 
+    ::ng-deep {
+      .mat-tab-label {
+        min-width: 145 * $px;
+      }
+  
+      .mat-tab-body-wrapper {
+        padding: 20 * $px;
+      }
+    } 
+  }
+
+  .signUp__Divider {
+    width: 5 * $px;
+    border-radius: 4 * $px;
+    background: $primary;
+  }
+
+  .signUp__Illustration {
+    width: 40%;
+    border: 1px solid black;
+  }
+
+  
 }
