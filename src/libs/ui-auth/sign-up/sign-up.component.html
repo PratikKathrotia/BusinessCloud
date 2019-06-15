@@ -11,12 +11,13 @@
           <mat-tab *ngFor="let tab of tabs;let index = index;"
                    [label]="tab.label"
                    [disabled]="isTabDisabled(index)">
+            <div *ngIf="isLoginTab(tab)"><h4>Please set up your login credentials</h4></div>
             <formly-form
               [form]="signUpForm.at(index)"
               [model]="signUpModel"
               [fields]="tab.fields">
             </formly-form>
-            <div *ngIf="tab.label === 'Payment'">
+            <div *ngIf="isPaymentTab(tab)">
               You will be charged after your free trial ends in 30 days. <br>
               You can unsubscribe anytime before your free trial ends.
             </div>
@@ -31,6 +32,8 @@
       </form>
     </div>
     <div class="signUp__Divider"></div>
-    <div class="signUp__Illustration"></div>
+    <div class="signUp__Illustration">
+      <h4>Add validation for remaining tabs and set up Authentication as well as save new user details to database.</h4>
+    </div>
   </div>
 </div>

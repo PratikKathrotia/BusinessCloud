@@ -31,6 +31,14 @@ export class SignUpComponent implements OnInit {
     return index !== 0 && !this.signUpForm.at(index - 1).valid;
   }
 
+  isLoginTab(tab: TabConfig): boolean {
+    return tab.label === 'Login';
+  }
+
+  isPaymentTab(tab: TabConfig): boolean {
+    return tab.label === 'Payment';
+  }
+
   handleFormSubmit() {
     console.log(this.signUpModel);
   }

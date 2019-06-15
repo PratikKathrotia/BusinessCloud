@@ -42,6 +42,11 @@ import { UiAuthModule } from '@angular-cm/ui-auth';
 import { UiGlobalModule } from '@angular-cm/ui-global';
 import { UiContentModule } from '@angular-cm/ui-content';
 import { UiMaterialModule } from '@angular-cm/ui-material';
+import {
+  UiFormlyModule,
+  CmValidatorsMap,
+  CmValidationMessages
+} from '@angular-cm/ui-formly';
 
 /**
  * components imports and others
@@ -71,12 +76,16 @@ import { environment } from 'src/environments/environment';
       SidebarEffects
     ]),
     ReactiveFormsModule,
-    FormlyModule.forRoot(),
+    FormlyModule.forRoot({
+      validators: CmValidatorsMap,
+      validationMessages: CmValidationMessages
+    }),
     FormlyMaterialModule,
     UiAuthModule,
     UiGlobalModule,
     UiContentModule,
-    UiMaterialModule
+    UiMaterialModule,
+    UiFormlyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

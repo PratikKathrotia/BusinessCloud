@@ -1,5 +1,6 @@
 import { TabularFormConfig } from '@angular-cm/sys-utils';
 import { SelectOptions } from '../../options/selectOptions';
+import { CmValidators } from '../../validators/CmValidators';
 
 export const SignUpForm: TabularFormConfig = {
   tabs: [
@@ -42,6 +43,9 @@ export const SignUpForm: TabularFormConfig = {
             label: 'Email',
             placeholder: 'example@xyz.com',
             required: true
+          },
+          validators: {
+            validation: CmValidators.Email
           }
         },
         {
@@ -50,7 +54,11 @@ export const SignUpForm: TabularFormConfig = {
           templateOptions: {
             type: 'tel',
             label: 'Phone',
-            placeholder: '(123) 456-7890'
+            placeholder: '(123) 456-7890',
+            required: true
+          },
+          validators: {
+            validation: CmValidators.Phone
           }
         }
       ]
@@ -98,6 +106,9 @@ export const SignUpForm: TabularFormConfig = {
             type: 'number',
             label: 'Zip',
             required: true
+          },
+          validators: {
+            validation: CmValidators.Zip
           }
         }
       ]
@@ -147,6 +158,9 @@ export const SignUpForm: TabularFormConfig = {
             placeholder: 'Enter account number',
             required: true
           },
+          validators: {
+            validation: CmValidators.Account
+          },
           hideExpression: 'model.paymentMethod !== "cheque"'
         },
         {
@@ -157,6 +171,9 @@ export const SignUpForm: TabularFormConfig = {
             label: 'Routing number',
             placeholder: 'Enter routing number',
             required: true
+          },
+          validators: {
+            validation: CmValidators.Routing
           },
           hideExpression: 'model.paymentMethod !== "cheque"'
         },
@@ -191,6 +208,9 @@ export const SignUpForm: TabularFormConfig = {
             placeholder: '1234 5678 9012 3456',
             required: true
           },
+          validators: {
+            validation: CmValidators.CardNumber
+          },
           hideExpression: 'model.paymentMethod !== "card"'
         },
         {
@@ -213,6 +233,9 @@ export const SignUpForm: TabularFormConfig = {
             placeholder: 'XXX',
             required: true
           },
+          validators: {
+            validation: CmValidators.Cvv
+          },
           hideExpression: 'model.paymentMethod !== "card"'
         },
         {
@@ -223,6 +246,9 @@ export const SignUpForm: TabularFormConfig = {
             label: 'ZIP',
             placeholder: '12345',
             required: true
+          },
+          validators: {
+            validation: CmValidators.Zip
           },
           hideExpression: 'model.paymentMethod !== "card"'
         }
@@ -240,6 +266,9 @@ export const SignUpForm: TabularFormConfig = {
             placeholder: 'example@xyz.com',
             required: true,
           },
+          validators: {
+            validation: CmValidators.Email
+          },
           hideExpression: 'model.sameAsPersonal === true'
         },
         {
@@ -251,23 +280,41 @@ export const SignUpForm: TabularFormConfig = {
         },
         {
           key: 'password',
-          type: 'input',
-          templateOptions: {
-            type: 'password',
-            label: 'Password',
-            placeholder: 'Enetr password',
-            required: true,
-          }
-        },
-        {
-          key: 'confirmPassword',
-          type: 'input',
-          templateOptions: {
-            type: 'password',
-            label: 'Confirm Password',
-            placeholder: 'Enetr password again',
-            required: true,
-          }
+          validators: {
+            fieldMatch: {
+              expression: (control) => {
+                const value = control.value;
+                return value.confirmPassword === value.password
+                  || (!value.confirmPassword || !value.password);
+              },
+              message: 'Password Not Matching',
+              errorPath: 'confirmPassword',
+            },
+          },
+          fieldGroup: [
+            {
+              key: 'password',
+              type: 'input',
+              templateOptions: {
+                type: 'password',
+                label: 'Password',
+                required: true,
+              },
+              validators: {
+                validation: CmValidators.Password
+              },
+            },
+            {
+              key: 'confirmPassword',
+              type: 'input',
+              templateOptions: {
+                type: 'password',
+                label: 'Confirm Password',
+                placeholder: 'Please re-enter your password',
+                required: true,
+              }
+            }
+          ]
         }
       ]
     }
