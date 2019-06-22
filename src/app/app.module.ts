@@ -25,6 +25,8 @@ import {
   PageHeader,
   Sidebar,
   SidebarEffects,
+  UserReducer,
+  UserEffects,
   Utils
 } from '@angular-cm/sys-utils';
 
@@ -70,10 +72,12 @@ import { environment } from 'src/environments/environment';
       auth: Auth,
       sidebar: Sidebar,
       pageHeader: PageHeader,
+      user: UserReducer,
       utils: Utils
     }),
     EffectsModule.forRoot([
-      SidebarEffects
+      SidebarEffects,
+      UserEffects
     ]),
     ReactiveFormsModule,
     FormlyModule.forRoot({

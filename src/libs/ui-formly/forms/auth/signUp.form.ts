@@ -103,7 +103,7 @@ export const SignUpForm: TabularFormConfig = {
           key: 'zip',
           type: 'input',
           templateOptions: {
-            type: 'number',
+            type: 'string',
             label: 'Zip',
             required: true
           },
@@ -203,7 +203,7 @@ export const SignUpForm: TabularFormConfig = {
           key: 'cardNumber',
           type: 'input',
           templateOptions: {
-            type: 'number',
+            type: 'string',
             label: 'Card Number',
             placeholder: '1234 5678 9012 3456',
             required: true
@@ -242,7 +242,7 @@ export const SignUpForm: TabularFormConfig = {
           key: 'cardZip',
           type: 'input',
           templateOptions: {
-            type: 'number',
+            type: 'string',
             label: 'ZIP',
             placeholder: '12345',
             required: true
@@ -261,7 +261,7 @@ export const SignUpForm: TabularFormConfig = {
           key: 'userEmail',
           type: 'input',
           templateOptions: {
-            type: 'string',
+            type: 'email',
             label: 'Email',
             placeholder: 'example@xyz.com',
             required: true,
@@ -279,7 +279,7 @@ export const SignUpForm: TabularFormConfig = {
           }
         },
         {
-          key: 'password',
+          key: 'passwordGroup',
           validators: {
             fieldMatch: {
               expression: (control) => {

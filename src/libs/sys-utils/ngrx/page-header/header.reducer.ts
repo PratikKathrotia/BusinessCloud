@@ -15,7 +15,7 @@ const initialState: PageHeaderState = {
 export function PageHeader(
   state: PageHeaderState = initialState,
   action: PageHeaderActions
-) {
+): PageHeaderState {
   switch (action.type) {
     case PageHeaderActionTypes.HEADER_CONFIG_INIT:
       return {

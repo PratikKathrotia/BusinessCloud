@@ -1,5 +1,7 @@
 export * from './AuthState';
+export * from './BankPayment';
 export * from './BaseAppState';
+export * from './CardPayment';
 export * from './CMError';
 export * from './Customer';
 export * from './CustomerAddress';
@@ -13,4 +15,6 @@ export * from './SidebarItem';
 export * from './SidebarState';
 export * from './TabConfig';
 export * from './TabularFormConfig';
+export * from './User';
+export * from './UserState';
 export * from './UtilsState';

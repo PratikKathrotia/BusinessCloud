@@ -1,0 +1,25 @@
+import { BaseAppState } from '../../interfaces/BaseAppState';
+import { UserState } from '../../interfaces/UserState';
+import { createSelector } from '@ngrx/store';
+
+const userState = (state: BaseAppState) => state.user;
+
+export const userSelectors = {
+  selectUser: createSelector(
+    userState,
+    (state: UserState) => state.user
+  ),
+  selectUserAddSuccess: createSelector(
+    userState,
+    state => state.addUserSuccess
+  ),
+  selectUserError: createSelector(
+    userState,
+    state => {
+      return {
+        hasError: state.hasError,
+        error: state.error
+      };
+    }
+  )
+};

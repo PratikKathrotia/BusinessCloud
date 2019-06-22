@@ -1,8 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@angular/forms';
 import { SignUpForm } from '@angular-cm/ui-formly';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { TabConfig } from '@angular-cm/sys-utils';
+import { Store, select } from '@ngrx/store';
+import {
+  AuthService,
+  TabConfig,
+  User,
+  UtilityService,
+  BankPayment,
+  CardPayment,
+  AddNewUser,
+  userSelectors,
+  AddNewUserError
+} from '@angular-cm/sys-utils';
 
 @Component({
   selector: 'sign-up',
@@ -15,16 +27,70 @@ export class SignUpComponent implements OnInit {
   signUpModel: any;
   tabs: TabConfig[];
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private store$: Store<any>,
+    private router: Router,
+    private utilService: UtilityService,
+  ) { }
 
   ngOnInit() {
     this.tabs = SignUpForm.tabs;
     this.signUpModel = {};
     this.signUpForm = new FormArray(SignUpForm.tabs.map(() => new FormGroup({})));
+    this.listen();
   }
 
   get isSubmitDisabled(): boolean {
     return this.signUpForm && this.signUpForm.invalid;
+  }
+
+  configureUserToSave(uid: string): User {
+    const formVals = this.utilService.copy(this.signUpModel);
+    const isCard = formVals.paymentMethod === 'card';
+    const user: User = {
+      id: uid,
+      firstName: formVals.firstName,
+      lastName: formVals.lastName,
+      birthDate: formVals.dateOfBirth,
+      email: formVals.email,
+      phone: formVals.phone,
+      address: {
+        street: this.getStreetAddress(formVals),
+        city: formVals.city,
+        state: formVals.state,
+        zip: formVals.zip
+      },
+      paymentMethod: formVals.paymentMethod,
+      payment: this.getPaymentDetails(formVals, isCard)
+    };
+    return user;
+  }
+
+  getStreetAddress(model: any): string {
+    if (model.street1 && model.street2) {
+      return `${model.street1} ${model.street2}`;
+    }
+    return model.street1;
+  }
+
+  getPaymentDetails(model: any, isCard: boolean): BankPayment | CardPayment {
+    if (isCard) {
+      return {
+        cardType: model.cardType,
+        cardNumber: model.cardNumber,
+        nameOnCard: model.nameOnCard,
+        cvv: model.cvv,
+        expire: model.expiry,
+        zip: model.cardZip
+      };
+    }
+    return {
+      bankName: model.bank,
+      nameOnAccount: model.nameOnAccount,
+      account: model.account,
+      routing: model.routing
+    };
   }
 
   isTabDisabled(index: number): boolean {
@@ -40,7 +106,40 @@ export class SignUpComponent implements OnInit {
   }
 
   handleFormSubmit() {
-    console.log(this.signUpModel);
+    if (this.signUpForm.valid) {
+      const credentials = {
+        email: this.signUpModel['sameAsPersonal'] ?
+          this.signUpModel['email'] : this.signUpModel['userEmail'],
+        password: this.signUpModel['passwordGroup']['password']
+      };
+      this.authService.signUpNewUser(
+        credentials.email, credentials.password
+      ).then(success => {
+        const payload = this.configureUserToSave(success.user.uid);
+        this.store$.dispatch(new AddNewUser(payload));
+      }).catch(error => {
+        this.store$.dispatch(new AddNewUserError({
+          message: error,
+          isCritical: true
+        }));
+      });
+    }
+  }
+
+  logoutAndRouteToLogin(isComplete: boolean) {
+    if (isComplete) {
+      this.authService.logoutCurrentUser().then(() => {
+        this.router.navigate(['auth/login']);
+      });
+    }
+  }
+
+  listen() {
+    this.store$.pipe(
+      select(userSelectors.selectUserAddSuccess)
+    ).subscribe(state => {
+      this.logoutAndRouteToLogin(state);
+    });
   }
 
 }
