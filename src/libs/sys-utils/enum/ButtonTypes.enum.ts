@@ -1,4 +1,5 @@
 export enum ButtonTypes {
   PRIMARY = 'primary',
-  ACCENT = 'accent'
+  ACCENT = 'accent',
+  WARN = 'warn'
 }

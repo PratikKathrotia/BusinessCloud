@@ -7,6 +7,10 @@
 
   .content {
     margin-top: 10 * $px;
+
+    &__Message {
+      margin-top: 10 * $px;
+    }
   }
 
   .footer {

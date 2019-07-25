@@ -8,7 +8,8 @@ import {
   AuthService,
   SetAuthStatus,
   ResetAuthState,
-  VariantTypes
+  VariantTypes,
+  ActionTypes
 } from '@angular-cm/sys-utils';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
@@ -71,8 +72,10 @@ export class SignInComponent implements OnInit {
   handleForgotPassword(): void {
     this.dialog.open(
       ForgotPasswordDialogComponent
-    ).afterClosed().subscribe(() => {
-      console.log('Forgot password email sent');
+    ).afterClosed().subscribe((action) => {
+      if (action && action === ActionTypes.OK) {
+        this.resetComponent();
+      }
     });
   }
 
@@ -102,6 +105,7 @@ export class SignInComponent implements OnInit {
 
   resetComponent(): void {
     this.authService.logoutCurrentUser().then(success => {
+      this.loginForm.reset();
       this.loginModel = {};
     });
   }

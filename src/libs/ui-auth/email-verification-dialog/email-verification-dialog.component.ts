@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AlertConfig, VariantTypes } from '@angular-cm/sys-utils';
 
 @Component({
   selector: 'email-verification-dialog',
@@ -8,14 +9,31 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./email-verification-dialog.component.scss']
 })
 export class EmailVerificationDialogComponent implements OnInit {
-  successMessage;
+  alertConfig: AlertConfig;
+  showAlert: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<EmailVerificationDialogComponent>,
     private afAuth: AngularFireAuth
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.showAlert = false;
+  }
+
+  configureAlert(error: any): AlertConfig {
+    this.showAlert = true;
+    if (error) {
+      return {
+        variant: VariantTypes.ERROR,
+        message: error.message
+      };
+    }
+    return {
+      variant: VariantTypes.SUCCESS,
+      message: `Successfully sent varification email to <br>${this.afAuth.auth.currentUser.email}`
+    };
+  }
 
   handleOkClick(): void {
     this.dialogRef.close();
@@ -23,9 +41,9 @@ export class EmailVerificationDialogComponent implements OnInit {
 
   handleSendClick(): void {
     this.afAuth.auth.currentUser.sendEmailVerification().then(() => {
-      this.successMessage = 'Verification email sent successfully';
+      this.alertConfig = this.configureAlert(null);
     }).catch(function(error) {
-      alert(error);
+      this.alertConfig = this.configureAlert(error);
     });
   }
 

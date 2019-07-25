@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
@@ -34,6 +34,7 @@ import {
     UiCommonModule,
     UiMaterialModule,
     UiGlobalModule,
+    FormsModule,
     ReactiveFormsModule,
     FormlyModule,
     FormlyMatDatepickerModule
