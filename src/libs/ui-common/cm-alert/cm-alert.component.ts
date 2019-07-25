@@ -25,4 +25,28 @@ export class CmAlertComponent implements OnInit {
     return '';
   }
 
+  get icon(): string {
+    if (this.alertConfig) {
+      return this.isSuccess ? 'check_circle_outline' : 'info_outline';
+    }
+  }
+
+  get isSuccess(): boolean {
+    if (this.alertConfig) {
+      return this.alertConfig.variant === VariantTypes.SUCCESS;
+    }
+  }
+
+  get isWarning(): boolean {
+    if (this.alertConfig) {
+      return this.alertConfig.variant === VariantTypes.WARNING;
+    }
+  }
+
+  get isError(): boolean {
+    if (this.alertConfig) {
+      return this.alertConfig.variant === VariantTypes.ERROR;
+    }
+  }
+
 }

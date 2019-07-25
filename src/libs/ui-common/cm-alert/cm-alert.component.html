@@ -1,8 +1,14 @@
-<div class="container">
-  <div class="icon">
-    <mat-icon>info_outline</mat-icon>
+<div class="container"
+     [ngClass]="{
+       'container--error': isError,
+       'container--warning': isWarning
+     }">
+  <div class="icon"
+       [ngClass]="{
+         'icon--error': isError,
+         'icon--warning': isWarning
+       }">
+    <mat-icon>{{ icon }}</mat-icon>
   </div>
-  <div class="body">
-    {{ message }}
-  </div>
+  <div class="body">{{ message }}</div>
 </div>

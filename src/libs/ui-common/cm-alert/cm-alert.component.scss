@@ -5,13 +5,26 @@
   padding: 10 * $px;
   margin-bottom: 10 * $px;
   box-sizing: border-box;
-  border: 2 * $px solid red;
+  border: 2 * $px solid green;
   border-radius: 4 * $px;
   display: flex;
   align-items: center;
 
+  &--error {
+    border: 2 * $px solid red;
+  }
+  &--warning {
+    border: 2 * $px solid orange;
+  }
+
   .icon {
-    color: red;
+    color: green;
+    &--error {
+      color: red;
+    }
+    &--warning {
+      color: orange;
+    }
   }
 
   .body {
