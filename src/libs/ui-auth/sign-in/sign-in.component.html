@@ -1,5 +1,23 @@
-<div class="login__Container">
-  <div class="login__Content">
-    Pratik Kathrotia
+<div class="login">
+  <div class="login__Container">
+    <div class="login__Header">
+      <h2>Business Cloud</h2>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="login__Content">
+      <cm-alert *ngIf="hasError" [alertConfig]="alertConfig"></cm-alert>
+      <div class="login__Form">
+        <formly-form [form]="loginForm"
+                     [fields]="loginFormFields"
+                     [model]="loginModel"></formly-form>
+      </div>
+      <div class="login__Actions">
+        <button mat-flat-button
+                color="primary"
+                (click)="submitForm()">Sign In</button>
+        <a href="javascript:void(0)"
+           (click)="handleForgotPassword()">Forgot Password?</a>
+      </div>
+    </div>
   </div>
 </div>

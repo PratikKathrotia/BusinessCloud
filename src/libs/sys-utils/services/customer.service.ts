@@ -38,7 +38,7 @@ export class CustomerService {
   }
 
   addCustomer(customer: Customer) {
-    customer['id'] = this.utilService.generateDatabaseId();
+    customer['id'] = this.utilService.generateAlphaNumericId();
     const copiedCustomer = this.utilService.copy(customer);
     delete copiedCustomer.id;
     this.customersCollection.doc(`${customer.id}`).set(copiedCustomer);

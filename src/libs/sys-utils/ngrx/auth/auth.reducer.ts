@@ -1,9 +1,7 @@
 import {
   AuthActionTypes,
   AuthActions,
-  SetAuthStatus,
-  SetEmailVerificationFlag,
-  SetCurrentUserUid
+  SetAuthStatus
 } from './auth.actions';
 import { AuthState, initialAuthState } from '../../interfaces';
 
@@ -13,22 +11,12 @@ export function Auth(
 ): AuthState {
   switch (action.type) {
     case AuthActionTypes.SET_AUTH_STATUS:
+      const status = (action as SetAuthStatus).payload;
       return {
         ...state,
-        isLoggedIn: (action as SetAuthStatus).payload
-      };
-
-    case AuthActionTypes.SET_EMAIL_VARIFICATION_FLAG:
-      return {
-        ...state,
-        isEmailVerified: (action as SetEmailVerificationFlag).payload
-      };
-
-    case AuthActionTypes.SET_CURRENT_USER_UID:
-      return {
-        ...state,
-        isLoggedIn: true,
-        currentUid: (action as SetCurrentUserUid).payload
+        isLoggedIn: status.login,
+        isEmailVerified: status.isEmailVerified,
+        currentUid: status.uid
       };
 
     case AuthActionTypes.RESET_AUTH_STATE:

@@ -15,7 +15,7 @@ export class UtilityService {
     return copiedObj;
   }
 
-  generateDatabaseId() {
+  generateAlphaNumericId() {
     const length = 24;
     const chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     let result = '';
@@ -23,5 +23,9 @@ export class UtilityService {
       result += chars[Math.round(Math.random() * (chars.length - 1))];
     }
     return result;
+  }
+
+  generateNumericId() {
+    return Math.round(Math.random() * 100);
   }
 }

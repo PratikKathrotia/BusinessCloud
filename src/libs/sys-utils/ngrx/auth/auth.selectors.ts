@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 
 const authState = (state: BaseAppState) => state.auth;
 
-export const authSelectors = {
+export const AuthSelectors = {
   selectEmailVerification: createSelector(
     authState,
     (state: AuthState) => state.isEmailVerified

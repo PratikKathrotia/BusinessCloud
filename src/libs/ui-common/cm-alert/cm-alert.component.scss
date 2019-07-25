@@ -1,0 +1,21 @@
+@import 'src/styles/global.scss';
+
+.container {
+  // height: 60px;
+  padding: 10 * $px;
+  margin-bottom: 10 * $px;
+  box-sizing: border-box;
+  border: 2 * $px solid red;
+  border-radius: 4 * $px;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    color: red;
+  }
+
+  .body {
+    margin-left: 10 * $px;
+    text-align: justify;
+  }
+}
