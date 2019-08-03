@@ -12,8 +12,10 @@ import {
   BankPayment,
   CardPayment,
   AddNewUser,
-  userSelectors,
-  AddNewUserError
+  UserSelectors,
+  AddNewUserError,
+  Roles,
+  TabTypes
 } from '@angular-cm/sys-utils';
 
 @Component({
@@ -49,7 +51,7 @@ export class SignUpComponent implements OnInit {
     const formVals = this.utilService.copy(this.signUpModel);
     const isCard = formVals.paymentMethod === 'card';
     const user: User = {
-      id: uid,
+      id: this.utilService.copy(uid),
       firstName: formVals.firstName,
       lastName: formVals.lastName,
       birthDate: formVals.dateOfBirth,
@@ -62,7 +64,9 @@ export class SignUpComponent implements OnInit {
         zip: formVals.zip
       },
       paymentMethod: formVals.paymentMethod,
-      payment: this.getPaymentDetails(formVals, isCard)
+      payment: this.getPaymentDetails(formVals, isCard),
+      account: this.utilService.generateAccountId(),
+      role: Roles.ROOT_USER
     };
     return user;
   }
@@ -98,11 +102,11 @@ export class SignUpComponent implements OnInit {
   }
 
   isLoginTab(tab: TabConfig): boolean {
-    return tab.label === 'Login';
+    return tab.label === TabTypes.LOGIN;
   }
 
   isPaymentTab(tab: TabConfig): boolean {
-    return tab.label === 'Payment';
+    return tab.label === TabTypes.PAYMENT;
   }
 
   handleFormSubmit() {
@@ -136,7 +140,7 @@ export class SignUpComponent implements OnInit {
 
   listen() {
     this.store$.pipe(
-      select(userSelectors.selectUserAddSuccess)
+      select(UserSelectors.selectUserAddSuccess)
     ).subscribe(state => {
       this.logoutAndRouteToLogin(state);
     });

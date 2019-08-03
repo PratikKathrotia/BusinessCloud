@@ -14,9 +14,9 @@ export function Auth(
       const status = (action as SetAuthStatus).payload;
       return {
         ...state,
-        isLoggedIn: status.login,
+        isLoggedIn: status.isLoggedIn,
         isEmailVerified: status.isEmailVerified,
-        currentUid: status.uid
+        currentUid: status.currentUid
       };
 
     case AuthActionTypes.RESET_AUTH_STATE:

@@ -11,6 +11,7 @@ import {
   SignInComponent,
   SignUpComponent
 } from '@angular-cm/ui-auth';
+import { AuthGuard } from '@angular-cm/sys-utils';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
       },
       {
         path: 'customers',
-        component: CustomerListComponent
+        component: CustomerListComponent,
+        canActivate: [ AuthGuard ]
       },
       {
         path: 'customer-details/:id',

@@ -4,15 +4,21 @@ import { FormGroup } from '@angular/forms';
 import { LoginForm } from '@angular-cm/ui-formly';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import {
+  ActionTypes,
   AlertConfig,
+  AuthSelectors,
   AuthService,
+  AuthState,
+  GetUserInfo,
   SetAuthStatus,
   ResetAuthState,
   VariantTypes,
-  ActionTypes
+  User,
+  UserSelectors,
+  EnvironmentService
 } from '@angular-cm/sys-utils';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
 
 import {
@@ -40,7 +46,8 @@ export class SignInComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private dialog: MatDialog,
     private router: Router,
-    private store: Store<any>
+    private store: Store<any>,
+    private envService: EnvironmentService
   ) { }
 
   ngOnInit() {
@@ -49,6 +56,7 @@ export class SignInComponent implements OnInit {
     this.loginModel = {};
     this.hasError = false;
     this.authService.logoutCurrentUser().then(success => this.store.dispatch(new ResetAuthState()));
+    this.listen();
   }
 
   submitForm(): void {
@@ -88,13 +96,12 @@ export class SignInComponent implements OnInit {
   }
 
   handleLoginSeccess(): void {
-    const payload = {
-      login: true,
+    const payload: AuthState = {
+      isLoggedIn: true,
       isEmailVerified: this.afAuth.auth.currentUser.emailVerified,
-      uid: this.afAuth.auth.currentUser.uid
+      currentUid: this.afAuth.auth.currentUser.uid
     };
     this.store.dispatch(new SetAuthStatus(payload));
-    this.router.navigate(['global/customers']);
   }
 
   openEmailVerificationDialog(): void {
@@ -107,6 +114,42 @@ export class SignInComponent implements OnInit {
     this.authService.logoutCurrentUser().then(success => {
       this.loginForm.reset();
       this.loginModel = {};
+    });
+  }
+
+  listen(): void {
+    this.subscribeAuthStatus();
+    this.subscribeUserDetails();
+    this.subscribeUserError();
+  }
+
+  subscribeAuthStatus(): void {
+    this.store.pipe(
+      select(AuthSelectors.selectLoginStatus)
+    ).subscribe(login => {
+      if (login) {
+        this.store.dispatch(new GetUserInfo(this.afAuth.auth.currentUser.uid));
+      }
+    });
+  }
+
+  subscribeUserDetails(): void {
+    this.store.pipe(
+      select(UserSelectors.selectUser)
+    ).subscribe((user: User) => {
+      if (user) {
+        this.router.navigate(['global/customers']);
+      }
+    });
+  }
+
+  subscribeUserError(): void {
+    this.store.pipe(
+      select(UserSelectors.selectUserError)
+    ).subscribe(state => {
+      if (state.hasError) {
+        console.log(state.error);
+      }
     });
   }
 

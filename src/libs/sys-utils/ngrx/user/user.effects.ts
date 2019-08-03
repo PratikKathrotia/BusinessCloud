@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import {
   UserActionTypes,
   AddNewUser,
   AddNewUserSuccess,
-  AddNewUserError
+  AddNewUserError,
+  GetUserInfo,
+  GetUserInfoSuccess,
+  GetUserInfoError
 } from './user.actions';
 import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces';
 
 @Injectable()
 export class UserEffects {
@@ -29,6 +33,21 @@ export class UserEffects {
         }).catch(error => {
           return new AddNewUserError(error);
       });
+    })
+  );
+
+  @Effect()
+  getUserInfo$ = this.actions$.pipe(
+    ofType(UserActionTypes.GET_USER_INFO),
+    switchMap(action => {
+      const userId = (action as GetUserInfo).payload;
+      return this.userService.getUser(userId).pipe(
+        map(data => {
+          const user = data.data();
+          return new GetUserInfoSuccess(user as User);
+        }),
+        catchError(error => of(new GetUserInfoError(error)))
+      );
     })
   );
 }

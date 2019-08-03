@@ -1,7 +1,10 @@
 import {
   UserActionTypes,
   UserActions,
-  AddNewUserError
+  AddNewUserError,
+  GetUserInfo,
+  GetUserInfoSuccess,
+  GetUserInfoError
 } from './user.actions';
 import { UserState } from '../../interfaces/UserState';
 
@@ -10,7 +13,8 @@ const initialState: UserState = {
   user: null,
   hasError: false,
   error: null,
-  addUserSuccess: false
+  addUserSuccess: false,
+  currentUserId: null
 };
 
 export function UserReducer(
@@ -41,6 +45,31 @@ export function UserReducer(
         isFetching: false,
         addUserSuccess: false,
         error: (action as AddNewUserError).payload
+      };
+
+    case UserActionTypes.GET_USER_INFO:
+      return {
+        ...state,
+        currentUserId: (action as GetUserInfo).payload,
+        isFetching: true,
+        hasError: false
+      };
+
+    case UserActionTypes.GET_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        user: (action as GetUserInfoSuccess).payload,
+        isFetching: false,
+        hasError: false,
+        error: null
+      };
+
+    case UserActionTypes.GET_USER_INFO_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        hasError: true,
+        error: (action as GetUserInfoError).payload
       };
 
     default:

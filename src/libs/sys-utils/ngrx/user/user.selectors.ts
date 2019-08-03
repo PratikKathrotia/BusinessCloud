@@ -4,7 +4,7 @@ import { createSelector } from '@ngrx/store';
 
 const userState = (state: BaseAppState) => state.user;
 
-export const userSelectors = {
+export const UserSelectors = {
   selectUser: createSelector(
     userState,
     (state: UserState) => state.user
@@ -21,5 +21,9 @@ export const userSelectors = {
         error: state.error
       };
     }
+  ),
+  selectIsUserFetching: createSelector(
+    userState,
+    state => state.isFetching
   )
 };

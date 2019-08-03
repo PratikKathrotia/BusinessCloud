@@ -7,4 +7,5 @@ export interface UserState {
   error: CMError;
   user: User;
   addUserSuccess: boolean;
+  currentUserId: string;
 }

@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { AuthState } from '../../interfaces';
 
 export enum AuthActionTypes {
   SET_AUTH_STATUS = 'SET_AUTH_STATUS',
@@ -7,7 +8,7 @@ export enum AuthActionTypes {
 
 export class SetAuthStatus implements Action {
   readonly type = AuthActionTypes.SET_AUTH_STATUS;
-  constructor(public payload: any) {}
+  constructor(public payload: AuthState) {}
 }
 
 export class ResetAuthState implements Action {

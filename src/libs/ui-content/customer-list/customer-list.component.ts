@@ -9,7 +9,10 @@ import {
   HeaderActionClicked,
   FullScreenDialogConfig,
   CustomerService,
-  Customer
+  Customer,
+  UserSelectors,
+  UtilityService,
+  EnvironmentService
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -34,8 +37,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   constructor(
     private store$: Store<any>,
     private dialog: MatDialog,
+    private envService: EnvironmentService,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private utilService: UtilityService
   ) { }
 
   ngOnInit() {
@@ -107,8 +112,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.customerService.getCustomers().pipe(
       takeUntil(this.subject)
     ).subscribe(customers => {
-      this.dataSource = customers;
+      this.dataSource = this.utilService.copy(customers);
     });
+
+    this.store$.pipe(
+      select(UserSelectors.selectUser)
+    ).subscribe(user => console.log(user));
   }
 
 }

@@ -25,7 +25,7 @@ export class UtilityService {
     return result;
   }
 
-  generateNumericId() {
-    return Math.round(Math.random() * 100);
+  generateAccountId() {
+    return Math.floor(Math.random() * 10000) + 50000;
   }
 }

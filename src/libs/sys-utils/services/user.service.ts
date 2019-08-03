@@ -6,7 +6,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   getUser(userId: string) {
-    return this.userCollection.doc(userId);
+    return this.userCollection.doc(userId).get();
   }
 
 

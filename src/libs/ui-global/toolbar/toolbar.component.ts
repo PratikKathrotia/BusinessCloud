@@ -15,10 +15,6 @@ export class ToolbarComponent implements OnInit {
 
   constructor(private store$: Store<any>) { }
 
-  get showGreetings() {
-    return this.toolbarScope && this.toolbarScope === ToolbarScope.GLOBAL_LEVEL;
-  }
-
   ngOnInit() {
     this.subject = new Subject<any>();
     this.store$.pipe(
