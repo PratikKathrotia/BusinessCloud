@@ -5,11 +5,13 @@ import { UiMaterialModule } from '@angular-cm/ui-material';
 
 import { GeneralFiltersComponent } from './general-filters/general-filters.component';
 import { CmAlertComponent } from './cm-alert/cm-alert.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 @NgModule({
   declarations: [
     GeneralFiltersComponent,
-    CmAlertComponent
+    CmAlertComponent,
+    LoadingIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { CmAlertComponent } from './cm-alert/cm-alert.component';
   ],
   exports: [
     GeneralFiltersComponent,
-    CmAlertComponent
+    CmAlertComponent,
+    LoadingIndicatorComponent
   ]
 })
 export class UiCommonModule { }

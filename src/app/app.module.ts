@@ -22,6 +22,7 @@ import { EffectsModule } from '@ngrx/effects';
  */
 import {
   Auth,
+  Loading,
   PageHeader,
   Sidebar,
   SidebarEffects,
@@ -41,6 +42,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
  * library modules (src/libs/**)
  */
 import { UiAuthModule } from '@angular-cm/ui-auth';
+import { UiCommonModule } from '@angular-cm/ui-common';
 import { UiGlobalModule } from '@angular-cm/ui-global';
 import { UiContentModule } from '@angular-cm/ui-content';
 import { UiMaterialModule } from '@angular-cm/ui-material';
@@ -70,6 +72,7 @@ import { environment } from 'src/environments/environment';
     AngularFireAuthModule,
     StoreModule.forRoot({
       auth: Auth,
+      loading: Loading,
       sidebar: Sidebar,
       pageHeader: PageHeader,
       user: UserReducer,
@@ -88,6 +91,7 @@ import { environment } from 'src/environments/environment';
     UiAuthModule,
     UiGlobalModule,
     UiContentModule,
+    UiCommonModule,
     UiMaterialModule,
     UiFormlyModule
   ],

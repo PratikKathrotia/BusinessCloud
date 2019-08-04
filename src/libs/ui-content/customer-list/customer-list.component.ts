@@ -62,8 +62,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subject.next();
-    this.subject.complete();
+    UtilityService.endStream(this.subject);
   }
 
   isActionsVisible(customer: Customer) {

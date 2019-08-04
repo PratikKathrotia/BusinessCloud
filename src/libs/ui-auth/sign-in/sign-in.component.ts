@@ -15,7 +15,9 @@ import {
   VariantTypes,
   User,
   UserSelectors,
-  EnvironmentService
+  EnvironmentService,
+  ShowLoading,
+  HideLoading
 } from '@angular-cm/sys-utils';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Store, select } from '@ngrx/store';
@@ -61,6 +63,7 @@ export class SignInComponent implements OnInit {
 
   submitForm(): void {
     if (this.loginForm.valid) {
+      // this.store.dispatch(new ShowLoading());
       this.authService.loginExistingUser(
         this.loginModel.email,
         this.loginModel.password
@@ -138,6 +141,7 @@ export class SignInComponent implements OnInit {
       select(UserSelectors.selectUser)
     ).subscribe((user: User) => {
       if (user) {
+        // this.store.dispatch(new HideLoading());
         this.router.navigate(['global/customers']);
       }
     });

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,11 @@ import { Injectable } from '@angular/core';
 export class UtilityService {
 
   constructor() { }
+
+  static endStream(subject: Subject<any>) {
+    subject.next();
+    subject.complete();
+  }
 
   copy(obj: any): any {
     if (!obj) {
