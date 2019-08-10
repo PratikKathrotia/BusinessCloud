@@ -35,7 +35,8 @@ const routes: Routes = [
       },
       {
         path: 'customer-details/:id',
-        component: CustomerDetailsComponent
+        component: CustomerDetailsComponent,
+        canActivate: [ AuthGuard ]
       }
     ]
   },
@@ -60,7 +61,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/global/customers',
+    redirectTo: '/global',
     pathMatch: 'full'
   }
 ];

@@ -1,20 +1,15 @@
 @import 'src/styles/global.scss';
 
 .loading_Container {
-  z-index: 999;
-  height: inherit;
-  width: inherit;
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  width: 100vw;
 
-  .loading_Layover {
-    position: fixed;
-    overflow: visible;
-    margin: auto;
-    background: rgba(0, 0, 0, 0.1);
-    height: 100%;
-    width: 100%;
-
-    mat-spinner {
-      margin: 15% 60% 0 auto;
-    }
+  mat-spinner {
+    margin: 30vh 49vw;
   }
 }

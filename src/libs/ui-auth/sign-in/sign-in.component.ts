@@ -63,7 +63,7 @@ export class SignInComponent implements OnInit {
 
   submitForm(): void {
     if (this.loginForm.valid) {
-      // this.store.dispatch(new ShowLoading());
+      this.store.dispatch(new ShowLoading());
       this.authService.loginExistingUser(
         this.loginModel.email,
         this.loginModel.password
@@ -141,7 +141,7 @@ export class SignInComponent implements OnInit {
       select(UserSelectors.selectUser)
     ).subscribe((user: User) => {
       if (user) {
-        // this.store.dispatch(new HideLoading());
+        this.store.dispatch(new HideLoading());
         this.router.navigate(['global/customers']);
       }
     });
