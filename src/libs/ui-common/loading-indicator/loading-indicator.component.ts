@@ -39,7 +39,6 @@ export class LoadingIndicatorComponent implements OnInit, OnDestroy {
       select(LoadingSelectors.selectLoadingState),
       takeUntil(this.subject)
     ).subscribe(showLoading => {
-      console.log(showLoading);
       this.showLoading = this.utilService.copy(showLoading);
     });
   }

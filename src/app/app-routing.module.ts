@@ -15,11 +15,6 @@ import { AuthGuard } from '@angular-cm/sys-utils';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/global',
-    pathMatch: 'full'
-  },
-  {
     path: 'global',
     component: GlobalLayoutComponent,
     children: [
@@ -30,13 +25,11 @@ const routes: Routes = [
       },
       {
         path: 'customers',
-        component: CustomerListComponent,
-        canActivate: [ AuthGuard ]
+        component: CustomerListComponent
       },
       {
         path: 'customer-details/:id',
-        component: CustomerDetailsComponent,
-        canActivate: [ AuthGuard ]
+        component: CustomerDetailsComponent
       }
     ]
   },
@@ -60,9 +53,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: '**',
+    path: '',
     redirectTo: '/global',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/global'
   }
 ];
 
