@@ -12,7 +12,8 @@ import {
   Customer,
   UserSelectors,
   UtilityService,
-  EnvironmentService
+  EnvironmentService,
+  ToggleSidebaVisibility
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -45,6 +46,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subject = new Subject<any>();
+    this.store$.dispatch(new ToggleSidebaVisibility(true));
     this.handleAddCustomerClick = this._handleAddCustomerClick.bind(this);
     this.pageHeaderConfig = {
       title: 'Customers',
