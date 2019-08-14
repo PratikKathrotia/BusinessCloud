@@ -17,7 +17,10 @@ import {
   UserSelectors,
   EnvironmentService,
   ShowLoading,
-  HideLoading
+  HideLoading,
+  ToggleSidebaVisibility,
+  ToolbarScope,
+  SetToolbarScope
 } from '@angular-cm/sys-utils';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Store, select } from '@ngrx/store';
@@ -53,6 +56,8 @@ export class SignInComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.store.dispatch(new ToggleSidebaVisibility(false));
+    this.store.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
     this.loginForm = new FormGroup({});
     this.loginFormFields = LoginForm;
     this.loginModel = {};

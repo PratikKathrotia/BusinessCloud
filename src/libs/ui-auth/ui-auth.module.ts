@@ -12,7 +12,6 @@ import { UiCommonModule } from '../ui-common/ui-common.module';
 
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { AuthComponent } from './auth/auth.component';
 import {
   EmailVerificationDialogComponent
 } from './email-verification-dialog/email-verification-dialog.component';
@@ -24,7 +23,6 @@ import {
   declarations: [
     SignInComponent,
     SignUpComponent,
-    AuthComponent,
     EmailVerificationDialogComponent,
     ForgotPasswordDialogComponent
   ],

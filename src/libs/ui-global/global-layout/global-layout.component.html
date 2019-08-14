@@ -4,7 +4,7 @@
       <cm-toolbar></cm-toolbar>
     </div>
     <div class="app_LayoutContainer">
-      <div class="layout_SidebarContainer">
+      <div class="layout_SidebarContainer" *ngIf="isSidebarVisible">
         <primary-sidebar></primary-sidebar>
       </div>
       <div class="layout_ContentContainer">
@@ -12,7 +12,7 @@
           <page-header></page-header>
         </div>
         <div class="content_View">
-          <router-outlet></router-outlet>
+          <ng-content></ng-content>
         </div>
       </div>
     </div>

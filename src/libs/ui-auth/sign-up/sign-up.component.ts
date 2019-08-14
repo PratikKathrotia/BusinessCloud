@@ -15,7 +15,10 @@ import {
   UserSelectors,
   AddNewUserError,
   Roles,
-  TabTypes
+  TabTypes,
+  ToggleSidebaVisibility,
+  SetToolbarScope,
+  ToolbarScope
 } from '@angular-cm/sys-utils';
 
 @Component({
@@ -37,6 +40,8 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.store$.dispatch(new ToggleSidebaVisibility(false));
+    this.store$.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
     this.tabs = SignUpForm.tabs;
     this.signUpModel = {};
     this.signUpForm = new FormArray(SignUpForm.tabs.map(() => new FormGroup({})));

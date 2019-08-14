@@ -21,6 +21,7 @@ import { PageHeaderComponent } from './page-header/page-header.component';
     UiMaterialModule
   ],
   exports: [
+    GlobalLayoutComponent,
     ToolbarComponent,
     PrimarySidebarComponent,
     PageHeaderComponent

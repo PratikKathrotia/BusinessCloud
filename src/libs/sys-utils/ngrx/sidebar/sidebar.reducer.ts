@@ -3,11 +3,13 @@ import {
   SidebarActions,
   SidebarActionTypes,
   SidebarItemsLoadSuccess,
-  SidebarItemsLoadError
+  SidebarItemsLoadError,
+  ToggleSidebaVisibility
 } from './sidebar.actions';
 import { SidebarState, SidebarItem } from '../../interfaces';
 
 const initialState: SidebarState = {
+  isVisible: false,
   sidebarItems: [],
   isFetching: false,
   hasError: false,
@@ -44,6 +46,12 @@ export function Sidebar(
         sidebarItems: [],
         hasError: true,
         error: (action as SidebarItemsLoadError).payload
+      };
+
+    case SidebarActionTypes.TOGGLE_SIDEBAR_VISIBILITY:
+      return {
+        ...state,
+        isVisible: (action as ToggleSidebaVisibility).payload
       };
 
     default:

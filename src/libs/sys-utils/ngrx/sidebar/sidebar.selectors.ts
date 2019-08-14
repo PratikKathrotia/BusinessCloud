@@ -17,5 +17,10 @@ export const sidebarSelectors = {
         error: (state.error) ? state.error : null
       };
     }
+  ),
+
+  selectSidebarVisibility: createSelector(
+    sidebarState,
+    (state: SidebarState) => state.isVisible
   )
 };
