@@ -36,6 +36,7 @@ import {
   MatTooltipModule,
   MatTreeModule
 } from '@angular/material';
+import { MdePopoverModule } from '@material-extended/mde';
 
 @NgModule({
   declarations: [],
@@ -76,7 +77,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule
+    MatTreeModule,
+    MdePopoverModule
   ]
 })
 export class UiMaterialModule { }

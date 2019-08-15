@@ -110,15 +110,11 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.customerService.getCustomers().pipe(
-      takeUntil(this.subject)
-    ).subscribe(customers => {
-      this.dataSource = this.utilService.copy(customers);
-    });
-
-    this.store$.pipe(
-      select(UserSelectors.selectUser)
-    ).subscribe(user => console.log(user));
+    // this.customerService.getCustomers().pipe(
+    //   takeUntil(this.subject)
+    // ).subscribe(customers => {
+    //   this.dataSource = this.utilService.copy(customers);
+    // });
   }
 
 }

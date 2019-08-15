@@ -11,19 +11,28 @@ import { Subject } from 'rxjs';
 })
 export class ToolbarComponent implements OnInit {
   subject: Subject<any>;
-  toolbarScope: ToolbarScope;
+  globalScope: boolean;
 
   constructor(private store$: Store<any>) { }
 
   ngOnInit() {
     this.subject = new Subject<any>();
+    this.globalScope = false;
     this.store$.pipe(
       select(utilsSelectors.selectToolbarScope),
       filter(scope => scope !== null),
       takeUntil(this.subject)
     ).subscribe(scope => {
-      this.toolbarScope = scope;
+      this.globalScope = (scope === ToolbarScope.GLOBAL_LEVEL);
     });
+  }
+
+  get isGlobalScope(): boolean {
+    return this.globalScope;
+  }
+
+  handleProfileClick(): void {
+
   }
 
 }

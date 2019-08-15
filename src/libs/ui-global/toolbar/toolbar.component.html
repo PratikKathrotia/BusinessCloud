@@ -1,8 +1,30 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span class="cloud_Logo"></span>
-    <span>Business Cloud</span>
-    <span class="example-spacer"></span>
-    <mat-icon class="person_icon" *ngIf="showGreetings">person</mat-icon>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div class="toolbar__Container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span class="cloud_Logo"></span>
+      <span>Business Cloud</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="person_icon"
+                *ngIf="isGlobalScope"
+                [mdePopoverTriggerFor]="appPopover"
+                mdePopoverTriggerOn="click">person</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<mde-popover #appPopover="mdePopover"
+             mdePopoverOverlapTrigger="true"
+             mdePopoverPositionY="below"
+             mdePopoverPositionX="before"
+             mdePopoverCloseOnClick="false"
+             mdePopoverOffsetX="20"
+             mdePopoverOffsetY="32">
+  <div class="profile__Popover">
+    <div class="popover__Content">
+      Pratik Kathrotia
+    </div>
+    <div class="popover__Footer">
+      <button>Logout</button>
+    </div>
+  </div>
+</mde-popover>

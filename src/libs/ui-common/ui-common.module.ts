@@ -6,12 +6,14 @@ import { UiMaterialModule } from '@angular-cm/ui-material';
 import { GeneralFiltersComponent } from './general-filters/general-filters.component';
 import { CmAlertComponent } from './cm-alert/cm-alert.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
+import { CmPopoverComponent } from './cm-popover/cm-popover.component';
 
 @NgModule({
   declarations: [
     GeneralFiltersComponent,
     CmAlertComponent,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
+    CmPopoverComponent
   ],
   imports: [
     CommonModule,

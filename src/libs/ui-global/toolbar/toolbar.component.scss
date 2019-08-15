@@ -1,22 +1,44 @@
 
-.person_icon {
-  padding: 0 14px;
-  font-size: 25px;
+.toolbar__Container {
+  .person_icon {
+    box-sizing: border-box;
+    margin-right: 14px;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .cloud_Logo {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    background-image: url("src/assets/cloud_logo1.png");
+    background-size: 40px 40px;
+  }
+  
+  .example-spacer {
+    flex: 1;
+  }
+  
+  .mat-toolbar-row, .mat-toolbar-multiple-rows {
+    min-height: 0;
+    height: 56px;
+  }
 }
 
-.cloud_Logo {
-  margin-right: 10px;
-  width: 40px;
-  height: 40px;
-  background-image: url("src/assets/cloud_logo1.png");
-  background-size: 40px 40px;
-}
+.profile__Popover {
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+  background: white;
+  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 4px;
 
-.example-spacer {
-  flex: 1;
-}
+  .popover__Content {
+    height: 60px
+  }
 
-.mat-toolbar-row, .mat-toolbar-multiple-rows {
-  min-height: 0;
-  height: 56px;
+  .popover__Footer {
+    height: 40px;
+  }
 }
