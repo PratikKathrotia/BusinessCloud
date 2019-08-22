@@ -1,18 +1,19 @@
+@import 'src/styles/global.scss';
 
 .toolbar__Container {
   .person_icon {
     box-sizing: border-box;
-    margin-right: 14px;
-    font-size: 25px;
+    margin-right: 14 * $px;
+    font-size: 25 * $px;
     cursor: pointer;
   }
   
   .cloud_Logo {
-    margin-right: 10px;
-    width: 40px;
-    height: 40px;
+    margin-right: 10 * $px;
+    width: 40 * $px;
+    height: 40 * $px;
     background-image: url("src/assets/cloud_logo1.png");
-    background-size: 40px 40px;
+    background-size: 40 * $px 40 * $px;
   }
   
   .example-spacer {
@@ -21,24 +22,45 @@
   
   .mat-toolbar-row, .mat-toolbar-multiple-rows {
     min-height: 0;
-    height: 56px;
+    height: 56 * $px;
   }
 }
 
 .profile__Popover {
   display: flex;
   flex-direction: column;
-  width: 130px;
+  width: 220 * $px;
   background: white;
-  padding: 10px;
-  border: 1px solid grey;
-  border-radius: 4px;
+  padding: 10 * $px;
+  border: 1 * $px solid grey;
+  border-radius: 4 * $px;
 
   .popover__Content {
-    height: 60px
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    height: 60 * $px;
+
+    img {
+      height: 70 * $px;
+      width: 70 * $px;
+      border-radius: 50%;
+    }
+
+    span {
+      margin: auto;
+    }
   }
 
   .popover__Footer {
-    height: 40px;
+    margin-top: 20px;
+    height: 30px;
+    border-radius: 4px;
+    text-align: center;
+    background: $primary;
+    color: white;
+    padding-top: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
   }
 }

@@ -18,7 +18,8 @@ import {
   TabTypes,
   ToggleSidebaVisibility,
   SetToolbarScope,
-  ToolbarScope
+  ToolbarScope,
+  ResetPageHeader
 } from '@angular-cm/sys-utils';
 
 @Component({
@@ -40,11 +41,10 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store$.dispatch(new ToggleSidebaVisibility(false));
-    this.store$.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
     this.tabs = SignUpForm.tabs;
     this.signUpModel = {};
     this.signUpForm = new FormArray(SignUpForm.tabs.map(() => new FormGroup({})));
+    this.dispatchActions();
     this.listen();
   }
 
@@ -141,6 +141,12 @@ export class SignUpComponent implements OnInit {
         this.router.navigate(['auth/login']);
       });
     }
+  }
+
+  dispatchActions(): void {
+    this.store$.dispatch(new ToggleSidebaVisibility(false));
+    this.store$.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
+    this.store$.dispatch(new ResetPageHeader());
   }
 
   listen() {

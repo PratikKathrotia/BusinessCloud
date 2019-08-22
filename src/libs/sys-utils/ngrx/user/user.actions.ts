@@ -7,7 +7,8 @@ export enum UserActionTypes {
   ADD_NEW_USER_ERROR = 'ADD_NEW_USER_ERROR',
   GET_USER_INFO = 'GET_USER_INFO',
   GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS',
-  GET_USER_INFO_ERROR = 'GET_USER_INFO_ERROR'
+  GET_USER_INFO_ERROR = 'GET_USER_INFO_ERROR',
+  RESET_USER_STATE = 'RESET_USER_STATE'
 }
 
 export class AddNewUser implements Action {
@@ -37,11 +38,16 @@ export class GetUserInfoError implements Action {
   constructor(public payload: CMError) {}
 }
 
+export class ResetUserState implements Action {
+  readonly type = UserActionTypes.RESET_USER_STATE;
+}
+
 export type UserActions =
   AddNewUser
 | AddNewUserSuccess
 | AddNewUserError
 | GetUserInfo
 | GetUserInfoSuccess
-| GetUserInfoError;
+| GetUserInfoError
+| ResetUserState;
 

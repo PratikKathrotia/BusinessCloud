@@ -3,7 +3,8 @@ import { PageHeaderConfig } from '../../interfaces';
 
 export enum PageHeaderActionTypes {
   HEADER_CONFIG_INIT = 'HEADER_CONFIG_INIT',
-  HEADER_ACTION_CLICKED = 'HEADER_ACTION_CLICKED'
+  HEADER_ACTION_CLICKED = 'HEADER_ACTION_CLICKED',
+  RESET_PAGE_HEADER = 'RESET_PAGE_HEADER'
 }
 
 export class HeaderConfigInit implements Action {
@@ -16,4 +17,8 @@ export class HeaderActionClicked implements Action {
   constructor(public payload: string) {}
 }
 
-export type PageHeaderActions = HeaderConfigInit | HeaderActionClicked;
+export class ResetPageHeader implements Action {
+  readonly type = PageHeaderActionTypes.RESET_PAGE_HEADER;
+}
+
+export type PageHeaderActions = HeaderConfigInit | HeaderActionClicked | ResetPageHeader;

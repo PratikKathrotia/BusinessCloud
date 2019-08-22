@@ -20,7 +20,9 @@ import {
   HideLoading,
   ToggleSidebaVisibility,
   ToolbarScope,
-  SetToolbarScope
+  SetToolbarScope,
+  ResetPageHeader,
+  ResetUserState
 } from '@angular-cm/sys-utils';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Store, select } from '@ngrx/store';
@@ -51,19 +53,18 @@ export class SignInComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private dialog: MatDialog,
     private router: Router,
-    private store: Store<any>,
-    private envService: EnvironmentService
+    private store: Store<any>
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new ToggleSidebaVisibility(false));
-    this.store.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
     this.loginForm = new FormGroup({});
     this.loginFormFields = LoginForm;
     this.loginModel = {};
     this.hasError = false;
-    this.authService.logoutCurrentUser().then(success => this.store.dispatch(new ResetAuthState()));
-    this.listen();
+    this.authService.logoutCurrentUser().then(success => {
+      this.store.dispatch(new ResetAuthState());
+    });
+    this.dispatchActions();
   }
 
   submitForm(): void {
@@ -123,6 +124,15 @@ export class SignInComponent implements OnInit {
       this.loginForm.reset();
       this.loginModel = {};
     });
+  }
+
+  dispatchActions(): void {
+    this.store.dispatch(new ResetAuthState());
+    this.store.dispatch(new ResetUserState());
+    this.store.dispatch(new ToggleSidebaVisibility(false));
+    this.store.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
+    this.store.dispatch(new ResetPageHeader());
+    this.listen();
   }
 
   listen(): void {

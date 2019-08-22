@@ -8,7 +8,7 @@
         <primary-sidebar></primary-sidebar>
       </div>
       <div class="layout_ContentContainer">
-        <div class="content_Header">
+        <div class="content_Header" *ngIf="isPageHeaderVisible">
           <page-header></page-header>
         </div>
         <div class="content_View">
@@ -18,5 +18,4 @@
     </div>
   </div>
 </div>
-<!-- <eb-loading-indicator *ngIf="showLoading"></eb-loading-indicator> -->
     

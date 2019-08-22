@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { ToolbarScope, utilsSelectors } from '@angular-cm/sys-utils';
-import { takeUntil, filter } from 'rxjs/operators';
+import {
+  AuthSelectors
+} from '@angular-cm/sys-utils';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -11,28 +14,34 @@ import { Subject } from 'rxjs';
 })
 export class ToolbarComponent implements OnInit {
   subject: Subject<any>;
-  globalScope: boolean;
+  isLoggedIn: boolean;
 
-  constructor(private store$: Store<any>) { }
+  constructor(
+    private store$: Store<any>,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.subject = new Subject<any>();
-    this.globalScope = false;
-    this.store$.pipe(
-      select(utilsSelectors.selectToolbarScope),
-      filter(scope => scope !== null),
-      takeUntil(this.subject)
-    ).subscribe(scope => {
-      this.globalScope = (scope === ToolbarScope.GLOBAL_LEVEL);
-    });
+    this.isLoggedIn = true;
+    this.listen();
   }
 
   get isGlobalScope(): boolean {
-    return this.globalScope;
+    return this.isLoggedIn;
   }
 
-  handleProfileClick(): void {
+  handleLogoutClick(): void {
+    this.router.navigate(['auth/login']);
+  }
 
+  listen(): void {
+    this.store$.pipe(
+      select(AuthSelectors.selectLoginStatus),
+      takeUntil(this.subject)
+    ).subscribe(scope => {
+      this.isLoggedIn = scope;
+    });
   }
 
 }

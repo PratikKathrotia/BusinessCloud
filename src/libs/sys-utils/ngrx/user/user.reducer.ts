@@ -72,6 +72,11 @@ export function UserReducer(
         error: (action as GetUserInfoError).payload
       };
 
+    case UserActionTypes.RESET_USER_STATE:
+      return {
+        ...initialState
+      };
+
     default:
       return state;
   }

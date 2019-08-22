@@ -17,14 +17,16 @@
              mdePopoverPositionY="below"
              mdePopoverPositionX="before"
              mdePopoverCloseOnClick="false"
-             mdePopoverOffsetX="20"
+             mdePopoverOffsetX="25"
              mdePopoverOffsetY="32">
   <div class="profile__Popover">
     <div class="popover__Content">
-      Pratik Kathrotia
+      <img src="assets/male.png">
+      <span><strong>Pratik Kathrotia</strong></span>
     </div>
-    <div class="popover__Footer">
-      <button>Logout</button>
+    <div class="popover__Footer"
+         (click)="handleLogoutClick()">
+      <span>Logout</span>
     </div>
   </div>
 </mde-popover>

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { SetToolbarScope, ToolbarScope, sidebarSelectors } from '@angular-cm/sys-utils';
+import {
+  SetToolbarScope,
+  ToolbarScope,
+  sidebarSelectors,
+  pageHeaderSelectors
+} from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -12,6 +17,7 @@ import { Subject } from 'rxjs';
 })
 export class GlobalLayoutComponent implements OnInit {
   sidebarVisible: boolean;
+  pageHeaderVisible: boolean;
   subject: Subject<any>;
 
   constructor(
@@ -22,17 +28,32 @@ export class GlobalLayoutComponent implements OnInit {
     return this.sidebarVisible;
   }
 
+  get isPageHeaderVisible(): boolean {
+    return this.pageHeaderVisible;
+  }
+
   ngOnInit() {
     this.subject = new Subject<any>();
-    this.store$.dispatch(new SetToolbarScope(ToolbarScope.GLOBAL_LEVEL));
     this.listen();
   }
 
-  listen() {
+  subscribeSidebarVisibility(): void {
     this.store$.pipe(
       select(sidebarSelectors.selectSidebarVisibility),
       takeUntil(this.subject)
     ).subscribe(isVisible => this.sidebarVisible = isVisible);
+  }
+
+  subscribePageHeaderVisibility(): void {
+    this.store$.pipe(
+      select(pageHeaderSelectors.selectPageHeaderVisibility),
+      takeUntil(this.subject)
+    ).subscribe(isVisible => this.pageHeaderVisible = isVisible);
+  }
+
+  listen() {
+    this.subscribeSidebarVisibility();
+    this.subscribePageHeaderVisibility();
   }
 
 }

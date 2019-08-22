@@ -15,12 +15,12 @@ const routes: Routes = [
   {
     path: 'global/customers',
     component: CustomerListComponent,
-    // canActivate: [ AuthGuard ]  add uid to session storage and enable guard
+    canActivate: [ AuthGuard ]  // add uid to session storage and enable guard
   },
   {
     path: 'global/customer-details',
     component: CustomerDetailsComponent,
-    // canActivate: [ AuthGuard ]
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'auth/login',

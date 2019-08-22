@@ -6,11 +6,16 @@ const pageHeaderState = (state: BaseAppState) => state.pageHeader;
 export const pageHeaderSelectors = {
   selectHeaderConfig: createSelector(
     pageHeaderState,
-    (configState: PageHeaderState) => configState.config
+    (state: PageHeaderState) => state.config
   ),
 
   selectHeaderActionIndex: createSelector(
     pageHeaderState,
-    (callbackState: PageHeaderState) => callbackState.actionId
+    (state: PageHeaderState) => state.actionId
+  ),
+
+  selectPageHeaderVisibility: createSelector(
+    pageHeaderState,
+    (state: PageHeaderState) => state.isVisible
   )
 };

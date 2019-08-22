@@ -7,6 +7,7 @@ import {
 import { PageHeaderState } from '../../interfaces';
 
 const initialState: PageHeaderState = {
+  isVisible: false,
   isFetching: true,
   config: null,
   actionId: null
@@ -21,6 +22,7 @@ export function PageHeader(
       return {
         ...state,
         isFetching: false,
+        isVisible: true,
         config: (action as HeaderConfigInit).payload
       };
 
@@ -30,6 +32,11 @@ export function PageHeader(
         isFetching: false,
         actionId: (action as HeaderActionClicked).payload
       };
+
+    case PageHeaderActionTypes.RESET_PAGE_HEADER:
+        return {
+          ...initialState
+        };
 
     default:
       return state;
