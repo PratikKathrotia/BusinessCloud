@@ -12,6 +12,9 @@ export function Auth(
   switch (action.type) {
     case AuthActionTypes.SET_AUTH_STATUS:
       const status = (action as SetAuthStatus).payload;
+      if (status.isLoggedIn) {
+        sessionStorage.setItem('userToken', status.currentUid);
+      }
       return {
         ...state,
         isLoggedIn: status.isLoggedIn,
@@ -20,9 +23,13 @@ export function Auth(
       };
 
     case AuthActionTypes.RESET_AUTH_STATE:
+      sessionStorage.removeItem('userToken');
       return initialAuthState;
 
     default:
-      return state;
+      return {
+        ...state,
+        isLoggedIn: sessionStorage.getItem('userToken') ? true : false
+      };
   }
 }

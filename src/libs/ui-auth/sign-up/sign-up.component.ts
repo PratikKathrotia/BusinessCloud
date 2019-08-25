@@ -19,7 +19,8 @@ import {
   ToggleSidebaVisibility,
   SetToolbarScope,
   ToolbarScope,
-  ResetPageHeader
+  ResetPageHeader,
+  ResetAuthState
 } from '@angular-cm/sys-utils';
 
 @Component({
@@ -44,8 +45,11 @@ export class SignUpComponent implements OnInit {
     this.tabs = SignUpForm.tabs;
     this.signUpModel = {};
     this.signUpForm = new FormArray(SignUpForm.tabs.map(() => new FormGroup({})));
-    this.dispatchActions();
-    this.listen();
+    this.authService.logoutCurrentUser().then(success => {
+      this.store$.dispatch(new ResetAuthState());
+      sessionStorage.removeItem('userToken');
+      this.dispatchActions();
+    });
   }
 
   get isSubmitDisabled(): boolean {
@@ -147,6 +151,7 @@ export class SignUpComponent implements OnInit {
     this.store$.dispatch(new ToggleSidebaVisibility(false));
     this.store$.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
     this.store$.dispatch(new ResetPageHeader());
+    this.listen();
   }
 
   listen() {

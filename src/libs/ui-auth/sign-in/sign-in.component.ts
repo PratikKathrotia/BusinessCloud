@@ -63,8 +63,8 @@ export class SignInComponent implements OnInit {
     this.hasError = false;
     this.authService.logoutCurrentUser().then(success => {
       this.store.dispatch(new ResetAuthState());
+      this.dispatchActions();
     });
-    this.dispatchActions();
   }
 
   submitForm(): void {
@@ -145,7 +145,7 @@ export class SignInComponent implements OnInit {
     this.store.pipe(
       select(AuthSelectors.selectLoginStatus)
     ).subscribe(login => {
-      if (login) {
+      if (sessionStorage.getItem('userToken')) {
         this.store.dispatch(new GetUserInfo(this.afAuth.auth.currentUser.uid));
       }
     });
