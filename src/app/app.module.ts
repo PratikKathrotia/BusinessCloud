@@ -24,11 +24,13 @@ import {
   Auth,
   Loading,
   PageHeader,
+  CloudRouter,
   Sidebar,
   SidebarEffects,
   UserReducer,
   UserEffects,
-  Utils
+  Utils,
+  RouterEffects
 } from '@angular-cm/sys-utils';
 
 /**
@@ -75,11 +77,13 @@ import { environment } from 'src/environments/environment';
       loading: Loading,
       sidebar: Sidebar,
       pageHeader: PageHeader,
+      router: CloudRouter,
       user: UserReducer,
       utils: Utils
     }),
     EffectsModule.forRoot([
       SidebarEffects,
+      RouterEffects,
       UserEffects
     ]),
     ReactiveFormsModule,

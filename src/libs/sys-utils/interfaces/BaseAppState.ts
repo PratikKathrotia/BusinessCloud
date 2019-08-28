@@ -5,6 +5,7 @@ import { AuthState } from './AuthState';
 import { UtilsState } from './UtilsState';
 import { UserState } from './UserState';
 import { LoadingState } from './loadingState';
+import { RouterState } from './RouterState';
 
 export interface BaseAppState {
   auth: AuthState;
@@ -12,6 +13,7 @@ export interface BaseAppState {
   sidebar: SidebarState;
   customers: CustomersState;
   pageHeader: PageHeaderState;
+  router: RouterState;
   user: UserState;
   utils: UtilsState;
 }

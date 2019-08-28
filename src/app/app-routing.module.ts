@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'global/customers',
     component: CustomerListComponent,
-    canActivate: [ AuthGuard ]  // add uid to session storage and enable guard
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'global/customer-details',

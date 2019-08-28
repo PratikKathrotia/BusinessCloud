@@ -10,6 +10,7 @@ import {
   AuthService,
   AuthState,
   GetUserInfo,
+  Go,
   SetAuthStatus,
   ResetAuthState,
   VariantTypes,
@@ -157,7 +158,11 @@ export class SignInComponent implements OnInit {
     ).subscribe((user: User) => {
       if (user) {
         this.store.dispatch(new HideLoading());
-        this.router.navigate(['global/customers']);
+        this.store.dispatch(
+          new Go({
+            path: ['global/customers']
+          })
+        );
       }
     });
   }
