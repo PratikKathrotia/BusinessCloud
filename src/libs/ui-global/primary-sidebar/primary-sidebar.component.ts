@@ -20,27 +20,48 @@ export class PrimarySidebarComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        id: '1',
-        label: 'Home',
-        domElId: 'home1',
-        icon: 'home',
-        tooltip: 'Home',
-        routeUrl: 'global/home',
+        id: 'customers',
+        label: 'Customers',
+        icon: 'people',
+        tooltip: 'Customers',
+        routeUrl: 'global/customers',
         isActive: true
       },
       {
-        id: '2',
-        label: 'Customers',
-        domElId: 'cust2',
-        icon: 'people',
-        tooltip: 'Customers',
-        routeUrl: 'global/customers-list',
+        id: 'employees',
+        label: 'Employees',
+        icon: 'assignment_ind',
+        tooltip: 'Employees',
+        routeUrl: 'global/employees',
         isActive: false
       },
       {
-        id: '3',
+        id: 'suppliers',
+        label: 'Suppliers',
+        icon: 'how_to_reg',
+        tooltip: 'Suppliers',
+        routeUrl: 'global/suppliers',
+        isActive: false
+      },
+      {
+        id: 'inventory',
+        label: 'Inventory',
+        icon: 'widgets',
+        tooltip: 'Inventory',
+        routeUrl: 'global/inventory',
+        isActive: false
+      },
+      {
+        id: 'maintenance',
+        label: 'Maintenance',
+        icon: 'build',
+        tooltip: 'Maintenance',
+        routeUrl: 'maintenance',
+        isActive: false
+      },
+      {
+        id: 'settings',
         label: 'Settings',
-        domElId: 'sett3',
         icon: 'settings',
         tooltip: 'Settings',
         routeUrl: 'global/settings',
@@ -56,7 +77,7 @@ export class PrimarySidebarComponent implements OnInit {
 
   handleSidebarItemClick(item: SidebarItem) {
     this.items.forEach(sidebarItem => {
-      sidebarItem.isActive = item.domElId === sidebarItem.domElId;
+      sidebarItem.isActive = item.id === sidebarItem.id;
     });
   }
 
