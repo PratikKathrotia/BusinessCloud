@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CmFieldType } from '../cm-fieldType/cm-fieldType';
 
 @Component({
@@ -6,9 +6,6 @@ import { CmFieldType } from '../cm-fieldType/cm-fieldType';
   templateUrl: './cm-header1.component.html',
   styleUrls: ['./cm-header1.component.scss']
 })
-export class CmHeader1Component extends CmFieldType implements OnInit {
-
-  ngOnInit() {
-  }
+export class CmHeader1Component extends CmFieldType {
 
 }

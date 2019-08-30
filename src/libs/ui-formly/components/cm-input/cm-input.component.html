@@ -4,7 +4,8 @@
     <span *ngIf="to.required"> *</span>
     <span *ngIf="to.optional" class="label__Optional"> (optional)</span>
   </label>
-  <div class="input-group input-group-sm inputContent">
+  <div class="input-group input-group-sm inputContent"
+       [ngClass]="field.className ? [field.className] : null">
     <input type="text" #inputField
            class="form-control"
            [formControl]="formControl"
@@ -12,7 +13,6 @@
            placeholder="{{ to.placeholder }}"
            [attr.disabled]="to.disabled"
            maxlength="{{ to.maxlength }}"
-           [ngClass]="field.className ? [field.className] : null"
            type="{{ to.type }}"
            value="{{ model[key] }}">
   </div>

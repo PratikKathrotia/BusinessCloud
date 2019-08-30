@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { SignUpForm } from '@angular-cm/ui-formly';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Store, select } from '@ngrx/store';
 import {
   AuthService,
-  TabConfig,
   User,
   UtilityService,
   BankPayment,
@@ -15,7 +14,6 @@ import {
   UserSelectors,
   AddNewUserError,
   Roles,
-  TabTypes,
   ToggleSidebaVisibility,
   SetToolbarScope,
   ToolbarScope,
@@ -29,22 +27,23 @@ import {
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  signUpForm: FormArray;
-  signUpFormFields: FormlyFieldConfig[];
-  signUpModel: any;
-  tabs: TabConfig[];
+  form: FormGroup;
+  formFields: FormlyFieldConfig[];
+  model: any;
 
   constructor(
     private authService: AuthService,
     private store$: Store<any>,
+    private signUpForm: SignUpForm,
     private router: Router,
     private utilService: UtilityService,
   ) { }
 
   ngOnInit() {
-    this.tabs = SignUpForm.tabs;
-    this.signUpModel = {};
-    this.signUpForm = new FormArray(SignUpForm.tabs.map(() => new FormGroup({})));
+    this.signUpForm.initializeForm({});
+    this.model = {};
+    this.form = new FormGroup(this.signUpForm.initFormControls());
+    this.formFields = [ ...this.signUpForm.getForm() ];
     this.authService.logoutCurrentUser().then(success => {
       this.store$.dispatch(new ResetAuthState());
       sessionStorage.removeItem('userToken');
@@ -52,12 +51,12 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  get isSubmitDisabled(): boolean {
-    return this.signUpForm && this.signUpForm.invalid;
-  }
+  // get isSubmitDisabled(): boolean {
+  //   return this.signUpForm && this.signUpForm.invalid;
+  // }
 
   configureUserToSave(uid: string): User {
-    const formVals = this.utilService.copy(this.signUpModel);
+    const formVals = this.utilService.copy(this.model);
     const isCard = formVals.paymentMethod === 'card';
     const user: User = {
       id: this.utilService.copy(uid),
@@ -106,24 +105,12 @@ export class SignUpComponent implements OnInit {
     };
   }
 
-  isTabDisabled(index: number): boolean {
-    return index !== 0 && !this.signUpForm.at(index - 1).valid;
-  }
-
-  isLoginTab(tab: TabConfig): boolean {
-    return tab.label === TabTypes.LOGIN;
-  }
-
-  isPaymentTab(tab: TabConfig): boolean {
-    return tab.label === TabTypes.PAYMENT;
-  }
-
   handleFormSubmit() {
-    if (this.signUpForm.valid) {
+    if (this.form.valid) {
       const credentials = {
-        email: this.signUpModel['sameAsPersonal'] ?
-          this.signUpModel['email'] : this.signUpModel['userEmail'],
-        password: this.signUpModel['passwordGroup']['password']
+        email: this.model['sameAsPersonal'] ?
+          this.model['email'] : this.model['userEmail'],
+        password: this.model['passwordGroup']['password']
       };
       this.authService.signUpNewUser(
         credentials.email, credentials.password

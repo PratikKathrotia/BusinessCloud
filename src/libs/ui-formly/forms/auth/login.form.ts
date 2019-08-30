@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BaseFormGenerator } from '../../services/base-form-generator';
-import { FormlyFieldConfig } from '@ngx-formly/core';
 import { CmValidators } from '../../validators/CmValidators';
 
 @Injectable()
