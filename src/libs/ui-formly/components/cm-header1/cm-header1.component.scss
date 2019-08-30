@@ -1,0 +1,13 @@
+@import 'src/styles/global.scss';
+
+.form__Heade1Container {
+  margin: 16 * $px 0;
+
+  .form__Header1 {
+    font-size: 32 * $px;
+  }
+
+  .mat-divider {
+    border-top: 3 * $px solid #333;
+  }
+}

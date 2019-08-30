@@ -105,6 +105,7 @@ export class SignInComponent implements OnInit {
       message: error.message
     };
     this.hasError = true;
+    this.store.dispatch(new HideLoading());
   }
 
   handleLoginSeccess(): void {

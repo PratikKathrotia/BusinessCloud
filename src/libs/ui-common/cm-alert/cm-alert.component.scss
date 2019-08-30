@@ -1,7 +1,6 @@
 @import 'src/styles/global.scss';
 
 .alert_container {
-  // height: 60px;
   padding: 10 * $px;
   margin-bottom: 10 * $px;
   box-sizing: border-box;
@@ -30,5 +29,6 @@
   .body {
     margin-left: 10 * $px;
     text-align: justify;
+    font-size: 14 * $px;
   }
 }

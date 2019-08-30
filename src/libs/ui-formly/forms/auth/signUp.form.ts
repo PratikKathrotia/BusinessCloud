@@ -9,7 +9,7 @@ export const SignUpForm: TabularFormConfig = {
       fields: [
         {
           key: 'firstName',
-          type: 'input',
+          type: 'cm-header1',
           templateOptions: {
             type: 'string',
             label: 'Firstname',
