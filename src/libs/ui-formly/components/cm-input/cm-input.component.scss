@@ -1,0 +1,33 @@
+@import 'src/styles/global.scss';
+
+.form__inputContainer {
+  margin: 10 * $px 12 * $px 0 0;
+  .form__Label {
+    margin: 0 0 2 * $px 0;
+    color: $primary;
+    font-size: 14 * $px;
+    font-weight: 500;
+
+    .label__Optional {
+      font-style: italic;
+    }
+  }
+
+  .form-control.ng-touched.ng-invalid {
+    border: 1px solid $danger;
+  }
+
+  .inputErrors {
+    &__ErrorMessage {
+      margin: 4px 0 0 0;
+      color: $danger;
+      font-size: 12 * $px;
+      font-style: italic;
+    }
+  }
+
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style: italic;
+  }
+  
+}

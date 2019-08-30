@@ -1,0 +1,24 @@
+<div *ngIf="!to.hidden" class="form__inputContainer">
+  <label class="form__Label">
+    {{ to.label }}
+    <span *ngIf="to.required"> *</span>
+    <span *ngIf="to.optional" class="label__Optional"> (optional)</span>
+  </label>
+  <div class="input-group input-group-sm inputContent">
+    <input type="text" #inputField
+           class="form-control"
+           [formControl]="formControl"
+           [formlyAttributes]="field"
+           placeholder="{{ to.placeholder }}"
+           [attr.disabled]="to.disabled"
+           maxlength="{{ to.maxlength }}"
+           [ngClass]="field.className ? [field.className] : null"
+           type="{{ to.type }}"
+           value="{{ model[key] }}">
+  </div>
+  <div *ngIf="isInvalid" [ngClass]="'inputErrors'">
+    <div [ngClass]="'inputErrors__ErrorMessage'">
+      {{ errors[0].message }}
+    </div>
+  </div>
+</div>

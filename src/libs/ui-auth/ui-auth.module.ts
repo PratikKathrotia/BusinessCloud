@@ -8,7 +8,8 @@ import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 
 import { UiMaterialModule } from '@angular-cm/ui-material';
 import { UiGlobalModule } from '@angular-cm/ui-global';
-import { UiCommonModule } from '../ui-common/ui-common.module';
+import { UiCommonModule } from '@angular-cm/ui-common';
+import { UiFormlyModule } from '@angular-cm/ui-formly';
 
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -32,6 +33,7 @@ import {
     UiCommonModule,
     UiMaterialModule,
     UiGlobalModule,
+    UiFormlyModule,
     FormsModule,
     ReactiveFormsModule,
     FormlyModule,

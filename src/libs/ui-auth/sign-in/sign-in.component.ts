@@ -45,22 +45,24 @@ export class SignInComponent implements OnInit {
 
   alertConfig: AlertConfig;
   hasError: boolean;
-  loginForm: FormGroup;
-  loginFormFields: FormlyFieldConfig[];
-  loginModel: any;
+  form: FormGroup;
+  formFields: FormlyFieldConfig[];
+  model: any;
 
   constructor(
     private authService: AuthService,
     private afAuth: AngularFireAuth,
     private dialog: MatDialog,
+    private loginForm: LoginForm,
     private router: Router,
     private store: Store<any>
   ) { }
 
   ngOnInit() {
-    this.loginForm = new FormGroup({});
-    this.loginFormFields = LoginForm;
-    this.loginModel = {};
+    this.loginForm.initializeForm({});
+    this.form = new FormGroup(this.loginForm.initFormControls());
+    this.formFields = [...this.loginForm.getForm()];
+    this.model = {};
     this.hasError = false;
     this.authService.logoutCurrentUser().then(success => {
       this.store.dispatch(new ResetAuthState());
@@ -69,11 +71,11 @@ export class SignInComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.loginForm.valid) {
+    if (this.form.valid) {
       this.store.dispatch(new ShowLoading());
       this.authService.loginExistingUser(
-        this.loginModel.email,
-        this.loginModel.password
+        this.model.email,
+        this.model.password
       ).then(success => {
         const isEmailVerified = this.afAuth.auth.currentUser.emailVerified;
         if (!isEmailVerified) {
@@ -122,8 +124,8 @@ export class SignInComponent implements OnInit {
 
   resetComponent(): void {
     this.authService.logoutCurrentUser().then(success => {
-      this.loginForm.reset();
-      this.loginModel = {};
+      this.form.reset();
+      this.model = {};
     });
   }
 

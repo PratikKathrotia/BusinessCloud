@@ -14,3 +14,13 @@ export const CmValidationMessages = [
   }
 ];
 
+export function getErrorMsg(key: string): string {
+  let errorMsg = '';
+  CmValidationMessages.forEach(error => {
+    if (error.name === key) {
+      errorMsg = error.message;
+    }
+  });
+  return errorMsg;
+}
+

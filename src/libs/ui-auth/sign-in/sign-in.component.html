@@ -1,15 +1,15 @@
 <div class="login">
   <div class="login__Container">
     <div class="login__Header">
-      <h2>Business Cloud</h2>
+      <h3>Business Cloud</h3>
       <mat-divider></mat-divider>
     </div>
     <div class="login__Content">
       <cm-alert *ngIf="hasError" [alertConfig]="alertConfig"></cm-alert>
       <div class="login__Form">
-        <formly-form [form]="loginForm"
-                     [fields]="loginFormFields"
-                     [model]="loginModel"></formly-form>
+        <formly-form [form]="form"
+                     [fields]="formFields"
+                     [model]="model"></formly-form>
       </div>
       <div class="login__Actions">
         <button mat-flat-button

@@ -1,29 +1,38 @@
+import { Injectable } from '@angular/core';
+import { BaseFormGenerator } from '../../services/base-form-generator';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { CmValidators } from '../../validators/CmValidators';
 
-export const LoginForm: FormlyFieldConfig[] = [
-  {
-    key: 'email',
-    type: 'input',
-    templateOptions: {
-      type: 'email',
-      label: 'Email',
-      placeholder: 'Enter Email',
-      required: true
-    },
-    validators: {
-      validation: CmValidators.Email
-    }
-  },
-  {
-    key: 'password',
-    type: 'input',
-    templateOptions: {
-      type: 'password',
-      label: 'Password',
-      placeholder: 'Enter Password',
-      required: true
-    }
+@Injectable()
+export class LoginForm extends BaseFormGenerator {
+
+  public initializeForm(opts) {
+    this._form = [
+      {
+        key: 'email',
+        type: 'cm-input',
+        templateOptions: {
+          type: 'email',
+          label: 'Email',
+          placeholder: 'Enter email',
+          required: true
+        },
+        validators: {
+          validation: CmValidators.Email
+        }
+      },
+      {
+        key: 'password',
+        type: 'cm-input',
+        templateOptions: {
+          type: 'password',
+          label: 'Password',
+          placeholder: 'Enter password',
+          required: true
+        }
+      }
+    ];
   }
-];
+
+}
 
