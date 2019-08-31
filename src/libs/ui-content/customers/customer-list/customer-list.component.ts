@@ -18,9 +18,6 @@ import {
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import {
-  CustomerEditDialogComponent
-} from '../customer-edit-dialog/customer-edit-dialog.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -73,12 +70,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   handleEditCustomer(id: string): void {
-    this.dialog.open(CustomerEditDialogComponent, {
-      ...FullScreenDialogConfig,
-      data: {
-        customerId: id
-      }
-    });
+
   }
 
   handleCustomerDetail(id: string): void {
@@ -94,7 +86,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   _handleAddCustomerClick() {
-    this.dialog.open(CustomerEditDialogComponent, FullScreenDialogConfig);
+
   }
 
   listen() {

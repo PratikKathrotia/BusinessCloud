@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UiMaterialModule } from '@angular-cm/ui-material';
+import { UiFormlyModule } from '@angular-cm/ui-formly';
 
-import { CustomerListComponent } from './customer-list/customer-list.component';
-import { CustomerDetailsComponent } from './customer-details/customer-details.component';
-import { CustomerEditDialogComponent } from './customer-edit-dialog/customer-edit-dialog.component';
+import {
+  CustomerListComponent,
+  CustomerDialogLauncherComponent
+} from './customers';
 
 @NgModule({
   declarations: [
     CustomerListComponent,
-    CustomerDetailsComponent,
-    CustomerEditDialogComponent
+    CustomerDialogLauncherComponent
   ],
   imports: [
     CommonModule,
-    UiMaterialModule
+    UiMaterialModule,
+    UiFormlyModule
   ],
-  entryComponents: [
-    CustomerEditDialogComponent
-  ]
+  entryComponents: []
 })
 export class UiContentModule { }
