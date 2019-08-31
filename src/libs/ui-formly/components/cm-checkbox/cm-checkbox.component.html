@@ -1,0 +1,13 @@
+<div *ngIf="!to.hidden" class="form__CheckboxContainer">
+  <div class="form-check">
+    <input type="checkbox"
+           class="form-control checkbox__Content"
+           [formControl]="formControl"
+           [formlyAttributes]="field"
+           [attr.disabled]="to.disabled"
+           value="{{ model[key] }}">
+    <label class="checkBox__Label">
+      {{ to.label }}
+    </label>
+  </div>
+</div>

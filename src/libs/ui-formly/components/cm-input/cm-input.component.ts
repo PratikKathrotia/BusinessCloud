@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
 import { CmFieldType } from '../cm-fieldType/cm-fieldType';
 import { Subject, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
   styleUrls: ['./cm-input.component.scss']
 })
 export class CmInputComponent extends CmFieldType implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('inputField') inputField;
+  @ViewChild('inputField') inputField: ElementRef;
   private subject: Subject<any>;
 
   public get defaultValue(): any {

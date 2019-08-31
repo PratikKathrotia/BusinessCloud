@@ -14,13 +14,15 @@ import { CmInputComponent } from './components/cm-input/cm-input.component';
 import { CmHeader1Component } from './components/cm-header1/cm-header1.component';
 import { CmHeader3Component } from './components/cm-header3/cm-header3.component';
 import { CmSelectComponent } from './components/cm-select/cm-select.component';
+import { CmCheckboxComponent } from './components/cm-checkbox/cm-checkbox.component';
 
 @NgModule({
   declarations: [
     CmInputComponent,
     CmHeader1Component,
     CmHeader3Component,
-    CmSelectComponent
+    CmSelectComponent,
+    CmCheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,9 @@ import { CmSelectComponent } from './components/cm-select/cm-select.component';
       types: [
         { name: 'cm-input', component: CmInputComponent },
         { name: 'cm-header1', component: CmHeader1Component },
-        { name: 'cm-header3', component: CmHeader3Component }
+        { name: 'cm-header3', component: CmHeader3Component },
+        { name: 'cm-select', component: CmSelectComponent },
+        { name: 'cm-checkbox', component: CmCheckboxComponent }
       ]
     }),
     UiMaterialModule
@@ -38,7 +42,9 @@ import { CmSelectComponent } from './components/cm-select/cm-select.component';
   exports: [
     CmInputComponent,
     CmHeader1Component,
-    CmHeader3Component
+    CmHeader3Component,
+    CmSelectComponent,
+    CmCheckboxComponent
   ],
   providers: [
     LoginForm,

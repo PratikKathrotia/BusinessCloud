@@ -22,9 +22,18 @@ export class SignUpForm extends BaseFormGenerator {
         }
       },
       {
+        key: 'organization',
+        type: 'cm-input',
+        templateOptions: {
+          type: 'string',
+          label: 'Organization Name',
+          placeholder: 'Enter your organization name',
+          required: true
+        }
+      },
+      {
         key: 'firstName',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Firstname',
@@ -35,7 +44,6 @@ export class SignUpForm extends BaseFormGenerator {
       {
         key: 'lastName',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Lastname',
@@ -44,17 +52,8 @@ export class SignUpForm extends BaseFormGenerator {
         }
       },
       {
-        key: 'dateOfBirth',
-        type: 'datepicker',
-        templateOptions: {
-          label: 'Birthday',
-          placeholder: 'MM/DD/YYYY'
-        }
-      },
-      {
         key: 'email',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'email',
           label: 'Email',
@@ -68,7 +67,6 @@ export class SignUpForm extends BaseFormGenerator {
       {
         key: 'phone',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'tel',
           label: 'Phone',
@@ -80,9 +78,15 @@ export class SignUpForm extends BaseFormGenerator {
         }
       },
       {
+        key: 'address',
+        type: 'cm-header3',
+        templateOptions: {
+          label: 'Address details'
+        }
+      },
+      {
         key: 'street1',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           label: 'Address Line 1',
           placeholder: 'Enter your street',
@@ -92,7 +96,6 @@ export class SignUpForm extends BaseFormGenerator {
       {
         key: 'street2',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           label: 'Address Line 2'
         }
@@ -100,27 +103,28 @@ export class SignUpForm extends BaseFormGenerator {
       {
         key: 'city',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           label: 'City',
+          placeholder: 'Enter city',
           required: true
         }
       },
       {
         key: 'state',
-        type: 'select',
+        type: 'cm-select',
         templateOptions: {
           label: 'State',
+          options: [{label: 'California', value: 'CA'}, {label: 'Arizona', value: 'AZ'}],
           required: true
         }
       },
       {
         key: 'zip',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Zip',
+          placeholder: 'Enter 5-digit zip',
           required: true
         },
         validators: {
@@ -128,43 +132,50 @@ export class SignUpForm extends BaseFormGenerator {
         }
       },
       {
+        key: 'payment',
+        type: 'cm-header3',
+        templateOptions: {
+          label: 'Payment details'
+        }
+      },
+      {
         key: 'paymentMethod',
-        type: 'select',
+        type: 'cm-select',
         templateOptions: {
           type: 'string',
           label: 'Payment Method',
-          placeholder: 'Select payment method',
+          options: [
+            {label: 'Credit / Debit card', value: 'card'},
+            {label: 'Electronic transfer', value: 'cheque'}
+          ],
           required: true
         }
       },
       {
         key: 'bank',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Bank Name',
           placeholder: 'Enter bank name',
           required: true
         },
-        hideExpression: 'model.paymentMethod !== "cheque"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "card"'
       },
       {
         key: 'nameOnAccount',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Name on account',
           placeholder: 'Enter name on account',
           required: true
         },
-        hideExpression: 'model.paymentMethod !== "cheque"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "card"'
       },
       {
         key: 'account',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Account number',
@@ -174,12 +185,11 @@ export class SignUpForm extends BaseFormGenerator {
         validators: {
           validation: CmValidators.Account
         },
-        hideExpression: 'model.paymentMethod !== "cheque"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "card"'
       },
       {
         key: 'routing',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Routing number',
@@ -189,34 +199,33 @@ export class SignUpForm extends BaseFormGenerator {
         validators: {
           validation: CmValidators.Routing
         },
-        hideExpression: 'model.paymentMethod !== "cheque"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "card"'
       },
       {
         key: 'cardType',
-        type: 'select',
+        type: 'cm-select',
         templateOptions: {
           type: 'string',
           label: 'Card Type',
+          options: [],
           required: true
         },
-        hideExpression: 'model.paymentMethod !== "card"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
       },
       {
         key: 'nameOnCard',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Name on Card',
           placeholder: 'Enter name on the card',
           required: true
         },
-        hideExpression: 'model.paymentMethod !== "card"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
       },
       {
         key: 'cardNumber',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Card Number',
@@ -226,24 +235,22 @@ export class SignUpForm extends BaseFormGenerator {
         validators: {
           validation: CmValidators.CardNumber
         },
-        hideExpression: 'model.paymentMethod !== "card"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
       },
       {
         key: 'expiry',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'Expiry Date',
           placeholder: 'MM/YY',
           required: true
         },
-        hideExpression: 'model.paymentMethod !== "card"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
       },
       {
         key: 'cvv',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'password',
           label: 'Security Code',
@@ -253,12 +260,11 @@ export class SignUpForm extends BaseFormGenerator {
         validators: {
           validation: CmValidators.Cvv
         },
-        hideExpression: 'model.paymentMethod !== "card"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
       },
       {
         key: 'cardZip',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'string',
           label: 'ZIP',
@@ -268,12 +274,18 @@ export class SignUpForm extends BaseFormGenerator {
         validators: {
           validation: CmValidators.Zip
         },
-        hideExpression: 'model.paymentMethod !== "card"'
+        hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
+      },
+      {
+        key: 'credentials',
+        type: 'cm-header3',
+        templateOptions: {
+          label: 'Credentials'
+        }
       },
       {
         key: 'userEmail',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'email',
           label: 'Email',
@@ -287,7 +299,7 @@ export class SignUpForm extends BaseFormGenerator {
       },
       {
         key: 'sameAsPersonal',
-        type: 'checkbox',
+        type: 'cm-checkbox',
         templateOptions: {
           label: 'Check if same as personal email'
         }
@@ -295,10 +307,10 @@ export class SignUpForm extends BaseFormGenerator {
       {
         key: 'password',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'password',
           label: 'Password',
+          placeholder: 'Enter password',
           required: true,
         },
         validators: {
@@ -308,11 +320,10 @@ export class SignUpForm extends BaseFormGenerator {
       {
         key: 'confirmPassword',
         type: 'cm-input',
-        className: 'formField__Standard__Width',
         templateOptions: {
           type: 'password',
           label: 'Confirm Password',
-          placeholder: 'Please re-enter your password',
+          placeholder: 'Please re-enter password',
           required: true,
         }
       }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { SignUpForm } from '@angular-cm/ui-formly';
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -18,7 +17,8 @@ import {
   SetToolbarScope,
   ToolbarScope,
   ResetPageHeader,
-  ResetAuthState
+  ResetAuthState,
+  Go
 } from '@angular-cm/sys-utils';
 
 @Component({
@@ -35,12 +35,12 @@ export class SignUpComponent implements OnInit {
     private authService: AuthService,
     private store$: Store<any>,
     private signUpForm: SignUpForm,
-    private router: Router,
     private utilService: UtilityService,
   ) { }
 
   ngOnInit() {
     this.signUpForm.initializeForm({});
+    this.setupFormFields();
     this.model = {};
     this.form = new FormGroup(this.signUpForm.initFormControls());
     this.formFields = [ ...this.signUpForm.getForm() ];
@@ -51,9 +51,9 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  // get isSubmitDisabled(): boolean {
-  //   return this.signUpForm && this.signUpForm.invalid;
-  // }
+  get isSubmitDisabled(): boolean {
+    return this.form && this.form.invalid;
+  }
 
   configureUserToSave(uid: string): User {
     const formVals = this.utilService.copy(this.model);
@@ -62,7 +62,6 @@ export class SignUpComponent implements OnInit {
       id: this.utilService.copy(uid),
       firstName: formVals.firstName,
       lastName: formVals.lastName,
-      birthDate: formVals.dateOfBirth,
       email: formVals.email,
       phone: formVals.phone,
       address: {
@@ -110,7 +109,7 @@ export class SignUpComponent implements OnInit {
       const credentials = {
         email: this.model['sameAsPersonal'] ?
           this.model['email'] : this.model['userEmail'],
-        password: this.model['passwordGroup']['password']
+        password: this.model['password']
       };
       this.authService.signUpNewUser(
         credentials.email, credentials.password
@@ -129,7 +128,9 @@ export class SignUpComponent implements OnInit {
   logoutAndRouteToLogin(isComplete: boolean) {
     if (isComplete) {
       this.authService.logoutCurrentUser().then(() => {
-        this.router.navigate(['auth/login']);
+        this.store$.dispatch(new Go({
+          path: ['auth/login']
+        }));
       });
     }
   }
@@ -139,6 +140,22 @@ export class SignUpComponent implements OnInit {
     this.store$.dispatch(new SetToolbarScope(ToolbarScope.AUTH_LEVEL));
     this.store$.dispatch(new ResetPageHeader());
     this.listen();
+  }
+
+  setupFormFields(): void {
+    this.signUpForm.setTemplateOptions('confirmPassword', {
+      debounce: 100,
+      handleChange: this.handleConfirmPasswordChange
+    });
+  }
+
+  handleConfirmPasswordChange({event, form}) {
+    const password = form.controls['password'].value;
+    if (password && password !== event.target.value) {
+      form.get('confirmPassword').setErrors({
+        noMatch: true
+      });
+    }
   }
 
   listen() {

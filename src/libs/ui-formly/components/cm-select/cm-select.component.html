@@ -1,3 +1,24 @@
-<p>
-  cm-select works!
-</p>
+<div *ngIf="!to.hidden" class="form__SelectContainer">
+  <label class="form__Label">
+    {{ to.label }}
+    <span *ngIf="to.required"> *</span>
+    <span *ngIf="to.optional" class="label__Optional"> (optional)</span>
+  </label>
+  <div class="input-group input-group-sm"
+       [ngClass]="field.className ? [field.className] : null">
+    <select class="form-control" #selectField
+            [formControl]="formControl"
+            [formlyAttributes]="field"
+            [attr.disabled]="to.disabled">
+      <option *ngFor="let option of to.options"
+              value="{{ option.value }}">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+  <div *ngIf="isInvalid" [ngClass]="'inputErrors'">
+    <div [ngClass]="'inputErrors__ErrorMessage'">
+      {{ errors[0].message }}
+    </div>
+  </div>
+</div>

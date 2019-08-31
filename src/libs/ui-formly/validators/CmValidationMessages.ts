@@ -11,6 +11,10 @@ export const CmValidationMessages = [
     name: 'invalidPassword',
     message: 'Password must be 8-20 characters long and include one uppercase letter, ' +
       'one lowecase letter and one numeric digit'
+  },
+  {
+    name: 'noMatch',
+    message: 'Password must match'
   }
 ];
 

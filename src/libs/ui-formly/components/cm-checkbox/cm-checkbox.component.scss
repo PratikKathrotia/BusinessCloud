@@ -1,16 +1,18 @@
 @import 'src/styles/global.scss';
 
-.form__SelectContainer {
+.form__CheckboxContainer {
   margin: 10 * $px 12 * $px 0 0;
-  .form__Label {
-    margin: 0 0 2 * $px 0;
+  .checkBox__Label {
+    margin: 0 0 2 * $px 8 * $px;
     color: $primary;
     font-size: 14 * $px;
     font-weight: 500;
+  }
 
-    .label__Optional {
-      font-style: italic;
-    }
+  .checkbox__Content {
+    display: inline-block;
+    margin-left: -20 * $px;
+    width: 5%;
   }
 
   .form-control.ng-touched.ng-invalid {
@@ -24,10 +26,6 @@
       font-size: 12 * $px;
       font-style: italic;
     }
-  }
-
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    font-style: italic;
   }
   
 }
