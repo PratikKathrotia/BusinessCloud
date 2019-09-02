@@ -18,3 +18,20 @@ export interface Customer {
   latitude: string;
   orders: CustomerOrder[];
 }
+
+export const EmptyCustomer: Customer = {
+  id: 'something',
+  balance: null,
+  gender: null,
+  dateOfBirth: null,
+  picture: null,
+  name: null,
+  company: null,
+  email: null,
+  phone: null,
+  address: null,
+  created: null,
+  longitude: null,
+  latitude: null,
+  orders: []
+};

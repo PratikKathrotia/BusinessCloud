@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {
   CustomerListComponent,
-  CustomerDetailsComponent
+  CustomerDialogLauncherComponent
 } from '@angular-cm/ui-content';
 import {
   SignInComponent,
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'global/customer-details',
-    component: CustomerDetailsComponent,
+    component: CustomerDialogLauncherComponent,
     canActivate: [ AuthGuard ]
   },
   {

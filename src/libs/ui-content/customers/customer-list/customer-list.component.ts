@@ -10,11 +10,13 @@ import {
   FullScreenDialogConfig,
   CustomerService,
   Customer,
+  EmptyCustomer,
   UserSelectors,
   UtilityService,
   EnvironmentService,
   ToggleSidebaVisibility,
-  selectQueryParams
+  selectQueryParams,
+  Go
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -70,11 +72,14 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   handleEditCustomer(id: string): void {
-
-  }
-
-  handleCustomerDetail(id: string): void {
-    this.router.navigate(['global/customer-details', id]);
+    this.store$.dispatch(
+      new Go({
+        path: ['global/customer-details'],
+        query: {
+          customer_id: id
+        }
+      })
+    );
   }
 
   handleRowMouseenter(row: Customer) {
@@ -86,7 +91,11 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   _handleAddCustomerClick() {
-
+    this.store$.dispatch(
+      new Go({
+        path: ['global/customer-details']
+      })
+    );
   }
 
   listen() {
@@ -103,6 +112,16 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.dataSource = [{
+      ...EmptyCustomer,
+      name: {
+        first: 'Pratik',
+        last: 'Kathrotia'
+      },
+      company: 'Adobe',
+      balance: 123.45,
+      created: '08/12/2019'
+    }];
     // this.customerService.getCustomers().pipe(
     //   takeUntil(this.subject)
     // ).subscribe(customers => {

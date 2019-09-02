@@ -9,6 +9,10 @@
 
   .pageHeader__Title {
     flex: 1;
+
+    .heading {
+      margin-top: 10 * $px;
+    }
   }
 
   .pageHeader__Actions {

@@ -8,17 +8,21 @@ import {
   CustomerListComponent,
   CustomerDialogLauncherComponent
 } from './customers';
+import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
     CustomerListComponent,
-    CustomerDialogLauncherComponent
+    CustomerDialogLauncherComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     CommonModule,
     UiMaterialModule,
     UiFormlyModule
   ],
-  entryComponents: []
+  entryComponents: [
+    CustomerDetailsComponent
+  ]
 })
 export class UiContentModule { }

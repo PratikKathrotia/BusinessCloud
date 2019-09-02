@@ -1,6 +1,6 @@
 <div class="pageHeader__Container" *ngIf="config">
   <div class="pageHeader__Title">
-    <h3>{{ config?.title }}</h3>
+    <h3 class="heading">{{ config?.title }}</h3>
   </div>
   <div class="pageHeader__Actions">
     <div *ngFor="let action of config?.actions, let i=index">

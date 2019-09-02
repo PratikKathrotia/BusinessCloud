@@ -1,11 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material';
+import { FullScreenDialogConfig, Go } from '@angular-cm/sys-utils';
 
-@Component({})
-export class CustomerDialogLauncherComponent implements OnInit {
+import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
 
-  constructor() { }
+@Component({
+  selector: 'customer-dialog-launcher',
+  template: ''
+})
+export class CustomerDialogLauncherComponent {
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private store$: Store<any>
+  ) {
+    this.dialog.open(
+      CustomerDetailsComponent,
+      FullScreenDialogConfig
+    ).afterClosed().subscribe(() => {
+      this.store$.dispatch(new Go({
+        path: ['global/customers']
+      }));
+    });
   }
 
 }
