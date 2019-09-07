@@ -1,5 +1,5 @@
 import { SidebarState } from './SidebarState';
-import { CustomersState } from './CustomersState';
+import { CustomerState } from './CustomerState';
 import { PageHeaderState } from './PageHeaderState';
 import { AuthState } from './AuthState';
 import { UtilsState } from './UtilsState';
@@ -11,7 +11,7 @@ export interface BaseAppState {
   auth: AuthState;
   loading: LoadingState;
   sidebar: SidebarState;
-  customers: CustomersState;
+  customer: CustomerState;
   pageHeader: PageHeaderState;
   router: RouterState;
   user: UserState;

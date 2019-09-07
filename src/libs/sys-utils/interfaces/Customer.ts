@@ -1,4 +1,3 @@
-import { CustomerName } from './CustomerName';
 import { CustomerAddress } from './CustomerAddress';
 import { CustomerOrder } from './CustomerOrder';
 
@@ -8,7 +7,7 @@ export interface Customer {
   gender: string;
   dateOfBirth: string;
   picture: string;
-  name: CustomerName;
+  name: string;
   company: string;
   email: string;
   phone: string;
