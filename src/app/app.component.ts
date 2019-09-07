@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { GetUserInfo } from '@angular-cm/sys-utils';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() {}
+  constructor(
+    private store$: Store<any>
+  ) {
+    const userToken = sessionStorage.getItem('userToken');
+    if (userToken) {
+      // this.store$.dispatch(new GetUserInfo(userToken));
+    }
+  }
 
   ngOnInit() { }
 }

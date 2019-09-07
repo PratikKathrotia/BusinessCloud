@@ -8,7 +8,6 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +21,10 @@ export class CustomerService {
     private utilService: UtilityService
   ) {
     this.customersCollection = this.afStore.collection('customers');
-    this.customers = this.customersCollection.snapshotChanges().pipe(
+  }
+
+  private createSnapShotWithIds(): Observable<Customer[]> {
+    return this.customersCollection.snapshotChanges().pipe(
       map(changes => {
         return changes.map(a => {
           const data = a.payload.doc.data() as Customer;
@@ -33,14 +35,26 @@ export class CustomerService {
     );
   }
 
-  getCustomers(): Observable<Customer[]> {
-    return this.customers;
+  getCustomers(accountId: number): Observable<Customer[]> {
+    this.customersCollection = this.afStore.collection(
+      'customers',
+      ref => ref.where('accountId', '==', accountId)
+    );
+    return this.createSnapShotWithIds();
   }
 
   addCustomer(customer: Customer) {
     customer['id'] = this.utilService.generateAlphaNumericId();
     const copiedCustomer = this.utilService.copy(customer);
     delete copiedCustomer.id;
-    this.customersCollection.doc(`${customer.id}`).set(copiedCustomer);
+    return this.customersCollection.doc(`${customer.id}`).set(copiedCustomer);
+  }
+
+  updateCustomer(customer: Customer) {
+    return this.customersCollection.doc(`${customer.id}`).set(customer);
+  }
+
+  deleteCustomer(customerId: string) {
+    return this.customersCollection.doc(`${customerId}`).delete();
   }
 }

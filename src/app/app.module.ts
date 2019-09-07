@@ -25,8 +25,10 @@ import {
   Loading,
   PageHeader,
   CloudRouter,
+  CustomerReducer,
   Sidebar,
   SidebarEffects,
+  CustomerEffects,
   UserReducer,
   UserEffects,
   Utils,
@@ -74,6 +76,7 @@ import { environment } from 'src/environments/environment';
     AngularFireAuthModule,
     StoreModule.forRoot({
       auth: Auth,
+      customer: CustomerReducer,
       loading: Loading,
       sidebar: Sidebar,
       pageHeader: PageHeader,
@@ -82,6 +85,7 @@ import { environment } from 'src/environments/environment';
       utils: Utils
     }),
     EffectsModule.forRoot([
+      CustomerEffects,
       SidebarEffects,
       RouterEffects,
       UserEffects

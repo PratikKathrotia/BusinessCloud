@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import {
   HeaderConfigInit,
@@ -7,20 +6,17 @@ import {
   ButtonTypes,
   pageHeaderSelectors,
   HeaderActionClicked,
-  FullScreenDialogConfig,
   CustomerService,
   Customer,
   EmptyCustomer,
   UserSelectors,
   UtilityService,
-  EnvironmentService,
   ToggleSidebaVisibility,
-  selectQueryParams,
   Go
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { GetCustomers } from 'src/libs/sys-utils/ngrx/customer';
 
 @Component({
   selector: 'customer-list',
@@ -37,10 +33,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<any>,
-    private dialog: MatDialog,
-    private envService: EnvironmentService,
     private customerService: CustomerService,
-    private router: Router,
     private utilService: UtilityService
   ) { }
 
@@ -65,6 +58,14 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     UtilityService.endStream(this.subject);
+  }
+
+  getAllCustomers(accountId: number) {
+    this.customerService.getCustomers(accountId).pipe(
+      takeUntil(this.subject)
+    ).subscribe(customers => {
+      console.log(customers);
+    });
   }
 
   isActionsVisible(customer: Customer) {
@@ -112,6 +113,15 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.store$.pipe(
+      select(UserSelectors.selectUser),
+      takeUntil(this.subject)
+    ).subscribe(user => {
+      if (user && user.account) {
+        // this.store$.dispatch(new GetCustomers(user.account));
+      }
+    });
+
     this.dataSource = [{
       ...EmptyCustomer,
       name: 'Pratik Kathrotia',
@@ -119,11 +129,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       balance: 123.45,
       created: '08/12/2019'
     }];
-    // this.customerService.getCustomers().pipe(
-    //   takeUntil(this.subject)
-    // ).subscribe(customers => {
-    //   this.dataSource = this.utilService.copy(customers);
-    // });
+
   }
 
 }

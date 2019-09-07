@@ -21,7 +21,7 @@ export enum CustomerActionTypes {
 
 export class GetCustomers implements Action {
   readonly type = CustomerActionTypes.GET_CUSTOMERS;
-  constructor(public payload: string) { }
+  constructor(public payload: number) { }
 }
 
 export class GetCustomersSuccess implements Action {

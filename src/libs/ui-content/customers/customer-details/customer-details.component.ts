@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { selectQueryParams } from '@angular-cm/sys-utils';
+import { selectQueryParams, UserSelectors } from '@angular-cm/sys-utils';
 
 @Component({
   selector: 'customer-details',
@@ -21,6 +21,9 @@ export class CustomerDetailsComponent implements OnInit {
         console.log(params.customer_id);
       }
     });
+    this.store$.pipe(
+      select(UserSelectors.selectUser)
+    ).subscribe(user => console.log(user));
   }
 
 }

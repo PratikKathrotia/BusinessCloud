@@ -28,7 +28,7 @@ export const initialCustomerState: CustomerState = {
   }
 };
 
-export function Customer(
+export function CustomerReducer(
   state: CustomerState = initialCustomerState,
   action: CustomerActions
 ): CustomerState {

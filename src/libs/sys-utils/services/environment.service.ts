@@ -63,7 +63,7 @@ export class EnvironmentService {
     return null;
   }
 
-  get userAccount(): number {
+  get userAccountId(): number {
     if (this.userEntities && this.userEntities.account) {
       return this.userEntities.account;
     }
