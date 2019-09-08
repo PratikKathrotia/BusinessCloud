@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { selectQueryParams, UserSelectors } from '@angular-cm/sys-utils';
+import {
+  selectQueryParams,
+  CustomerSelectors
+} from '@angular-cm/sys-utils';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'customer-details',
@@ -8,22 +13,19 @@ import { selectQueryParams, UserSelectors } from '@angular-cm/sys-utils';
   styleUrls: ['./customer-details.component.scss']
 })
 export class CustomerDetailsComponent implements OnInit {
+  subject: Subject<any>;
 
   constructor(
     private store$: Store<any>
   ) { }
 
   ngOnInit() {
+    this.subject = new Subject<any>();
+
     this.store$.pipe(
-      select(selectQueryParams)
-    ).subscribe(params => {
-      if (params && params.customer_id) {
-        console.log(params.customer_id);
-      }
-    });
-    this.store$.pipe(
-      select(UserSelectors.selectUser)
-    ).subscribe(user => console.log(user));
+      select(CustomerSelectors.selectCustomer),
+      takeUntil(this.subject)
+    ).subscribe(customer => console.log(customer));
   }
 
 }

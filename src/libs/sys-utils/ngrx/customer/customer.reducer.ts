@@ -146,6 +146,8 @@ export function CustomerReducer(
         hasError: true,
         error: (action as DeleteCustomerError).payload
       };
+    default:
+      return state;
   }
 
   function setSaveSatate(type: string, currentSave: SaveState): SaveState {

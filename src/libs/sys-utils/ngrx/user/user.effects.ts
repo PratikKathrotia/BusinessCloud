@@ -43,8 +43,8 @@ export class UserEffects {
       const userId = (action as GetUserInfo).payload;
       return this.userService.getUser(userId).pipe(
         map(data => {
-          const user = data.data();
-          return new GetUserInfoSuccess(user as User);
+          const user = data.data() as User;
+          return new GetUserInfoSuccess(user);
         }),
         catchError(error => of(new GetUserInfoError(error)))
       );

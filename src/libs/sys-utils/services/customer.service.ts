@@ -43,6 +43,10 @@ export class CustomerService {
     return this.createSnapShotWithIds();
   }
 
+  getCustomer(customerId: string) {
+    return this.customersCollection.doc(customerId).get();
+  }
+
   addCustomer(customer: Customer) {
     customer['id'] = this.utilService.generateAlphaNumericId();
     const copiedCustomer = this.utilService.copy(customer);

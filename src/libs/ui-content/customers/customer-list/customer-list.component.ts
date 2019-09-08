@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import {
+  CustomerSelectors,
+  GetCustomers,
   HeaderConfigInit,
   PageHeaderConfig,
   ButtonTypes,
@@ -16,7 +18,6 @@ import {
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { GetCustomers } from 'src/libs/sys-utils/ngrx/customer';
 
 @Component({
   selector: 'customer-list',
@@ -58,14 +59,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     UtilityService.endStream(this.subject);
-  }
-
-  getAllCustomers(accountId: number) {
-    this.customerService.getCustomers(accountId).pipe(
-      takeUntil(this.subject)
-    ).subscribe(customers => {
-      console.log(customers);
-    });
   }
 
   isActionsVisible(customer: Customer) {
@@ -118,7 +111,16 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       takeUntil(this.subject)
     ).subscribe(user => {
       if (user && user.account) {
-        // this.store$.dispatch(new GetCustomers(user.account));
+        this.store$.dispatch(new GetCustomers(user.account));
+      }
+    });
+
+    this.store$.pipe(
+      select(CustomerSelectors.selectCustomers),
+      takeUntil(this.subject)
+    ).subscribe(customers => {
+      if (customers && customers.length) {
+        this.dataSource = this.utilService.copy(customers);
       }
     });
 

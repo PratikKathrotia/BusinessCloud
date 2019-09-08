@@ -7,11 +7,14 @@ import { CustomerService } from '../../services/customer.service';
 
 import {
   CustomerActionTypes,
-  CustomerActions,
   GetCustomers,
   GetCustomersSuccess,
-  GetCustomersError
+  GetCustomersError,
+  GetCustomer,
+  GetCustomerSuccess,
+  GetCustomerError
 } from './customer.actions';
+import { Customer } from '../../interfaces';
 
 @Injectable()
 export class CustomerEffects {
@@ -30,6 +33,21 @@ export class CustomerEffects {
           return new GetCustomersSuccess(res);
         }),
         catchError(error => of(new GetCustomersError(error)))
+      );
+    })
+  );
+
+  @Effect()
+  getCustomer$ = this.actions$.pipe(
+    ofType(CustomerActionTypes.GET_CUSTOMER),
+    switchMap(action => {
+      const customerId = (action as GetCustomer).payload;
+      return this.customerService.getCustomer(customerId).pipe(
+        map(data => {
+          const customer = data.data() as Customer;
+          return new GetCustomerSuccess(customer);
+        }),
+        catchError(error => of(new GetCustomerError(error)))
       );
     })
   );
