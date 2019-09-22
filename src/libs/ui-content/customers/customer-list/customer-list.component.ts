@@ -93,6 +93,21 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   listen() {
+    this.subscribeHeaderActionClick();
+    this.subscribeSelectUser();
+    // this.subscribeCustomersList();
+
+    this.dataSource = [{
+      ...EmptyCustomer,
+      name: 'Pratik Kathrotia',
+      company: 'Adobe',
+      balance: 123.45,
+      created: '08/12/2019'
+    }];
+
+  }
+
+  subscribeHeaderActionClick() {
     this.store$.pipe(
       select(pageHeaderSelectors.selectHeaderActionIndex),
       takeUntil(this.subject)
@@ -105,16 +120,20 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
 
+  subscribeSelectUser() {
     this.store$.pipe(
       select(UserSelectors.selectUser),
       takeUntil(this.subject)
     ).subscribe(user => {
       if (user && user.account) {
-        this.store$.dispatch(new GetCustomers(user.account));
+        // this.store$.dispatch(new GetCustomers(user.account));
       }
     });
+  }
 
+  subscribeCustomersList() {
     this.store$.pipe(
       select(CustomerSelectors.selectCustomers),
       takeUntil(this.subject)
@@ -123,15 +142,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         this.dataSource = this.utilService.copy(customers);
       }
     });
-
-    this.dataSource = [{
-      ...EmptyCustomer,
-      name: 'Pratik Kathrotia',
-      company: 'Adobe',
-      balance: 123.45,
-      created: '08/12/2019'
-    }];
-
   }
 
 }
