@@ -12,7 +12,7 @@ import {
   AddNewUser,
   UserSelectors,
   AddNewUserError,
-  Roles,
+  PermissionsByRole,
   ToggleSidebaVisibility,
   SetToolbarScope,
   ToolbarScope,
@@ -43,7 +43,7 @@ export class SignUpComponent implements OnInit {
     this.setupFormFields();
     this.model = {};
     this.form = new FormGroup(this.signUpForm.initFormControls());
-    this.formFields = [ ...this.signUpForm.getForm() ];
+    this.formFields = this.signUpForm.getForm();
     this.authService.logoutCurrentUser().then(success => {
       this.store$.dispatch(new ResetAuthState());
       sessionStorage.removeItem('userToken');
@@ -73,7 +73,8 @@ export class SignUpComponent implements OnInit {
       paymentMethod: formVals.paymentMethod,
       payment: this.getPaymentDetails(formVals, isCard),
       account: this.utilService.generateAccountId(),
-      role: Roles.ROOT_USER
+      role: formVals.userType,
+      permissons: PermissionsByRole[formVals.userType]
     };
     return user;
   }

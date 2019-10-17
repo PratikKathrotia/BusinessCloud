@@ -1,6 +1,6 @@
-export enum Roles {
+export enum UserRoles {
   ROOT_USER = 'root_user',
   ADMIN = 'admin',
-  GENERAL_USER = 'general_user',
+  GENERAL = 'general',
   READ_ONLY = 'read_only'
 }

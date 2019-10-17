@@ -54,14 +54,13 @@ export class SignInComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private dialog: MatDialog,
     private loginForm: LoginForm,
-    private router: Router,
     private store: Store<any>
   ) { }
 
   ngOnInit() {
     this.loginForm.initializeForm({});
     this.form = new FormGroup(this.loginForm.initFormControls());
-    this.formFields = [...this.loginForm.getForm()];
+    this.formFields = this.loginForm.getForm();
     this.model = {};
     this.hasError = false;
     this.authService.logoutCurrentUser().then(success => {
@@ -77,12 +76,7 @@ export class SignInComponent implements OnInit {
         this.model.email,
         this.model.password
       ).then(success => {
-        const isEmailVerified = this.afAuth.auth.currentUser.emailVerified;
-        if (!isEmailVerified) {
-          this.openEmailVerificationDialog();
-        } else {
-          this.handleLoginSeccess();
-        }
+        this.handleLoginSeccess();
       }).catch(error => {
         this.handleLoginError(error);
       });

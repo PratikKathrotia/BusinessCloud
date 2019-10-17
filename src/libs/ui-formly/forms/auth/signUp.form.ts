@@ -15,7 +15,7 @@ export class SignUpForm extends BaseFormGenerator {
         }
       },
       {
-        key: 'organization',
+        key: 'organization-header',
         type: 'cm-header3',
         templateOptions: {
           label: 'Organization'
@@ -207,7 +207,10 @@ export class SignUpForm extends BaseFormGenerator {
         templateOptions: {
           type: 'string',
           label: 'Card Type',
-          options: [],
+          options: [
+            {label: 'Master', value: 'master'},
+            {label: 'Visa', value: 'visa'}
+          ],
           required: true
         },
         hideExpression: '!model.paymentMethod || model.paymentMethod === "cheque"'
@@ -325,6 +328,21 @@ export class SignUpForm extends BaseFormGenerator {
           label: 'Confirm Password',
           placeholder: 'Please re-enter password',
           required: true,
+        }
+      },
+      {
+        key: 'userType',
+        type: 'cm-select',
+        templateOptions: {
+          label: 'User type',
+          options: [
+            {label: 'Root user', value: 'root_user'},
+            {label: 'Admin', value: 'admin'},
+            {label: 'General user', value: 'general'},
+            {label: 'Read only', value: 'read_only'}
+          ],
+          defaultValue: 'read_only',
+          required: true
         }
       }
     ];

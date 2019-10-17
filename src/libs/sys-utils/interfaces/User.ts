@@ -1,11 +1,11 @@
 import { CustomerAddress } from './CustomerAddress';
 import { BankPayment } from './BankPayment';
 import { CardPayment } from './CardPayment';
-import { Roles } from '../enum';
+import { UserRoles, Permissions } from '../enum';
 
 export interface User {
   account: number;
-  role: Roles;
+  role: UserRoles;
   id: string;
   firstName: string;
   lastName: string;
@@ -14,4 +14,5 @@ export interface User {
   address: CustomerAddress;
   paymentMethod: string;
   payment: BankPayment | CardPayment;
+  permissons: Permissions[];
 }
