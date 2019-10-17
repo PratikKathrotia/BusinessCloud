@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { User } from '../interfaces';
 import { UtilityService } from './utility.service';
+import { Permissions, UserRoles } from '../enum';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,12 @@ import { UtilityService } from './utility.service';
 export class EnvironmentService {
   subject: Subject<any> = new Subject<any>();
   isLoggedIn: boolean = false;
-  userPermissions: string[];
-  userRole: string;
-  userEntities: any;
+  userPermissions: Permissions[];
+  userRole: UserRoles;
+  userEntities: {
+    account: number;
+    userId: string;
+  };
 
   constructor(
     private store$: Store<any>,
@@ -38,7 +42,7 @@ export class EnvironmentService {
     });
   }
 
-  configureUserRoles(user: User): string {
+  configureUserRoles(user: User): UserRoles {
     if (user && user.role) {
       return this.utilService.copy(user.role);
     }
@@ -57,27 +61,26 @@ export class EnvironmentService {
   }
 
   get userId(): string {
-    if (this.userEntities && this.userEntities.userId) {
-      return this.userEntities.userId;
-    }
-    return null;
+    return (this.userEntities && this.userEntities.userId) || null;
   }
 
   get userAccountId(): number {
-    if (this.userEntities && this.userEntities.account) {
-      return this.userEntities.account;
-    }
-    return null;
+    return (this.userEntities && this.userEntities.account) || null;
   }
 
-  hasPermission(): boolean {
-    return true;
+  hasPermission(permission: Permissions): boolean {
+    return this.userPermissions && this.userPermissions.includes(permission);
   }
 
-  hasRole(role: string): boolean {
-    if (this.userRole) {
-      return this.userRole === role;
-    }
-    return false;
+  hasAllPermissions(permissions: Permissions[]): boolean {
+    return this.userPermissions &&
+      this.userPermissions.filter(permission => {
+        return permissions.includes(permission);
+      }).length === permissions.length;
   }
+
+  hasRole(role: UserRoles): boolean {
+    return this.userRole && this.userRole === role;
+  }
+
 }

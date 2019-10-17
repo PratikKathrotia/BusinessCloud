@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UtilityService } from './utility.service';
 import { User } from '../interfaces';
+import { DbCollections } from '../enum';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -21,7 +22,7 @@ export class UserService {
     private afStore: AngularFirestore,
     private utilService: UtilityService
   ) {
-    this.userCollection = this.afStore.collection('users');
+    this.userCollection = this.afStore.collection(DbCollections.USERS);
   }
 
   addUser(user: User) {

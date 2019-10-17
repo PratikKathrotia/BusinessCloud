@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Customer } from '../interfaces';
+import { DbCollections } from '../enum';
 import { UtilityService } from './utility.service';
 import {
   AngularFirestore,
@@ -20,7 +21,7 @@ export class CustomerService {
     private afStore: AngularFirestore,
     private utilService: UtilityService
   ) {
-    this.customersCollection = this.afStore.collection('customers');
+    this.customersCollection = this.afStore.collection(DbCollections.CUSTOMERS);
   }
 
   private createSnapShotWithIds(): Observable<Customer[]> {
@@ -37,7 +38,7 @@ export class CustomerService {
 
   getCustomers(accountId: number): Observable<Customer[]> {
     this.customersCollection = this.afStore.collection(
-      'customers',
+      DbCollections.CUSTOMERS,
       ref => ref.where('accountId', '==', accountId)
     );
     return this.createSnapShotWithIds();

@@ -127,6 +127,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       select(UserSelectors.selectUser),
       takeUntil(this.subject)
     ).subscribe(user => {
+      console.log(user);
       if (user && user.account) {
         // this.store$.dispatch(new GetCustomers(user.account));
       }
