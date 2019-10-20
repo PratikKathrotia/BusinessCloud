@@ -7,13 +7,15 @@ import { GeneralFiltersComponent } from './general-filters/general-filters.compo
 import { CmAlertComponent } from './cm-alert/cm-alert.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { CmPopoverComponent } from './cm-popover/cm-popover.component';
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 
 @NgModule({
   declarations: [
     GeneralFiltersComponent,
     CmAlertComponent,
     LoadingIndicatorComponent,
-    CmPopoverComponent
+    CmPopoverComponent,
+    UnauthorizedPageComponent
   ],
   imports: [
     CommonModule,

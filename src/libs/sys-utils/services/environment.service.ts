@@ -35,6 +35,7 @@ export class EnvironmentService {
         ).subscribe((user: User) => {
           if (user) {
             this.userRole = this.configureUserRoles(user);
+            this.userPermissions = this.consfigureUserPermissions(user);
             this.userEntities = this.configureUserEntities(user);
           }
         });
@@ -45,6 +46,12 @@ export class EnvironmentService {
   configureUserRoles(user: User): UserRoles {
     if (user && user.role) {
       return this.utilService.copy(user.role);
+    }
+  }
+
+  consfigureUserPermissions(user: User): Permissions[] {
+    if (user && user.permissons) {
+      return this.utilService.copy(user.permissons);
     }
   }
 

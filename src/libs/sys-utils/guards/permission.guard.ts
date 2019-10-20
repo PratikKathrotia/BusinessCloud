@@ -10,23 +10,27 @@ import { EnvironmentService } from '../services/environment.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class PermissionGuard implements CanActivate {
 
   constructor(
     private envService: EnvironmentService,
     private router: Router
-  ) {}
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
 
-    const url = state.url;
+    const permissions = state.root.children[0].data['permissions'] || [];
 
-    if (this.envService.isUserLoggedIn) {
+    if (permissions && permissions.length) {
+      const hasPermissions = this.envService.hasAllPermissions(permissions);
+      if (!hasPermissions) {
+        this.router.navigate(['global/unauthorized']);
+        return false;
+      }
       return true;
     }
-    this.router.navigate(['auth/login']);
-    return false;
+    return true;
   }
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
  * Reducers and Effects
  */
 import {
+  AppInitService,
   Auth,
   Loading,
   PageHeader,
@@ -61,6 +62,14 @@ import {
  */
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
+
+/**
+ **** This function is used as initializer for APP_INITIALIZER
+      (to set environment service before bootstraping the app)
+ */
+function initializeApp(appInitService: AppInitService) {
+  return (): Promise<any> => appInitService.init();
+}
 
 @NgModule({
   declarations: [
@@ -103,7 +112,15 @@ import { environment } from 'src/environments/environment';
     UiMaterialModule,
     UiFormlyModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AppInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [ AppInitService ],
+      multi: true
+    }
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

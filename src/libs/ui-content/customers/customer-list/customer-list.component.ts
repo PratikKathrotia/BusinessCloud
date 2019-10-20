@@ -100,7 +100,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.dataSource = [{
       ...EmptyCustomer,
       name: 'Pratik Kathrotia',
-      company: 'Adobe',
+      company: 'Maruti',
       balance: 123.45,
       created: '08/12/2019'
     }];
