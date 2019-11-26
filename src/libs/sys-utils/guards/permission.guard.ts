@@ -22,8 +22,9 @@ export class PermissionGuard implements CanActivate {
     state: RouterStateSnapshot): boolean {
 
     const permissions = state.root.children[0].data['permissions'] || [];
+    const loggedIn = this.envService.isLoggedIn;
 
-    if (permissions && permissions.length) {
+    if (loggedIn && permissions && permissions.length) {
       const hasPermissions = this.envService.hasAllPermissions(permissions);
       if (!hasPermissions) {
         this.router.navigate(['global/unauthorized']);

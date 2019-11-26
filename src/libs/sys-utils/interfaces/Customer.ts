@@ -5,7 +5,6 @@ export interface Customer {
   id: string;
   balance: number;
   gender: string;
-  dateOfBirth: string;
   picture: string;
   name: string;
   company: string;
@@ -22,7 +21,6 @@ export const EmptyCustomer: Customer = {
   id: 'something',
   balance: null,
   gender: null,
-  dateOfBirth: null,
   picture: null,
   name: null,
   company: null,

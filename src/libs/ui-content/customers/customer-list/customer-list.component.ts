@@ -94,7 +94,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   listen() {
     this.subscribeHeaderActionClick();
-    this.subscribeSelectUser();
+    // this.store$.dispatch(new GetCustomers(user.account));
     // this.subscribeCustomersList();
 
     this.dataSource = [{
@@ -118,18 +118,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
           action.callback();
           this.store$.dispatch(new HeaderActionClicked(null));
         }
-      }
-    });
-  }
-
-  subscribeSelectUser() {
-    this.store$.pipe(
-      select(UserSelectors.selectUser),
-      takeUntil(this.subject)
-    ).subscribe(user => {
-      console.log(user);
-      if (user && user.account) {
-        // this.store$.dispatch(new GetCustomers(user.account));
       }
     });
   }
