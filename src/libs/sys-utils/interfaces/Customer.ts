@@ -2,33 +2,25 @@ import { CustomerAddress } from './CustomerAddress';
 import { CustomerOrder } from './CustomerOrder';
 
 export interface Customer {
-  id: string;
+  customer_id: string;
+  customer_name: string;
+  customer_org?: string;
   balance: number;
-  gender: string;
-  picture: string;
-  name: string;
-  company: string;
-  email: string;
-  phone: string;
-  address: CustomerAddress;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: CustomerAddress;
   created: string;
-  longitude: string;
-  latitude: string;
-  orders: CustomerOrder[];
+  customer_orders: CustomerOrder[];
 }
 
 export const EmptyCustomer: Customer = {
-  id: 'something',
+  customer_id: 'something',
   balance: null,
-  gender: null,
-  picture: null,
-  name: null,
-  company: null,
-  email: null,
-  phone: null,
-  address: null,
+  customer_name: null,
+  customer_org: null,
+  customer_email: null,
+  customer_phone: null,
+  customer_address: null,
   created: null,
-  longitude: null,
-  latitude: null,
-  orders: []
+  customer_orders: []
 };

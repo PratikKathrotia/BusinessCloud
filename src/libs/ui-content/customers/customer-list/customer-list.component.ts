@@ -18,6 +18,7 @@ import {
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'customer-list',
@@ -35,8 +36,9 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   constructor(
     private store$: Store<any>,
     private customerService: CustomerService,
-    private utilService: UtilityService
-  ) { }
+    private utilService: UtilityService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.subject = new Subject<any>();
@@ -54,6 +56,9 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       ]
     };
     this.store$.dispatch(new HeaderConfigInit(this.pageHeaderConfig));
+    this.store$.dispatch(
+      new GetCustomers(Number(sessionStorage.getItem('access_token')))
+    );
     this.listen();
   }
 
@@ -62,7 +67,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   isActionsVisible(customer: Customer) {
-    return customer.id === this.selectedRowId;
+    return customer.customer_id === this.selectedRowId;
   }
 
   handleEditCustomer(id: string): void {
@@ -77,7 +82,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   handleRowMouseenter(row: Customer) {
-    this.selectedRowId = row.id;
+    this.selectedRowId = row.customer_id;
   }
 
   handleRowMouseleave() {
@@ -94,43 +99,33 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   listen() {
     this.subscribeHeaderActionClick();
-    // this.store$.dispatch(new GetCustomers(user.account));
-    // this.subscribeCustomersList();
-
-    this.dataSource = [{
-      ...EmptyCustomer,
-      name: 'Pratik Kathrotia',
-      company: 'Maruti',
-      balance: 123.45,
-      created: '08/12/2019'
-    }];
-
+    this.subscribeCustomersList();
   }
 
   subscribeHeaderActionClick() {
-    this.store$.pipe(
-      select(pageHeaderSelectors.selectHeaderActionIndex),
-      takeUntil(this.subject)
-    ).subscribe(id => {
-      if (this.pageHeaderConfig && this.pageHeaderConfig.actions) {
-        const action = this.pageHeaderConfig.actions.find(x => x.id === id);
-        if (action && action.callback) {
-          action.callback();
-          this.store$.dispatch(new HeaderActionClicked(null));
+    this.store$
+      .pipe(
+        select(pageHeaderSelectors.selectHeaderActionIndex),
+        takeUntil(this.subject)
+      )
+      .subscribe(id => {
+        if (this.pageHeaderConfig && this.pageHeaderConfig.actions) {
+          const action = this.pageHeaderConfig.actions.find(x => x.id === id);
+          if (action && action.callback) {
+            action.callback();
+            this.store$.dispatch(new HeaderActionClicked(null));
+          }
         }
-      }
-    });
+      });
   }
 
   subscribeCustomersList() {
-    this.store$.pipe(
-      select(CustomerSelectors.selectCustomers),
-      takeUntil(this.subject)
-    ).subscribe(customers => {
-      if (customers && customers.length) {
-        this.dataSource = this.utilService.copy(customers);
-      }
-    });
+    this.store$
+      .pipe(select(CustomerSelectors.selectCustomers), takeUntil(this.subject))
+      .subscribe(customers => {
+        if (customers && customers.length) {
+          this.dataSource = this.utilService.copy(customers);
+        }
+      });
   }
-
 }

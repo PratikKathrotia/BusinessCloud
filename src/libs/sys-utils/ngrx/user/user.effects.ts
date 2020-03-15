@@ -14,12 +14,16 @@ import {
 } from './user.actions';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces';
+import { EnvironmentService } from '../../services/environment.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
-    private userService: UserService
+    private userService: UserService,
+    private envService: EnvironmentService,
+    private http$: HttpClient
   ) {}
 
   @Effect()
@@ -27,12 +31,14 @@ export class UserEffects {
     ofType(UserActionTypes.ADD_NEW_USER),
     switchMap(action => {
       const user = (action as AddNewUser).payload;
-      return this.userService.addUser(user)
+      return this.userService
+        .addUser(user)
         .then(success => {
           return new AddNewUserSuccess();
-        }).catch(error => {
+        })
+        .catch(error => {
           return new AddNewUserError(error);
-      });
+        });
     })
   );
 
@@ -41,13 +47,19 @@ export class UserEffects {
     ofType(UserActionTypes.GET_USER_INFO),
     switchMap(action => {
       const userId = (action as GetUserInfo).payload;
-      return this.userService.getUser(userId).pipe(
-        map(data => {
-          const user = data.data() as User;
-          return new GetUserInfoSuccess(user);
+      return this.http$.get(`${this.envService.localUrl}/auth/user`).pipe(
+        map((data: User) => {
+          return new GetUserInfoSuccess(data);
         }),
-        catchError(error => of(new GetUserInfoError(error)))
+        catchError(err => of(new GetUserInfoError(err)))
       );
+      // return this.userService.getUser(userId).pipe(
+      //   map(data => {
+      //     const user = data.data() as User;
+      //     return new GetUserInfoSuccess(user);
+      //   }),
+      //   catchError(error => of(new GetUserInfoError(error)))
+      // );
     })
   );
 }

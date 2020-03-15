@@ -1,7 +1,8 @@
 import {
   AuthActionTypes,
   AuthActions,
-  SetAuthStatus
+  LoginUserSuccess,
+  GetEnvInfoSuccess
 } from './auth.actions';
 import { AuthState, initialAuthState } from '../../interfaces';
 
@@ -10,26 +11,52 @@ export function Auth(
   action: AuthActions
 ): AuthState {
   switch (action.type) {
-    case AuthActionTypes.SET_AUTH_STATUS:
-      const status = (action as SetAuthStatus).payload;
-      if (status.isLoggedIn) {
-        sessionStorage.setItem('userToken', status.currentUid);
-      }
+    case AuthActionTypes.LOGIN_USER:
+      return {
+        ...state
+      };
+    case AuthActionTypes.LOGIN_USER_SUCCESS:
+      const payload = (action as LoginUserSuccess).payload;
+      sessionStorage.setItem('access_token', payload.userId.toString());
       return {
         ...state,
-        isLoggedIn: status.isLoggedIn,
-        isEmailVerified: status.isEmailVerified,
-        currentUid: status.currentUid
+        isLoggedIn: true,
+        accountId: payload.accountId,
+        userId: payload.userId
+      };
+    case AuthActionTypes.LOGIN_USER_ERROR:
+      return {
+        ...state,
+        isLoggedIn: false
+      };
+    case AuthActionTypes.LOGOUT_USER:
+      return {
+        ...initialAuthState
       };
 
-    case AuthActionTypes.RESET_AUTH_STATE:
-      sessionStorage.removeItem('userToken');
-      return initialAuthState;
+    case AuthActionTypes.GET_ENV_INFO:
+      return {
+        ...state,
+        env: null
+      };
+
+    case AuthActionTypes.GET_ENV_INFO_SUCCESS:
+      const env = (action as GetEnvInfoSuccess).payload;
+      return {
+        ...state,
+        env: env
+      };
+
+    case AuthActionTypes.GET_ENV_INFO_ERROR:
+      return {
+        ...state,
+        env: null
+      };
 
     default:
       return {
         ...state,
-        isLoggedIn: sessionStorage.getItem('userToken') ? true : false
+        isLoggedIn: sessionStorage.getItem('access_token') ? true : false
       };
   }
 }

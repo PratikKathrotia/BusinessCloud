@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import {
-  AuthSelectors
-} from '@angular-cm/sys-utils';
+import { AuthSelectors, Go } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -16,10 +13,7 @@ export class ToolbarComponent implements OnInit {
   subject: Subject<any>;
   isLoggedIn: boolean;
 
-  constructor(
-    private store$: Store<any>,
-    private router: Router
-  ) { }
+  constructor(private store$: Store<any>) {}
 
   ngOnInit() {
     this.subject = new Subject<any>();
@@ -32,16 +26,18 @@ export class ToolbarComponent implements OnInit {
   }
 
   handleLogoutClick(): void {
-    this.router.navigate(['auth/login']);
+    this.store$.dispatch(
+      new Go({
+        path: ['auth/login']
+      })
+    );
   }
 
   listen(): void {
-    this.store$.pipe(
-      select(AuthSelectors.selectLoginStatus),
-      takeUntil(this.subject)
-    ).subscribe(scope => {
-      this.isLoggedIn = scope;
-    });
+    this.store$
+      .pipe(select(AuthSelectors.selectAuthStatus), takeUntil(this.subject))
+      .subscribe(state => {
+        this.isLoggedIn = state.login;
+      });
   }
-
 }

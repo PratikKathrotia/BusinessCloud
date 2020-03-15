@@ -35,8 +35,8 @@ export class SignUpComponent implements OnInit {
     private authService: AuthService,
     private store$: Store<any>,
     private signUpForm: SignUpForm,
-    private utilService: UtilityService,
-  ) { }
+    private utilService: UtilityService
+  ) {}
 
   ngOnInit() {
     this.signUpForm.initializeForm({});
@@ -44,11 +44,11 @@ export class SignUpComponent implements OnInit {
     this.model = {};
     this.form = new FormGroup(this.signUpForm.initFormControls());
     this.formFields = this.signUpForm.getForm();
-    this.authService.logoutCurrentUser().then(success => {
-      this.store$.dispatch(new ResetAuthState());
-      sessionStorage.removeItem('userToken');
-      this.dispatchActions();
-    });
+    // this.authService.logoutCurrentUser().then(success => {
+    //   this.store$.dispatch(new ResetAuthState());
+    //   sessionStorage.removeItem('userToken');
+    //   this.dispatchActions();
+    // });
   }
 
   get isSubmitDisabled(): boolean {
@@ -108,31 +108,32 @@ export class SignUpComponent implements OnInit {
   handleFormSubmit() {
     if (this.form.valid) {
       const credentials = {
-        email: this.model['sameAsPersonal'] ?
-          this.model['email'] : this.model['userEmail'],
+        email: this.model['sameAsPersonal']
+          ? this.model['email']
+          : this.model['userEmail'],
         password: this.model['password']
       };
-      this.authService.signUpNewUser(
-        credentials.email, credentials.password
-      ).then(success => {
-        const payload = this.configureUserToSave(success.user.uid);
-        this.store$.dispatch(new AddNewUser(payload));
-      }).catch(error => {
-        this.store$.dispatch(new AddNewUserError({
-          message: error,
-          isCritical: true
-        }));
-      });
+      // this.authService.signUpNewUser(
+      //   credentials.email, credentials.password
+      // ).then(success => {
+      //   const payload = this.configureUserToSave(success.user.uid);
+      //   this.store$.dispatch(new AddNewUser(payload));
+      // }).catch(error => {
+      //   this.store$.dispatch(new AddNewUserError({
+      //     message: error,
+      //     isCritical: true
+      //   }));
+      // });
     }
   }
 
   logoutAndRouteToLogin(isComplete: boolean) {
     if (isComplete) {
-      this.authService.logoutCurrentUser().then(() => {
-        this.store$.dispatch(new Go({
-          path: ['auth/login']
-        }));
-      });
+      // this.authService.logoutCurrentUser().then(() => {
+      //   this.store$.dispatch(new Go({
+      //     path: ['auth/login']
+      //   }));
+      // });
     }
   }
 
@@ -150,7 +151,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  handleConfirmPasswordChange({event, form}) {
+  handleConfirmPasswordChange({ event, form }) {
     const password = form.controls['password'].value;
     if (password && password !== event.target.value) {
       form.get('confirmPassword').setErrors({
@@ -160,11 +161,8 @@ export class SignUpComponent implements OnInit {
   }
 
   listen() {
-    this.store$.pipe(
-      select(UserSelectors.selectUserAddSuccess)
-    ).subscribe(state => {
+    this.store$.pipe(select(UserSelectors.selectUserAddSuccess)).subscribe(state => {
       this.logoutAndRouteToLogin(state);
     });
   }
-
 }

@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{
+  "account": 55187,
+  "userId": "405104"
+  "firstName": "Pratik"
+  "lastName": "Kathrotia",
+  "permissions": [
+    "admin"
+    "root_user"
+    "customer_access"
+    "customer_add"
+    "customer_delete"
+    "customer_update"
+    "employee_access"
+    "employee_add"
+    "employee_delete"
+    "employee_update"
+  ]
+}

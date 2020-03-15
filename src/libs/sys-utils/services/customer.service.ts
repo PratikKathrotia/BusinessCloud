@@ -24,25 +24,25 @@ export class CustomerService {
     this.customersCollection = this.afStore.collection(DbCollections.CUSTOMERS);
   }
 
-  private createSnapShotWithIds(): Observable<Customer[]> {
-    return this.customersCollection.snapshotChanges().pipe(
-      map(changes => {
-        return changes.map(a => {
-          const data = a.payload.doc.data() as Customer;
-          data.id = a.payload.doc.id;
-          return data;
-        });
-      })
-    );
-  }
+  // private createSnapShotWithIds(): Observable<Customer[]> {
+  //   return this.customersCollection.snapshotChanges().pipe(
+  //     map(changes => {
+  //       return changes.map(a => {
+  //         const data = a.payload.doc.data() as Customer;
+  //         data.id = a.payload.doc.id;
+  //         return data;
+  //       });
+  //     })
+  //   );
+  // }
 
-  getCustomers(accountId: number): Observable<Customer[]> {
-    this.customersCollection = this.afStore.collection(
-      DbCollections.CUSTOMERS,
-      ref => ref.where('accountId', '==', accountId)
-    );
-    return this.createSnapShotWithIds();
-  }
+  // getCustomers(accountId: number): Observable<Customer[]> {
+  //   this.customersCollection = this.afStore.collection(
+  //     DbCollections.CUSTOMERS,
+  //     ref => ref.where('accountId', '==', accountId)
+  //   );
+  //   return this.createSnapShotWithIds();
+  // }
 
   getCustomer(customerId: string) {
     return this.customersCollection.doc(customerId).get();
@@ -52,11 +52,15 @@ export class CustomerService {
     customer['id'] = this.utilService.generateAlphaNumericId();
     const copiedCustomer = this.utilService.copy(customer);
     delete copiedCustomer.id;
-    return this.customersCollection.doc(`${customer.id}`).set(copiedCustomer);
+    return this.customersCollection
+      .doc(`${customer.customer_id}`)
+      .set(copiedCustomer);
   }
 
   updateCustomer(customer: Customer) {
-    return this.customersCollection.doc(`${customer.id}`).set(customer);
+    return this.customersCollection
+      .doc(`${customer.customer_id}`)
+      .set(customer);
   }
 
   deleteCustomer(customerId: string) {

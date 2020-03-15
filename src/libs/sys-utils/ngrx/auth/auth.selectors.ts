@@ -4,18 +4,13 @@ import { createSelector } from '@ngrx/store';
 const authState = (state: BaseAppState) => state.auth;
 
 export const AuthSelectors = {
-  selectEmailVerification: createSelector(
-    authState,
-    (state: AuthState) => state.isEmailVerified
-  ),
+  selectAuthStatus: createSelector(authState, (state: AuthState) => {
+    return {
+      login: state.isLoggedIn,
+      account: state.accountId,
+      user: state.userId
+    };
+  }),
 
-  selectUserUid: createSelector(
-    authState,
-    (state: AuthState) => state.currentUid
-  ),
-
-  selectLoginStatus: createSelector(
-    authState,
-    (state: AuthState) => state.isLoggedIn
-  )
+  selectEnvStatus: createSelector(authState, state => state.env)
 };

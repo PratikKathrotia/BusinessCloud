@@ -1,0 +1,59 @@
+{
+  "accounts": [
+    {
+      "account_id": 55187,
+      "account_name": "Maruti LLC",
+      "account_type": "platinum",
+      "account_currency": "USD",
+      "account_email": "cloud@maruti.com",
+      "last_customer_id": 2458698
+    }
+  ],
+  "users": [
+    {
+      "user_id": 405104,
+      "account_id": 55187,
+      "email": "pratik@maruti.com",
+      "password": "Pratik1994",
+      "first_name": "Pratik",
+      "last_name": "Kathrotia",
+      "roles": ["root_user"],
+      "permissions": [
+        "admin",
+        "root_user",
+        "customer_access",
+        "customer_add",
+        "customer_delete",
+        "customer_update"
+      ]
+    }
+  ],
+  "customers": [
+    {
+      "customer_id": 2458698,
+      "user_id": 405104,
+      "account_id": 55187,
+      "customer_name": "Karan Viradiya",
+      "customer_org": "United Plastics",
+      "balance": 5800,
+      "customer_address": "40 Vista ln, fullerton, CA",
+      "customer_email": "viradiya@united.com",
+      "customer_phone": "1234567890",
+      "created": "2019-12-12",
+      "customer_orders": []
+    },
+    {
+      "customer_id": 2458623,
+      "user_id": 405104,
+      "account_id": 55187,
+      "customer_name": "John Buchanan",
+      "customer_org": "Gold Groccery",
+      "balance": 9680,
+      "customer_address": "3697 Augusta ln, Orange, CA",
+      "customer_email": "Jbuchanan@goldG.com",
+      "customer_phone": "9874563210",
+      "created": "2020-03-15",
+      "customer_orders": []
+    }
+  ]
+}

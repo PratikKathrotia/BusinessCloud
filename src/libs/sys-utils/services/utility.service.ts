@@ -22,7 +22,7 @@ export class UtilityService {
   }
 
   generateAlphaNumericId() {
-    const length = 24;
+    const length = 8;
     const chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     let result = '';
     for (let i = length; i > 0; --i) {

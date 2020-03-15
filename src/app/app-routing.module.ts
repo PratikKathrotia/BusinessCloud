@@ -18,9 +18,9 @@ const routes: Routes = [
     component: CustomerListComponent,
     canActivate: [ AuthGuard, PermissionGuard ],
     data: {
-      permissions: [
-        Permissions.CUSTOMER_ACCESS
-      ]
+      // permissions: [
+      //   Permissions.CUSTOMER_ACCESS
+      // ]
     }
   },
   {

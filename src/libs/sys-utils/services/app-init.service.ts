@@ -1,34 +1,36 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { GetUserInfo } from '../ngrx/user';
+import { ActionsSubject } from '@ngrx/store';
+import { GetEnvInfo, GetEnvInfoSuccess, GetEnvInfoError } from '../ngrx/auth';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppInitService {
-
-  constructor(
-    private store$: Store<any>
-  ) { }
+  constructor(private subject$: ActionsSubject) {}
 
   init(): Promise<any> {
-
     console.log(`AppInitService.init() called`);
 
-    const user = sessionStorage.getItem('userToken');
+    const userId = sessionStorage.getItem('access_token');
 
     return new Promise<void>((resolve, reject) => {
-
-      if (user) {
-        this.store$.dispatch(new GetUserInfo(user));
-        setTimeout(() => {
-          console.log('AppInitService Finished');
-          resolve();
-        }, 4000);
+      if (userId) {
+        this.subject$
+          .pipe(
+            filter(
+              (action: any) =>
+                action instanceof GetEnvInfoSuccess ||
+                action instanceof GetEnvInfoError
+            )
+          )
+          .subscribe(action => {
+            resolve();
+          });
+        this.subject$.next(new GetEnvInfo({ user: Number(userId) }));
       } else {
         resolve();
       }
-
     });
   }
 }

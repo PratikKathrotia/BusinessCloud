@@ -1,12 +1,13 @@
 export interface AuthState {
-  isEmailVerified: boolean;
   isLoggedIn: boolean;
-  currentUid: string;
+  userId: number;
+  accountId: number;
+  env: any;
 }
 
 export const initialAuthState: AuthState = {
-  isEmailVerified: false,
   isLoggedIn: false,
-  currentUid: null
+  userId: null,
+  accountId: null,
+  env: null
 };
-

@@ -9,6 +9,7 @@ export * from './CustomerAddress';
 export * from './CustomerName';
 export * from './CustomerOrder';
 export * from './CustomerState';
+export * from './Environment';
 export * from './loadingState';
 export * from './PageHeaderAction';
 export * from './PageHeaderConfig';

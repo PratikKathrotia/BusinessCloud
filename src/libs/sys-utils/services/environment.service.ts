@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AuthSelectors, UserSelectors } from '../ngrx';
+import { AuthSelectors } from '../ngrx/auth/auth.selectors';
+import { UserSelectors } from '../ngrx/user/user.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { User } from '../interfaces';
+import { User, Environment } from '../interfaces';
 import { UtilityService } from './utility.service';
 import { Permissions, UserRoles } from '../enum';
 
+const LOCAL_URL = 'http://localhost:8080';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,53 +16,34 @@ export class EnvironmentService {
   subject: Subject<any> = new Subject<any>();
   isLoggedIn: boolean = false;
   userPermissions: Permissions[];
-  userRole: UserRoles;
+  userRoles: UserRoles[];
   userEntities: {
     account: number;
-    userId: string;
+    userId: number;
   };
+  env: Environment = null;
 
-  constructor(
-    private store$: Store<any>,
-    private utilService: UtilityService
-  ) {
-    this.store$.pipe(
-      select(AuthSelectors.selectLoginStatus),
-      takeUntil(this.subject)
-    ).subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        this.isLoggedIn = true;
-        this.store$.pipe(
-          select(UserSelectors.selectUser)
-        ).subscribe((user: User) => {
-          if (user) {
-            this.userRole = this.configureUserRoles(user);
-            this.userPermissions = this.consfigureUserPermissions(user);
-            this.userEntities = this.configureUserEntities(user);
-          }
-        });
-      }
-    });
-  }
-
-  configureUserRoles(user: User): UserRoles {
-    if (user && user.role) {
-      return this.utilService.copy(user.role);
-    }
-  }
-
-  consfigureUserPermissions(user: User): Permissions[] {
-    if (user && user.permissons) {
-      return this.utilService.copy(user.permissons);
-    }
-  }
-
-  configureUserEntities(user: User) {
-    const entityObj = {
-      account: this.utilService.copy(user.account),
-      userId: this.utilService.copy(user.id)
-    };
-    return entityObj;
+  constructor(private store$: Store<any>, private utilService: UtilityService) {
+    this.store$
+      .pipe(select(AuthSelectors.selectAuthStatus), takeUntil(this.subject))
+      .subscribe(status => {
+        if (status.login) {
+          this.isLoggedIn = true;
+          this.store$
+            .pipe(select(AuthSelectors.selectEnvStatus))
+            .subscribe((env: Environment) => {
+              this.env = this.utilService.copy(env);
+              if (this.env) {
+                this.userRoles = this.env.roles;
+                this.userPermissions = this.env.permissions;
+                this.userEntities = {
+                  account: this.env.account_id,
+                  userId: this.env.user_id
+                };
+              }
+            });
+        }
+      });
   }
 
   get isUserLoggedIn(): boolean {
@@ -68,7 +51,7 @@ export class EnvironmentService {
   }
 
   get userId(): string {
-    return (this.userEntities && this.userEntities.userId) || null;
+    return (this.userEntities && this.userEntities.userId.toString()) || null;
   }
 
   get userAccountId(): number {
@@ -80,14 +63,27 @@ export class EnvironmentService {
   }
 
   hasAllPermissions(permissions: Permissions[]): boolean {
-    return this.userPermissions &&
+    return (
+      this.userPermissions &&
       this.userPermissions.filter(permission => {
         return permissions.includes(permission);
-      }).length === permissions.length;
+      }).length === permissions.length
+    );
   }
 
   hasRole(role: UserRoles): boolean {
-    return this.userRole && this.userRole === role;
+    return this.userRoles && this.userRoles.includes(role);
   }
 
+  get localUrl() {
+    return LOCAL_URL;
+  }
+
+  getDataUrl() {
+    return `${this.localUrl}/data`;
+  }
+
+  getAuthUrl() {
+    return `${this.localUrl}/auth`;
+  }
 }

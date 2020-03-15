@@ -6,11 +6,7 @@ import { ActionsSubject } from '@ngrx/store';
 import { filter, map, tap } from 'rxjs/operators';
 
 import { UtilityService } from '../../services/utility.service';
-import {
-  RouterActionTypes,
-  Go,
-  Change
-} from './cloud-router.actions';
+import { RouterActionTypes, Go, Change } from './cloud-router.actions';
 
 @Injectable()
 export class RouterEffects {
@@ -46,17 +42,17 @@ export class RouterEffects {
   }
 
   listenToRouter() {
-    this.router.events.pipe(
-      filter(event => event instanceof ActivationEnd)
-    ).subscribe((event: ActivationEnd) => {
-      const queryParams = { ...event.snapshot.queryParams };
-      this.subject.next(
-        new Change({
-          params: this.utilService.copy(event.snapshot.params),
-          query: queryParams,
-          path: [event.snapshot.routeConfig.path]
-        })
-      );
-    });
+    this.router.events
+      .pipe(filter(event => event instanceof ActivationEnd))
+      .subscribe((event: ActivationEnd) => {
+        const queryParams = { ...event.snapshot.queryParams };
+        this.subject.next(
+          new Change({
+            params: this.utilService.copy(event.snapshot.params),
+            query: queryParams,
+            path: [event.snapshot.routeConfig.path]
+          })
+        );
+      });
   }
 }

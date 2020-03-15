@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { CustomerService } from '../../services/customer.service';
+import { EnvironmentService } from '../../services/environment.service';
 
 import {
   CustomerActionTypes,
@@ -20,20 +22,29 @@ import { Customer } from '../../interfaces';
 export class CustomerEffects {
   constructor(
     private actions$: Actions,
-    private customerService: CustomerService
-  ) { }
+    private customerService: CustomerService,
+    private envService: EnvironmentService,
+    private http$: HttpClient
+  ) {}
 
   @Effect()
   getCustomers$ = this.actions$.pipe(
     ofType(CustomerActionTypes.GET_CUSTOMERS),
     switchMap(action => {
-      const accountId = (action as GetCustomers).payload;
-      return this.customerService.getCustomers(accountId).pipe(
-        map(res => {
-          return new GetCustomersSuccess(res);
-        }),
-        catchError(error => of(new GetCustomersError(error)))
-      );
+      const userId = (action as GetCustomers).payload;
+      let params = new HttpParams();
+      params = params.append('userId', userId.toString());
+      params = params.append('entity', 'customers');
+      params = params.append('limit', '25');
+      params = params.append('offset', '0');
+      return this.http$
+        .get(`${this.envService.getDataUrl()}/customers`, { params })
+        .pipe(
+          map((res: any) => {
+            return new GetCustomersSuccess(res.items as Customer[]);
+          }),
+          catchError(err => of(new GetCustomersError(err)))
+        );
     })
   );
 
@@ -51,6 +62,4 @@ export class CustomerEffects {
       );
     })
   );
-
 }
-

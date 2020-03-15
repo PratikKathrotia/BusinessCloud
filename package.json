@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "local-customer-manager": "ng serve",
+    "cloud": "ng serve",
+    "local": "mockserver -p 8080 -m ./mocks",
+    "local-cloud": "npm run cloud && npm run local",
     "build-customer-manager": "ng build",
     "test-customer-manager": "ng test --code-coverage",
     "lint": "ng lint",
@@ -30,6 +32,8 @@
     "core-js": "^2.5.4",
     "firebase": "^5.9.4",
     "hammerjs": "^2.0.8",
+    "lowdb": "^1.0.0",
+    "mockserver": "^3.1.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

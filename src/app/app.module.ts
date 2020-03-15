@@ -62,6 +62,7 @@ import {
  */
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
+import { AuthEffects } from 'src/libs/sys-utils/ngrx/auth/auth.effects';
 
 /**
  **** This function is used as initializer for APP_INITIALIZER
@@ -72,9 +73,7 @@ function initializeApp(appInitService: AppInitService) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -94,6 +93,7 @@ function initializeApp(appInitService: AppInitService) {
       utils: Utils
     }),
     EffectsModule.forRoot([
+      AuthEffects,
       CustomerEffects,
       SidebarEffects,
       RouterEffects,
@@ -117,10 +117,10 @@ function initializeApp(appInitService: AppInitService) {
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [ AppInitService ],
+      deps: [AppInitService],
       multi: true
     }
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
