@@ -1,3 +1,50 @@
-<p>
-  customer-details works!
-</p>
+<div class="details__Container">
+  <div class="details__Header">
+    <div class="header__Title">
+      <div class="title__Breadcrumb">CUSTOMER</div>
+      <h4>
+        <b>{{ customer.customer_name ? customer.customer_name : 'New Customer' }}</b>
+      </h4>
+    </div>
+    <div class="header__Actions">
+      <div>
+        <button mat-flat-button color="accent" [mat-dialog-close]="">
+          Close
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!form.valid"
+          (click)="handleFormSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="details__Content">
+    <div class="content__Nav">
+      <div
+        class="nav_Item"
+        *ngFor="let item of navItems"
+        [ngClass]="{ selected: item.isActive }"
+        (click)="handleNavItemClick(item.id)"
+      >
+        <span class="item_Label">{{ item.label }}</span>
+      </div>
+    </div>
+    <div class="content__Form">
+      <div class="tab__Heading">
+        <h4>{{ contentTitle() }}</h4>
+      </div>
+      <div *ngIf="navItems[0].isActive">
+        <formly-form [form]="form" [model]="customer" [fields]="formFields">
+        </formly-form>
+      </div>
+      <div *ngIf="navItems[1].isActive">
+        orders tab is active
+      </div>
+    </div>
+  </div>
+</div>

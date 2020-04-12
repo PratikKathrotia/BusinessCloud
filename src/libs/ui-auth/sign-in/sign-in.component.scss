@@ -1,12 +1,11 @@
 @import 'src/styles/global.scss';
 
 .login {
-
   &__Container {
     background: white;
     width: 400 * $px;
     border-radius: 4 * $px;
-    margin: 100 * $px auto;
+    margin: 200 * $px auto;
     padding: 20 * $px;
     display: flex;
     flex-direction: column;

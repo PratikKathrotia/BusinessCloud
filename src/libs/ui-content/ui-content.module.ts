@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { FormlyModule } from '@ngx-formly/core';
 
 import { UiMaterialModule } from '@angular-cm/ui-material';
 import { UiFormlyModule } from '@angular-cm/ui-formly';
 
-import {
-  CustomerListComponent,
-  CustomerDialogLauncherComponent
-} from './customers';
+import { CustomerListComponent, CustomerDialogLauncherComponent } from './customers';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 
 @NgModule({
@@ -18,11 +18,12 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FormlyModule,
     UiMaterialModule,
     UiFormlyModule
   ],
-  entryComponents: [
-    CustomerDetailsComponent
-  ]
+  entryComponents: [CustomerDetailsComponent]
 })
-export class UiContentModule { }
+export class UiContentModule {}

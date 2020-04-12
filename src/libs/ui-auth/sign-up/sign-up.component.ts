@@ -68,7 +68,8 @@ export class SignUpComponent implements OnInit {
         street: this.getStreetAddress(formVals),
         city: formVals.city,
         state: formVals.state,
-        zip: formVals.zip
+        zip: formVals.zip,
+        country: 'USA'
       },
       paymentMethod: formVals.paymentMethod,
       payment: this.getPaymentDetails(formVals, isCard),

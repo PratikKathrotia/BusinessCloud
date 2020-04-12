@@ -2,9 +2,9 @@ import { CustomerAddress } from './CustomerAddress';
 import { CustomerOrder } from './CustomerOrder';
 
 export interface Customer {
-  customer_id: string;
+  customer_id: number;
   customer_name: string;
-  customer_org?: string;
+  customer_org: string;
   balance: number;
   customer_email: string;
   customer_phone: string;
@@ -14,7 +14,7 @@ export interface Customer {
 }
 
 export const EmptyCustomer: Customer = {
-  customer_id: 'something',
+  customer_id: null,
   balance: null,
   customer_name: null,
   customer_org: null,

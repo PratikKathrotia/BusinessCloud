@@ -36,7 +36,13 @@
       "customer_name": "Karan Viradiya",
       "customer_org": "United Plastics",
       "balance": 5800,
-      "customer_address": "40 Vista ln, fullerton, CA",
+      "customer_address": {
+        "street": "500 Vista ln",
+        "city": "fullerton",
+        "state": "CA",
+        "zip": "96248",
+        "country": "USA"
+      },
       "customer_email": "viradiya@united.com",
       "customer_phone": "1234567890",
       "created": "2019-12-12",
@@ -49,7 +55,13 @@
       "customer_name": "John Buchanan",
       "customer_org": "Gold Groccery",
       "balance": 9680,
-      "customer_address": "3697 Augusta ln, Orange, CA",
+      "customer_address": {
+        "street": "3697 Augusta ln",
+        "city": "Orange",
+        "state": "CA",
+        "zip": "98617",
+        "country": "USA"
+      },
       "customer_email": "Jbuchanan@goldG.com",
       "customer_phone": "9874563210",
       "created": "2020-03-15",

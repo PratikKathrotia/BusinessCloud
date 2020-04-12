@@ -5,10 +5,7 @@ import { FormlyModule } from '@ngx-formly/core';
 
 import { UiMaterialModule } from '@angular-cm/ui-material';
 
-import {
-  LoginForm,
-  SignUpForm
-} from './forms';
+import { LoginForm, SignUpForm, CustomerForm } from './forms';
 
 import { CmInputComponent } from './components/cm-input/cm-input.component';
 import { CmHeader1Component } from './components/cm-header1/cm-header1.component';
@@ -46,9 +43,6 @@ import { CmCheckboxComponent } from './components/cm-checkbox/cm-checkbox.compon
     CmSelectComponent,
     CmCheckboxComponent
   ],
-  providers: [
-    LoginForm,
-    SignUpForm
-  ]
+  providers: [LoginForm, SignUpForm, CustomerForm]
 })
-export class UiFormlyModule { }
+export class UiFormlyModule {}

@@ -4,6 +4,9 @@ const db = require(path).db;
 const dbProps = require(path).props;
 
 module.exports = (function(req) {
+  // Refresh DB state
+  db.read();
+  // done
   const userId = parseInt(req.url.split('?')[1].split('=')[1]);
   let env = {};
   const user = db

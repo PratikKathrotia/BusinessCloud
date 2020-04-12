@@ -4,7 +4,6 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { CustomerService } from '../../services/customer.service';
 import { EnvironmentService } from '../../services/environment.service';
 
 import {
@@ -22,7 +21,6 @@ import { Customer } from '../../interfaces';
 export class CustomerEffects {
   constructor(
     private actions$: Actions,
-    private customerService: CustomerService,
     private envService: EnvironmentService,
     private http$: HttpClient
   ) {}
@@ -53,13 +51,15 @@ export class CustomerEffects {
     ofType(CustomerActionTypes.GET_CUSTOMER),
     switchMap(action => {
       const customerId = (action as GetCustomer).payload;
-      return this.customerService.getCustomer(customerId).pipe(
-        map(data => {
-          const customer = data.data() as Customer;
-          return new GetCustomerSuccess(customer);
-        }),
-        catchError(error => of(new GetCustomerError(error)))
-      );
+      return this.http$
+        .get(`${this.envService.getDataUrl()}/customers/${customerId}`)
+        .pipe(
+          map((res: any) => {
+            const [customer] = res.items;
+            return new GetCustomerSuccess(customer as Customer);
+          }),
+          catchError(err => of(new GetCustomerError(err)))
+        );
     })
   );
 }

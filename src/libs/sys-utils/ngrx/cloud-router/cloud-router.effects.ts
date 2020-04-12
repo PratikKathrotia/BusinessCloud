@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivationEnd, Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { ActionsSubject } from '@ngrx/store';
@@ -36,7 +37,8 @@ export class RouterEffects {
     private router: Router,
     private location: Location,
     private subject: ActionsSubject,
-    private utilService: UtilityService
+    private utilService: UtilityService,
+    private titleService: Title
   ) {
     this.listenToRouter();
   }
@@ -45,6 +47,11 @@ export class RouterEffects {
     this.router.events
       .pipe(filter(event => event instanceof ActivationEnd))
       .subscribe((event: ActivationEnd) => {
+        if (event.snapshot.data && event.snapshot.data.title) {
+          this.titleService.setTitle(
+            [event.snapshot.data.title, 'Business Cloud'].join(' | ')
+          );
+        }
         const queryParams = { ...event.snapshot.queryParams };
         this.subject.next(
           new Change({

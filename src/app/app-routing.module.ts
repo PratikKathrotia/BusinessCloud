@@ -6,18 +6,16 @@ import {
   CustomerDialogLauncherComponent
 } from '@angular-cm/ui-content';
 import { UnauthorizedPageComponent } from '@angular-cm/ui-common';
-import {
-  SignInComponent,
-  SignUpComponent
-} from '@angular-cm/ui-auth';
+import { SignInComponent, SignUpComponent } from '@angular-cm/ui-auth';
 import { AuthGuard, PermissionGuard, Permissions } from '@angular-cm/sys-utils';
 
 const routes: Routes = [
   {
     path: 'global/customers',
     component: CustomerListComponent,
-    canActivate: [ AuthGuard, PermissionGuard ],
+    canActivate: [AuthGuard, PermissionGuard],
     data: {
+      title: 'Customers'
       // permissions: [
       //   Permissions.CUSTOMER_ACCESS
       // ]
@@ -26,8 +24,9 @@ const routes: Routes = [
   {
     path: 'global/customer-details',
     component: CustomerDialogLauncherComponent,
-    canActivate: [ AuthGuard, PermissionGuard ],
+    canActivate: [AuthGuard, PermissionGuard],
     data: {
+      title: 'Customers',
       permissions: [
         Permissions.CUSTOMER_ACCESS,
         Permissions.CUSTOMER_ADD,
@@ -59,7 +58,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

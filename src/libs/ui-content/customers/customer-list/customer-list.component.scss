@@ -3,7 +3,6 @@
 @import 'src/styles/global.scss';
 
 .customerList__Container {
-  
   .customerList__Table {
     padding: 20 * $px 10 * $px;
     margin-bottom: 40 * $px;
@@ -12,20 +11,24 @@
       width: 100%;
       background: transparent;
     }
-    
+
     .actions__Container {
       position: relative;
     }
-    
+
     .mat-column-balance {
       width: 320 * $px;
     }
-    
+
     .table__Actions {
       position: absolute;
       z-index: 100;
       top: -8 * $px;
       left: 120 * $px;
+
+      .mat-flat-button {
+        border-radius: 4px;
+      }
     }
   }
 }

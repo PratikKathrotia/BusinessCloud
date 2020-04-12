@@ -146,6 +146,10 @@ export function CustomerReducer(
         hasError: true,
         error: (action as DeleteCustomerError).payload
       };
+    case CustomerActionTypes.RESET_CUSTOMER_STATE:
+      return {
+        ...initialCustomerState
+      };
     default:
       return state;
   }
@@ -164,4 +168,3 @@ export function CustomerReducer(
     }
   }
 }
-

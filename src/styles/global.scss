@@ -2,7 +2,6 @@
 @import './form_styles.scss';
 @import './variables.scss';
 
-
 /**
 * Global Button Styles
 */
@@ -35,9 +34,13 @@ mat-icon.md {
 */
 
 td.mat-cell {
-  border-bottom-color: rgba(180,180, 180, 0.18);
+  border-bottom-color: rgba(180, 180, 180, 0.18);
+}
+
+.mat-header-cell {
+  font-weight: 700;
 }
 
 .mat-cell {
-  font-size: 12px;
+  font-size: 14px;
 }

@@ -5,6 +5,9 @@ const dbProps = require(path).props;
 const Buffer = require('buffer').Buffer;
 
 module.exports = (function(req) {
+  // Refresh DB state
+  db.read();
+  // done
   const enckey = req.url.split('?')[1].split('=')[1];
   const decKey = new Buffer(enckey, 'base64');
   const password = decKey.toString().split(';')[1];
@@ -14,7 +17,7 @@ module.exports = (function(req) {
     .get(dbProps.USERS)
     .filter({ email: email, password: password })
     .value()[0];
-  console.log(user);
+
   return user && typeof user !== 'undefined'
     ? JSON.parse(
         JSON.stringify({

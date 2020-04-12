@@ -1,11 +1,12 @@
 {
   "name": "customer-manager",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "cloud": "ng serve",
     "local": "mockserver -p 8080 -m ./mocks",
-    "local-cloud": "npm run cloud && npm run local",
+    "local-cloud": "ng serve --base-href=/bscloud/",
+    "cloud": "npx concurrently --kill-others-on-fail \"npm run local\" \"npm run local-cloud\"",
+    "clean-install": "npm cache clean --force && npm ci",
     "build-customer-manager": "ng build",
     "test-customer-manager": "ng test --code-coverage",
     "lint": "ng lint",
@@ -34,6 +35,7 @@
     "hammerjs": "^2.0.8",
     "lowdb": "^1.0.0",
     "mockserver": "^3.1.1",
+    "node-sass": "^4.13.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

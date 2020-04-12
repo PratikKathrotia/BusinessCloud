@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
@@ -37,12 +38,11 @@ import {
   MatTreeModule
 } from '@angular/material';
 import { MdePopoverModule } from '@material-extended/mde';
+import { ComboboxSelectModule } from './components/combobox-select/combobox-select.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule, FormsModule],
   exports: [
     BrowserAnimationsModule,
     MatBadgeModule,
@@ -78,7 +78,9 @@ import { MdePopoverModule } from '@material-extended/mde';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    MdePopoverModule
-  ]
+    MdePopoverModule,
+    ComboboxSelectModule
+  ],
+  providers: []
 })
-export class UiMaterialModule { }
+export class UiMaterialModule {}

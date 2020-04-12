@@ -8,17 +8,13 @@ import {
   ButtonTypes,
   pageHeaderSelectors,
   HeaderActionClicked,
-  CustomerService,
   Customer,
-  EmptyCustomer,
-  UserSelectors,
   UtilityService,
   ToggleSidebaVisibility,
   Go
 } from '@angular-cm/sys-utils';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'customer-list',
@@ -33,12 +29,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   handleAddCustomerClick: Function;
   selectedRowId;
 
-  constructor(
-    private store$: Store<any>,
-    private customerService: CustomerService,
-    private utilService: UtilityService,
-    private http: HttpClient
-  ) {}
+  constructor(private store$: Store<any>, private utilService: UtilityService) {}
 
   ngOnInit() {
     this.subject = new Subject<any>();

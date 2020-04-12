@@ -1,17 +1,16 @@
 import { createSelector } from '@ngrx/store';
-import {
-  RouterActionTypes,
-  RouterActions
-} from './cloud-router.actions';
-import {
-  BaseAppState,
-  RouterState,
-  initialRouterState
-} from '../../interfaces';
+import { RouterActionTypes, RouterActions } from './cloud-router.actions';
+import { BaseAppState, RouterState, initialRouterState } from '../../interfaces';
 
 const selectRouteData = (state: BaseAppState) => state.router;
-export const selectQueryParams = createSelector(selectRouteData, state => state.query);
-export const selectRouteParams = createSelector(selectRouteData, state => state.params);
+export const SelectQueryParams = createSelector(
+  selectRouteData,
+  state => state.query
+);
+export const SelectRouteParams = createSelector(
+  selectRouteData,
+  state => state.params
+);
 
 export function CloudRouter(
   state: RouterState = initialRouterState,
@@ -39,5 +38,3 @@ export function CloudRouter(
       return state;
   }
 }
-
-

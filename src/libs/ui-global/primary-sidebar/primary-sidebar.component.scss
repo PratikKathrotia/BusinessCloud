@@ -15,22 +15,22 @@
       display: flex;
       margin: 10px 7px 0 7px;
       border-radius: 5px;
-  
+
       &:hover {
         background: lightgrey;
         cursor: pointer;
       }
-  
+
       &.selected {
         background: lightgrey;
       }
 
       .item_Label {
-        margin: 4px 0 0 10px
+        margin: 4px 0 0 10px;
       }
-  
+
       mat-icon {
-        margin: 5px 0 0 4px; 
+        margin: 5px 0 0 4px;
       }
     }
   }
@@ -40,7 +40,7 @@
     cursor: pointer;
 
     mat-icon {
-      margin: 0 0 0 12px; 
+      margin: 0 0 0 12px;
     }
   }
 }
