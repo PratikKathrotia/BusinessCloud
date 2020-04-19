@@ -20,8 +20,8 @@ export interface ComboboxSettings {
 
 export const DefaultSettings: ComboboxSettings = {
   singleSelect: true,
-  valueField: 'id',
-  labelField: 'text',
+  valueField: 'value',
+  labelField: 'label',
   disabledField: 'isDisabled',
   enableSelectAll: true,
   selectAllText: 'Select All',

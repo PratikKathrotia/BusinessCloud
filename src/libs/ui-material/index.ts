@@ -1,1 +1,1 @@
-export * from './ui-material.module';
+export * from './public_api';

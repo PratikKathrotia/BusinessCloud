@@ -4,9 +4,11 @@
     <span *ngIf="to.required"> *</span>
     <span *ngIf="to.optional" class="label__Optional"> (optional)</span>
   </label>
-  <div class="input-group input-group-sm"
-       [ngClass]="field.className ? [field.className] : null">
-    <select class="form-control" #selectField
+  <div
+    class="input-group input-group-sm"
+    [ngClass]="field.className ? [field.className] : null"
+  >
+    <!-- <select class="form-control" #selectField
             [formControl]="formControl"
             [formlyAttributes]="field"
             [attr.disabled]="to.disabled">
@@ -14,7 +16,13 @@
               value="{{ option.value }}">
         {{ option.label }}
       </option>
-    </select>
+    </select> -->
+    <combobox-select
+      [settings]="settings"
+      [placeholder]="to.placeholder"
+      [data]="to.options"
+      [formControl]="formControl"
+    ></combobox-select>
   </div>
   <div *ngIf="isInvalid" [ngClass]="'inputErrors'">
     <div [ngClass]="'inputErrors__ErrorMessage'">

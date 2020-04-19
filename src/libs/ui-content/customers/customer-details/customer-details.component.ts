@@ -65,6 +65,7 @@ export class CustomerDetailsComponent implements OnInit {
   }
 
   handleFormSubmit(): void {
+    console.log(this.customer);
     this.dialogRef.close();
   }
 

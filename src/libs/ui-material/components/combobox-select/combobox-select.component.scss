@@ -2,6 +2,12 @@
 @import 'src/styles/variables.scss';
 @import 'src/styles/global.scss';
 
+:host {
+  width: 100%;
+}
+:host.ng-invalid.ng-touched .combobox-dropdown .dropdown-btn {
+  border: 1px solid red;
+}
 .combobox-dropdown {
   width: 100%;
   position: relative;

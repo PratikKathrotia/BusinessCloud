@@ -5,9 +5,11 @@ import {
   OnInit,
   ElementRef,
   EventEmitter,
-  HostListener,
-  ChangeDetectionStrategy
+  forwardRef,
+  HostListener
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { clone } from 'lodash';
 
 import { ListItem, ComboboxSettings, DefaultSettings } from './combobox-select.bo';
 import { ListFilterPipe } from './list-filter.pipe';
@@ -16,9 +18,15 @@ import { ListFilterPipe } from './list-filter.pipe';
   selector: 'combobox-select',
   templateUrl: './combobox-select.component.html',
   styleUrls: ['./combobox-select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ComboboxSelectComponent),
+      multi: true
+    }
+  ]
 })
-export class ComboboxSelectComponent implements OnInit {
+export class ComboboxSelectComponent implements ControlValueAccessor, OnInit {
   private _settings: ComboboxSettings;
   private _data: ListItem[] = [];
   private selectedItems: ListItem[] = [];
@@ -34,10 +42,10 @@ export class ComboboxSelectComponent implements OnInit {
   @Input()
   public set settings(value: ComboboxSettings) {
     if (!!value) {
-      this._settings = Object.assign(this.defaultSettings, value);
+      this._settings = clone(value, true);
       return;
     }
-    this._settings = Object.assign(this.defaultSettings);
+    this._settings = clone(this.defaultSettings, true);
   }
 
   @Input()
@@ -61,6 +69,11 @@ export class ComboboxSelectComponent implements OnInit {
     }
   }
 
+  @Input()
+  public set placeholder(placeholder) {
+    this._placeholder = placeholder;
+  }
+
   public get data() {
     return this._data || [];
   }
@@ -80,6 +93,7 @@ export class ComboboxSelectComponent implements OnInit {
     Array<any>
   >();
 
+  private propogateChange = (_: any) => {};
   private onTouchedCallback: () => void = () => {};
   private onChangeCallback: (_: any) => void = () => {};
 
@@ -87,7 +101,7 @@ export class ComboboxSelectComponent implements OnInit {
     this.onFilterChange.emit($event);
   }
 
-  constructor(private listFilterPipe: ListFilterPipe, private eleRef: ElementRef) {}
+  constructor(private listFilterPipe: ListFilterPipe) {}
 
   onItemClick($event: any, item: ListItem) {
     if (this.disabled || item.isDisabled) {
@@ -139,7 +153,14 @@ export class ComboboxSelectComponent implements OnInit {
       this.selectedItems = [];
     }
     this.onChangeCallback(value);
+    this.propogateChange(value);
   }
+
+  registerOnChange(fn) {
+    this.propogateChange = fn;
+  }
+
+  registerOnTouched() {}
 
   @HostListener('blur')
   public onTouched() {
@@ -186,6 +207,7 @@ export class ComboboxSelectComponent implements OnInit {
       this.selectedItems.push(item);
     }
     this.onChangeCallback(this.emittedValue(this.selectedItems));
+    this.propogateChange(this.emittedValue(this.selectedItems));
     this.onSelect.emit(this.emittedValue(item));
   }
 
@@ -196,6 +218,7 @@ export class ComboboxSelectComponent implements OnInit {
       }
     });
     this.onChangeCallback(this.emittedValue(this.selectedItems));
+    this.propogateChange(this.emittedValue(this.selectedItems));
     this.onDeSelect.emit(this.emittedValue(itemSel));
   }
 
@@ -269,6 +292,7 @@ export class ComboboxSelectComponent implements OnInit {
       this.onDeSelectAll.emit(this.emittedValue(this.selectedItems));
     }
     this.onChangeCallback(this.emittedValue(this.selectedItems));
+    this.propogateChange(this.emittedValue(this.selectedItems));
   }
 
   getFields(inputData) {
